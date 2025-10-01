@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.event-container1{
+        width: 40%;
+    /* max-width: 380px; */
+    /* margin: auto; */
+    background-color: #f1f8ff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+.table-container{
+    overflow: scroll;
+}
+/* General Page Styling */
+/* .panels-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+} */
+
+/* Panel Main Header */
+.page-header {
+       font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+   color: #555;
+}
+
+/* Individual Panel Section - Creates the card/box effect */
+.panel-section {
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for lift effect */
+    border-radius: 8px; /* Rounded corners */
+    background-color: white;
+    overflow: hidden; 
+}
+
+/* Panel Sub-title */
+.panel-title {
+  font-size: 0.9em;
+    font-weight: 600;
+    text-align: center;
+    padding: 7px 0;
+    margin: 0;
+    color: #555;
+}
+
+/* Padding for the table inside the card */
+.table-container {
+    padding: 0 20px 20px;
+    height: 190px;
+    overflow: scroll;
+}
+.table-container::-webkit-scrollbar {
+display: none;
+}
+/* Table Styling */
+.panel-table-1 {
+    width: 100%;
+    /* border-collapse: separate; */
+    border-spacing: 0;
+    background-color: white; 
+    /* border: 1px solid black; */
+}
+
+
+/* Table Header Row */
+.panel-table-1 thead tr {
+    background-color: #f1f8ff; /* Header background color */
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* Table Header Cells */
+.panel-table-1 th {
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+  padding: 5px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Apply rounded corners to the top of the header */
+.panel-table-1 thead th:first-child {
+    border-top-left-radius: 0px;
+}
+.panel-table thead th:last-child {
+    border-top-right-radius: 0px;
+}
+
+/* Table Data Cells */
+.panel-table-1 td {
+      padding: 7px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    color: #444;
+    font-size: 0.8em;
+}
+
+/* Remove the border from the last row's cells */
+.panel-table-1 tbody tr:last-child td {
+    border-bottom: none;
+}

@@ -1,0 +1,87 @@
+/* Login Page CSS - matches dashboard color scheme */
+.login-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #f4f6f9 60%, #e3eafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(44, 62, 80, 0.1);
+  padding: 36px 32px 28px 32px;
+  min-width: 320px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border: 1px solid #e3eafc;
+}
+
+.login-title {
+  color: #2d6db8;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-field label {
+  font-size: 1rem;
+  color: #1c3a57;
+  font-weight: 500;
+}
+
+.login-field input {
+  padding: 9px 12px;
+  border-radius: 7px;
+  border: 1px solid #bfc6ce;
+  font-size: 1rem;
+  background: #f8fbff;
+  color: #222;
+  outline: none;
+  transition: border 0.2s;
+}
+.login-field input:focus {
+  border: 1.5px solid #2d6db8;
+  background: #fff;
+}
+
+.login-btn {
+ background-color: #0884ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+.login{
+  color: white;
+}
+/* .login-btn:hover {
+  background: linear-gradient(90deg, #1c3a57 60%, #2575fc 100%);
+} */
+
+.login-error {
+  color: #e74c3c;
+  background: #fbe6b4;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.98rem;
+  margin-bottom: 4px;
+  text-align: center;
+}
