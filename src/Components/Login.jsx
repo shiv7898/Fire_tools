@@ -14,32 +14,39 @@ function Login(props) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://cors-anywhere.herokuapp.com/https://api.m2rtechnomations.com/user/login",
-        {
-          userId: form.username,
-          password: form.password,
-        }
-      );
-
-      console.log("Login Response:", response.data);
-
-      if (response.data) {
-        // ✅ Pass response to parent component
-        if (props.getData) {
-          props.getData(response.data);
-        }
-
-        // ✅ Redirect to dashboard
-        navigate("/dashboard");
+  e.preventDefault();
+  try {
+    const response = await axios.post(
+      "http://192.168.14.78:8000/v2/users/login",
+      {
+        user_id: form.username,
+        password: form.password,
+        platform: "web",
       }
-    } catch (err) {
-      setError("Login failed. Please try again.");
-      console.error("Login error:", err);
+    );
+
+    console.log("Login Response:", response.data);
+
+    if (response.data) {
+      // ✅ Save access_token in localStorage
+      if (response.data.access_token) {
+        localStorage.setItem("access_token", response.data.access_token);
+      }
+
+      // ✅ Pass response to parent component
+      if (props.getData) {
+        props.getData(response.data);
+      }
+
+      // ✅ Redirect to dashboard
+      navigate("/dashboard");
     }
-  };
+  } catch (err) {
+    setError("Login failed. Please try again.");
+    console.error("Login error:", err);
+  }
+};
+
 
   return (
     <div className="login-bg">
