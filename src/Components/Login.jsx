@@ -17,7 +17,7 @@ function Login(props) {
   e.preventDefault();
   try {
     const response = await axios.post(
-      "http://192.168.14.78:8000/v2/users/login",
+      "http://192.168.14.4:8000/v2/users/login",
       {
         user_id: form.username,
         password: form.password,
@@ -28,17 +28,17 @@ function Login(props) {
     console.log("Login Response:", response.data);
 
     if (response.data) {
-      // ✅ Save access_token in localStorage
+     
       if (response.data.access_token) {
         localStorage.setItem("access_token", response.data.access_token);
       }
 
-      // ✅ Pass response to parent component
+     
       if (props.getData) {
         props.getData(response.data);
       }
 
-      // ✅ Redirect to dashboard
+     
       navigate("/dashboard");
     }
   } catch (err) {

@@ -9,8 +9,7 @@ import { IoMdBatteryCharging } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
-  FaPlug,
-  FaBatteryHalf,
+
   FaBell,
   FaFire,
   FaExclamationCircle,
@@ -29,13 +28,10 @@ export default function Dashboard({ userData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [locationSidebarOpen, setLocationSidebarOpen] = useState(false);
 
-  const [panels, setPanels] = useState([]);
+  const [panels, setPanels] = useState();
 
   const sidebarRef = useRef(null);
 
-  const [active, setActive] = useState("sysfault");
-  const [clipPath, setClipPath] = useState("");
-  const containerRef = useRef(null);
   const [mainValue, setMainValue] = useState("r1/tower/1111");
   const [popupValue, setPopupValue] = useState(mainValue);
   const [confirmation, setConfirmation] = useState("");
@@ -48,24 +44,11 @@ export default function Dashboard({ userData }) {
   const [activePanel, setActivePanel] = useState(false);
   const [inactivePanel, setInctivePanel] = useState(false);
   const [location, setLocation] = useState(false);
+  const [dataResponse, setDataResponse] = useState();
+  const [events, setEvents] = useState([]);
+  console.log("events...", events);
 
-  const [tower, setTowers] = useState([
-    "r1/tower/1111",
-    "r1/tower/1112",
-    "r1/tower/1113",
-    "r1/tower/1114",
-    "r1/tower/1115",
-    "r1/tower/1116",
-    "r1/tower/1117",
-    "r1/tower/1118",
-    "r1/tower/1119",
-    "r1/tower/1120",
-    "r1/tower/1121",
-    "r1/tower/1122",
-    "r1/tower/1123",
-    "r1/tower/1124",
-    "r1/tower/1125",
-  ]);
+  const [tower, setTowers] = useState([]);
 
   const data = [
     "Fire DEV :01 LOOP:01, []",
@@ -79,6 +62,94 @@ export default function Dashboard({ userData }) {
     "P.NO\\LN-0 Main Fan",
     "P.NO\\LN-0 Main Fan",
   ];
+  // 🔹 Fetch data from API when token exists
+  useEffect(() => {
+    const fetchPanels = async () => {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        console.warn("No access token found in localStorage");
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          "http://192.168.14.4:8000/v2/users/me",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        console.log("Panels API Response:", response.data);
+
+        if (response.data) {
+          setDataResponse(response.data);
+          setPanels(response.data.panels);
+
+          // ✅ Call events API after fetching user id
+          if (response.data.id) {
+            fetchEvents(response.data?.id);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching panels:", error);
+      }
+    };
+
+    const fetchEvents = async (userId, token) => {
+      console.log("Fetching events for user ID:", userId);
+      try {
+        const response = await axios.get(
+          `http://192.168.14.4:8000/v2/events/temps?id=${userId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        console.log("Events API Response:", response.data);
+        setEvents(response.data || []);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchPanels();
+  }, []);
+  // Example: after fetching panels & events
+const combinedPanels = Array.isArray(dataResponse?.panels)
+  ? dataResponse.panels.map((panel) => {
+      // find matching panel in events.panels by id
+      const matchedEventPanel = events?.panels?.find(
+        (ev) => ev.id === panel.id
+      );
+
+      // determine panel type
+      let panelType = "";
+      if (panel.panel_type === 0) panelType = "Conventional";
+      else if (panel.panel_type === 1) panelType = "Addressable";
+      else if (panel.panel_type === 2) panelType = "Eco";
+      else panelType = "Regal";
+
+      return {
+        id: panel.id || panel.serial_number || panel.panel_topic,
+        name: panel.panel_topic || "N/A",
+        topic: panel.panel_topic || "",
+        type: panelType,
+
+        // 🔥 merge with event data (safe checks)
+        fire: matchedEventPanel?.fires?.length || 0,
+        fault: matchedEventPanel?.faults?.length || 0,
+        sysfault: matchedEventPanel?.sysfaults?.length || 0,
+
+        // optional: bring led_status if you need
+        led_status: matchedEventPanel?.led_status || null,
+      };
+    })
+  : [];
+
+
+  console.log("combinedPanels", combinedPanels);
+  console.log("dataResponse", dataResponse);
+
+  console.log("panel....", panels);
 
   const handleOpenPopup = () => {
     setPopupValue(mainValue);
@@ -100,39 +171,21 @@ export default function Dashboard({ userData }) {
     handleClosePopup();
   };
 
-  const handleClick = (btnId, e) => {
-    setActive(btnId);
-
-    const btn = e.target.getBoundingClientRect();
-    const parent = containerRef.current.getBoundingClientRect();
-
-    // const startX = btn.left - parent.left;
-    // const endX = startX + btn.width;
-
-    // build path (rounded tab-like curve)
-    // const path = `M ${startX} 0
-    //             Q ${startX + 10} 25 ${startX + 40} 25
-    //             H ${endX - 40}
-    //             Q ${endX - 10} 25 ${endX} 0
-    //             V 40 H ${startX} Z`;
-
-    // setClipPath(path);
-  };
-  useEffect(() => {
-    const storedUser = localStorage.getItem("userData");
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      console.log("Dashboard User Data:", parsedUser.panels);
-      // Example: If API sends panels
-      if (parsedUser.panels) {
-        const uniqueTowers = [
-          ...new Set(Object.keys(parsedUser.panels).map((key) => key)),
-        ];
-        console.log("uuuu", uniqueTowers);
-        setTowers(uniqueTowers);
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("userData");
+  //   if (storedUser) {
+  //     const parsedUser = JSON.parse(storedUser);
+  //     console.log("Dashboard User Data:", parsedUser.panels);
+  //     // Example: If API sends panels
+  //     if (parsedUser.panels) {
+  //       const uniqueTowers = [
+  //         ...new Set(Object.keys(parsedUser.panels).map((key) => key)),
+  //       ];
+  //       console.log("uuuu", uniqueTowers);
+  //       setTowers(uniqueTowers);
+  //     }
+  //   }
+  // }, []);
 
   const buttons = [
     { id: "fire", label: "FIRE", count: 3, color: "#e74c3c" }, // red
@@ -321,8 +374,6 @@ export default function Dashboard({ userData }) {
     setActivePanel(true);
     setInctivePanel(false);
     setLocation(false);
-    
-    
   }
   function handleInactivePanelClick() {
     setActiveButton(false);
@@ -330,8 +381,6 @@ export default function Dashboard({ userData }) {
     setActivePanel(false);
     setInctivePanel(true);
     setLocation(false);
-    
-  
   }
   function handleLocationClick() {
     setActiveButton(false);
@@ -339,17 +388,13 @@ export default function Dashboard({ userData }) {
     setActivePanel(false);
     setInctivePanel(false);
     setLocation(true);
-   
-  
   }
-    function handleDashboardClick() {
+  function handleDashboardClick() {
     setActiveButton(true);
     setAllPanel(false);
     setActivePanel(false);
     setInctivePanel(false);
     setLocation(false);
-   
-    
   }
   return (
     <div className="main-container">
@@ -399,13 +444,13 @@ export default function Dashboard({ userData }) {
             >
               <div className="location-sidebar-header">Panels</div>
               <ul className="location-list">
-                {tower.map((v, i) => (
+                {panels?.map((v, i) => (
                   <li
                     key={i}
                     className="location-list-item"
                     onClick={() => handleTowerPopup(v)} // pass clicked tower
                   >
-                    {v}
+                    {v.panel_topic}
                   </li>
                 ))}
               </ul>
@@ -471,6 +516,41 @@ export default function Dashboard({ userData }) {
                       </tr>
                     </thead>
                     <tbody>
+                      {combinedPanels.map((panel) => (
+                        <tr
+                          onClick={() => setSelectedPanel(panel.name)}
+                          key={panel.id}
+                          style={
+                            selectedPanel === panel.name
+                              ? {
+                                  backgroundColor: "#d7e9ffff",
+                                  cursor: "pointer",
+                                }
+                              : {}
+                          }
+                        >
+                          <td>
+                            <span className="badge panel">{panel.name}</span>
+                          </td>
+                          <td>
+                            <span className="badge type">{panel.type}</span>
+                          </td>
+                          <td>
+                            <span className="badge fire">{panel.fire}</span>
+                          </td>
+                          <td>
+                            <span className="badge fault">{panel.fault}</span>
+                          </td>
+                          <td>
+                            <span className="badge sysfault">
+                              {panel.sysfault}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+
+                    {/* <tbody>
                       {activePanels.map((panel) => (
                         <tr
                           onClick={() => setSelectedPanel(panel.name)}
@@ -503,7 +583,7 @@ export default function Dashboard({ userData }) {
                           </td>
                         </tr>
                       ))}
-                    </tbody>
+                    </tbody> */}
                   </table>
                 </div>
               </div>
@@ -651,25 +731,23 @@ export default function Dashboard({ userData }) {
               <Panels />
             </div>
           )}
-          
+
           {activePanel === true && (
             <div className="event-container1">
               <ActivePanel />
             </div>
           )}
-          
+
           {inactivePanel === true && (
             <div className="event-container1">
               <InactivePanel />
             </div>
           )}
-           {location === true && (
+          {location === true && (
             <div className="event-container1">
               <PanelLocations />
             </div>
           )}
-          
-        
         </div>
       </div>
     </div>

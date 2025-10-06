@@ -9,9 +9,9 @@ import {
 import Login from "./Components/Login";
 
 import Dashboard from "./Components/dashboard";
-import TowerPopup from "./Pages/TowerPopup";
+// import TowerPopup from "./Pages/TowerPopup";
 import { useEffect, useState } from "react";
-import UploadForm from "./Components/Demo";
+// import UploadForm from "./Components/Demo";
 
 function App() {
   const [userData, setUserData] = useState(null);
