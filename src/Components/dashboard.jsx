@@ -31,7 +31,10 @@ export default function Dashboard({ userData }) {
 
   const [panels, setPanels] = useState([]);
 
+  // const sidebarRef = useRef(null);
   const sidebarRef = useRef(null);
+  const locationSidebarRef = useRef(null);
+const popupWrapperRef = useRef(null);
 
   const [active, setActive] = useState("sysfault");
   const [clipPath, setClipPath] = useState("");
@@ -296,16 +299,32 @@ export default function Dashboard({ userData }) {
   // API CALLING
 
   // Close sidebar on outside click
+  // useEffect(() => {
+  //   function handleClickOutside(e) {
+  //     if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+  //       setIsOpen(false);
+  //       setLocationSidebarOpen(false);
+  //     }
+  //   }
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
-        setIsOpen(false);
-        setLocationSidebarOpen(false);
-      }
+  function handleClickOutside(e) {
+    const clickedInsideMainSidebar = sidebarRef.current && sidebarRef.current.contains(e.target);
+    const clickedInsideLocationSidebar = locationSidebarRef.current && locationSidebarRef.current.contains(e.target);
+    const clickedInsidePopup = popupWrapperRef.current && popupWrapperRef.current.contains(e.target);
+
+    // If click is outside ALL of these, then close sidebars
+    if (!clickedInsideMainSidebar && !clickedInsideLocationSidebar && !clickedInsidePopup) {
+      setIsOpen(false);
+      setLocationSidebarOpen(false);
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
   function handleAllPanelClick() {
     setActiveButton(false);
     setAllPanel(true);
@@ -411,9 +430,18 @@ export default function Dashboard({ userData }) {
               </ul>
             </div>
             <div className="tower-heading">
-              {showTowerPopup === true && (
-                <TowerPopup towerName={selectedTower} />
-              )}
+              {/* {showTowerPopup === true && (
+                <TowerPopup towerName={selectedTower} 
+                 onClose={() => setShowTowerPopup(false)}/>
+              )} */}
+               {showTowerPopup && (
+  <div ref={popupWrapperRef} className="popup-wrapper">
+    <TowerPopup
+      towerName={selectedTower}
+      onClose={() => setShowTowerPopup(false)}
+    />
+  </div> 
+)}
             </div>
             <div className="card-container">
               <div className="card1" onClick={handleAllPanelClick}>
