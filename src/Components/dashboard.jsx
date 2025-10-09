@@ -9,7 +9,6 @@ import { IoMdBatteryCharging } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
-
   FaBell,
   FaFire,
   FaExclamationCircle,
@@ -22,6 +21,10 @@ import axios from "axios";
 import ActivePanel from "../Pages/ActivePanel/ActivePanel";
 import InactivePanel from "../Pages/InactivePanel/InactivPanel";
 import PanelLocations from "../Pages/PanelLocations/PanelLocations";
+import AddressablePopup from "./PanelTypePopups/AddressablePopup";
+import ConventionalPopup from "./PanelTypePopups/ConventionalPopup";
+import RegalPopup from "./PanelTypePopups/RegalPopup";
+import EchoPopup from "./PanelTypePopups/EchoPopup";
 
 export default function Dashboard({ userData }) {
   console.log("dash...", userData);
@@ -38,7 +41,7 @@ export default function Dashboard({ userData }) {
   const [showPopup, setShowPopup] = useState(false);
   const [showTowerPopup, setShowTowerPopup] = useState(false);
   const [selectedTower, setSelectedTower] = useState(""); // store clicked tower
-  const [activeTab, setActiveTab] = useState("fire");
+  // const [activeTab, setActiveTab] = useState("fire");
   const [activeButton, setActiveButton] = useState(true);
   const [allPanel, setAllPanel] = useState(false);
   const [activePanel, setActivePanel] = useState(false);
@@ -46,22 +49,26 @@ export default function Dashboard({ userData }) {
   const [location, setLocation] = useState(false);
   const [dataResponse, setDataResponse] = useState();
   const [events, setEvents] = useState([]);
+  const [selectedPanel, setSelectedPanel] = useState();
+  const [popupPanel, setPopupPanel] = useState(null);
+  const [popupType, setPopupType] = useState("");
+
   console.log("events...", events);
 
   const [tower, setTowers] = useState([]);
 
-  const data = [
-    "Fire DEV :01 LOOP:01, []",
-    "Fire D :01 L:01,[]",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-  ];
+  // const data = [
+  //   "Fire DEV :01 LOOP:01, []",
+  //   "Fire D :01 L:01,[]",
+  //   "P.NO\\LN-0 Main Fan",
+  //   "P.NO\\LN-0 Main Fan",
+  //   "P.NO\\LN-0 Main Fan",
+  //   "P.NO\\LN-0 Main Fan",
+  //   "P.NO\\LN-0 Main Fan",
+  //   "P.NO\\LN-0 Main Fan",
+  //   "P.NO\\LN-0 Main Fan",
+  //   "P.NO\\LN-0 Main Fan",
+  // ];
   // 🔹 Fetch data from API when token exists
   useEffect(() => {
     const fetchPanels = async () => {
@@ -114,18 +121,16 @@ export default function Dashboard({ userData }) {
     fetchPanels();
   }, []);
   // Example: after fetching panels & events
-const combinedPanels = Array.isArray(dataResponse?.panels)
-  ? dataResponse.panels.map((panel) => {
-      // find matching panel in events.panels by id
-      const matchedEventPanel = events?.panels?.find(
-        (ev) => ev.id === panel.id
-      );
+  const combinedPanels = React.useMemo(() => {
+    if (!dataResponse?.panels || events.length === 0) return [];
 
-      // determine panel type
+    return dataResponse.panels.map((panel) => {
+      const matchedEventPanel = events.panels?.find((ev) => ev.id === panel.id);
+
       let panelType = "";
       if (panel.panel_type === 0) panelType = "Conventional";
       else if (panel.panel_type === 1) panelType = "Addressable";
-      else if (panel.panel_type === 2) panelType = "Eco";
+      else if (panel.panel_type === 2) panelType = "Echo";
       else panelType = "Regal";
 
       return {
@@ -133,28 +138,28 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
         name: panel.panel_topic || "N/A",
         topic: panel.panel_topic || "",
         type: panelType,
-
-        // 🔥 merge with event data (safe checks)
         fire: matchedEventPanel?.fires?.length || 0,
         fault: matchedEventPanel?.faults?.length || 0,
         sysfault: matchedEventPanel?.sysfaults?.length || 0,
-
-        // optional: bring led_status if you need
         led_status: matchedEventPanel?.led_status || null,
       };
-    })
-  : [];
-
+    });
+  }, [dataResponse, events]);
+  useEffect(() => {
+    if (combinedPanels.length > 0 && !selectedPanel) {
+      setSelectedPanel(combinedPanels[0]);
+    }
+  }, [combinedPanels, selectedPanel]);
 
   console.log("combinedPanels", combinedPanels);
   console.log("dataResponse", dataResponse);
 
   console.log("panel....", panels);
 
-  const handleOpenPopup = () => {
-    setPopupValue(mainValue);
-    setShowPopup(true);
-  };
+  // const handleOpenPopup = () => {
+  //   setPopupValue(mainValue);
+  //   setShowPopup(true);
+  // };
   const handleTowerPopup = (userData) => {
     setSelectedTower(userData);
     setShowTowerPopup(true);
@@ -171,33 +176,23 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     handleClosePopup();
   };
 
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem("userData");
-  //   if (storedUser) {
-  //     const parsedUser = JSON.parse(storedUser);
-  //     console.log("Dashboard User Data:", parsedUser.panels);
-  //     // Example: If API sends panels
-  //     if (parsedUser.panels) {
-  //       const uniqueTowers = [
-  //         ...new Set(Object.keys(parsedUser.panels).map((key) => key)),
-  //       ];
-  //       console.log("uuuu", uniqueTowers);
-  //       setTowers(uniqueTowers);
-  //     }
-  //   }
-  // }, []);
-
   const buttons = [
     { id: "fire", label: "FIRE", count: 3, color: "#e74c3c" }, // red
     { id: "fault", label: "FAULT", count: 3, color: "#f1c40f" }, // yellow
     { id: "activated", label: "ACTIVATED", count: 3, color: "#27ae60" }, // green
     { id: "sysfault", label: "SYS FAULT", count: 3, color: "#8e44ad" }, // purple
   ];
-  // const toggle = (key) => {
-  //   setActive((prev) => ({ ...prev, [key]: !prev[key] }));
-  // };
-  const [selectedPanel, setSelectedPanel] = useState("Panel-1");
-  console.log(selectedPanel);
+
+  console.log("selectedPanel", selectedPanel);
+
+  // Select first panel by default when combinedPanels is ready
+  //   useEffect(() => {
+  //   if (combinedPanels.length > 0 && !selectedPanel) {
+  //     setSelectedPanel(combinedPanels[0]);
+  //   }
+  // }, [combinedPanels, selectedPanel]);
+
+  //   console.log("selectedPanel", selectedPanel);
 
   const activePanels = [
     {
@@ -227,7 +222,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     {
       id: 4,
       name: "r1/tower/1114",
-      type: "eco",
+      type: "echo",
       status1: "00",
       status2: "00",
       status3: "00",
@@ -259,7 +254,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     {
       id: 8,
       name: "r1/tower/1118",
-      type: "eco",
+      type: "echo",
       status1: "01",
       status2: "04",
       status3: "04",
@@ -344,7 +339,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
       time: "5:02",
       date: "03/09/2025",
     },
-    { id: 19, name: "Panel-12", type: "eco", time: "5:02", date: "03/09/2025" },
+    { id: 19, name: "Panel-12", type: "echo", time: "5:02", date: "03/09/2025" },
   ];
   // API CALLING
 
@@ -365,8 +360,8 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     setActivePanel(false);
     setInctivePanel(false);
     setLocation(false);
-    console.log("Clicked panel:");
-    // You can add more actions here, like navigating to a detail view
+    setPopupType(false)
+ 
   }
   function handleActivePanelClick() {
     setActiveButton(false);
@@ -374,6 +369,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     setActivePanel(true);
     setInctivePanel(false);
     setLocation(false);
+    setPopupType(false);
   }
   function handleInactivePanelClick() {
     setActiveButton(false);
@@ -381,6 +377,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     setActivePanel(false);
     setInctivePanel(true);
     setLocation(false);
+    setPopupType(false);
   }
   function handleLocationClick() {
     setActiveButton(false);
@@ -388,6 +385,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     setActivePanel(false);
     setInctivePanel(false);
     setLocation(true);
+    setPopupType(false);
   }
   function handleDashboardClick() {
     setActiveButton(true);
@@ -395,7 +393,47 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     setActivePanel(false);
     setInctivePanel(false);
     setLocation(false);
+    setPopupType(false);
   }
+  // Handle click on panel row
+  const handlePanelClick = (panel) => {
+    if (!panel || !panel.type) return; // 🧱 Prevent crash if panel undefined
+
+    setSelectedPanel(panel);
+     setActiveButton(false);
+    setAllPanel(false);
+    setActivePanel(false);
+    setInctivePanel(false);
+    setLocation(false);
+
+    // ✅ Open popup safely
+    const type = panel.type.toLowerCase();
+
+    if (type === "addressable") setPopupType("addressable");
+    else if (type === "conventional") setPopupType("conventional");
+    else if (type === "regal") setPopupType("regal");
+    else if (type === "echo") setPopupType("echo");
+
+    setPopupPanel(panel);
+  };
+
+  // Close popup
+  const handleCloseTypePopup = () => {
+    setPopupType("");
+    setPopupPanel(null);
+  };
+  //  Auto-select logic
+  useEffect(() => {
+    if (combinedPanels && combinedPanels.length > 0) {
+      const firePanel = combinedPanels.find((p) => p?.fire > 0);
+      const defaultPanel = firePanel || combinedPanels[0];
+      if (defaultPanel) {
+        setSelectedPanel(defaultPanel);
+        handlePanelClick(defaultPanel); // 👈 optional: open popup automatically
+      }
+    }
+  }, [combinedPanels]);
+
   return (
     <div className="main-container">
       <div className="outer-toggle-container">
@@ -464,7 +502,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
               <div className="card1" onClick={handleAllPanelClick}>
                 <div className="card1-text">
                   <span>Panel</span>
-                  <span>18</span>
+                  <span>{combinedPanels.length}</span>
                 </div>
                 <div className="card1-icon">
                   <GrCalculator />
@@ -518,22 +556,22 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
                     <tbody>
                       {combinedPanels.map((panel) => (
                         <tr
-                          onClick={() => setSelectedPanel(panel.name)}
                           key={panel.id}
+                          onClick={() => handlePanelClick(panel)}
                           style={
-                            selectedPanel === panel.name
+                            selectedPanel?.id === panel.id
                               ? {
-                                  backgroundColor: "#d7e9ffff",
+                                  backgroundColor: "#d7e9ff",
                                   cursor: "pointer",
                                 }
-                              : {}
+                              : { cursor: "pointer" }
                           }
                         >
                           <td>
                             <span className="badge panel">{panel.name}</span>
                           </td>
                           <td>
-                            <span className="badge type">{panel.type}</span>
+                            <span className="badge type">{panel?.type}</span>
                           </td>
                           <td>
                             <span className="badge fire">{panel.fire}</span>
@@ -549,54 +587,19 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
                         </tr>
                       ))}
                     </tbody>
-
-                    {/* <tbody>
-                      {activePanels.map((panel) => (
-                        <tr
-                          onClick={() => setSelectedPanel(panel.name)}
-                          key={panel.id + panel.name}
-                          style={
-                            selectedPanel === panel.name
-                              ? {
-                                  backgroundColor: "#d7e9ffff",
-                                  cursor: "pointer",
-                                }
-                              : {}
-                          }
-                        >
-                          <td>
-                            <span className="badge panel">{panel.name}</span>
-                          </td>
-                          <td>
-                            <span className="badge type">{panel.type}</span>
-                          </td>
-                          <td>
-                            <span className="badge fire">{panel.status1}</span>
-                          </td>
-                          <td>
-                            <span className="badge fault">{panel.status2}</span>
-                          </td>
-                          <td>
-                            <span className="badge sysfault">
-                              {panel.status3}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody> */}
                   </table>
                 </div>
               </div>
             </div>
           </div>
-          {activeButton === true && (
+          {/* {activeButton === true && (
             <div className="event-container">
               <div className="subtitle">
-                {/* <div className="address"><span>Addressable Panel</span></div> */}
+                <div className="address"><span>Addressable Panel</span></div>
                 <div className="location">
                   <input
                     type="text"
-                    value={"Addressable Panel"}
+                    value={selectedPanel?.type || ""}
                     id="location-input"
                     readOnly
                   />
@@ -604,7 +607,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
                 <div className="location update-popup">
                   <input
                     type="text"
-                    value={mainValue}
+                    value={selectedPanel?.name || ""}
                     className="location-input-1"
                     readOnly
                     onClick={handleOpenPopup}
@@ -613,15 +616,15 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
                 </div>
               </div>
               <div>
-                {/* Main input (initial visible) */}
+             
 
-                {/* Popup */}
+             
                 {showPopup && (
                   <div className="popup-overlay">
                     <div className="popup-box">
                       <h3>Update</h3>
 
-                      {/* Input inside popup */}
+                     
                       <input
                         type="text"
                         id="popup-input"
@@ -629,7 +632,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
                         onChange={(e) => setPopupValue(e.target.value)}
                       />
 
-                      {/* Buttons */}
+                    
                       <div className="popup-actions">
                         <button
                           onClick={handleClosePopup}
@@ -674,58 +677,59 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
                 </div>
               </div>
 
-              <div className="container">
-                <div className="status-container">
-                  {/* Tabs */}
-                  <div className="tabs">
-                    <button
-                      className={`tab ${
-                        activeTab === "fire" ? "active fire" : ""
-                      }`}
-                      onClick={() => setActiveTab("fire")}
-                    >
-                      FIRE (4)
-                    </button>
-                    <button
-                      className={`tab ${
-                        activeTab === "fault" ? "active fault" : ""
-                      }`}
-                      onClick={() => setActiveTab("fault")}
-                    >
-                      FAULT (5)
-                    </button>
-                    <button
-                      className={`tab ${
-                        activeTab === "activated" ? "active activated" : ""
-                      }`}
-                      onClick={() => setActiveTab("activated")}
-                    >
-                      ACTIVATED (2)
-                    </button>
-                    <button
-                      className={`tab ${
-                        activeTab === "sysfault" ? "active sysfault" : ""
-                      }`}
-                      onClick={() => setActiveTab("sysfault")}
-                    >
-                      SYS FAULT (2)
-                    </button>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className={`content-box ${activeTab}`}>
-                    {data.map((item, index) => (
-                      <div key={index} className={`inner-box ${activeTab}`}>
-                        {item.split(",").map((line, i) => (
-                          <div key={i}>{line}</div>
-                        ))}
-                      </div>
-                    ))}
+              {selectedPanel && (
+                <div className="container">
+                  <div className="status-container">
+                  
+                    <div className="tabs">
+                      <button
+                        className={`tab ${
+                          activeTab === "fire" ? "active fire" : ""
+                        }`}
+                        onClick={() => setActiveTab("fire")}
+                      >
+                        FIRE({selectedPanel.fire ?? 0})
+                      </button>
+                      <button
+                        className={`tab ${
+                          activeTab === "fault" ? "active fault" : ""
+                        }`}
+                        onClick={() => setActiveTab("fault")}
+                      >
+                        FAULT({selectedPanel.fault ?? 0})
+                      </button>
+                      <button
+                        className={`tab ${
+                          activeTab === "activated" ? "active activated" : ""
+                        }`}
+                        onClick={() => setActiveTab("activated")}
+                      >
+                        ACTIVATED({selectedPanel.activated ?? 0})
+                      </button>
+                      <button
+                        className={`tab ${
+                          activeTab === "sysfault" ? "active sysfault" : ""
+                        }`}
+                        onClick={() => setActiveTab("sysfault")}
+                      >
+                        SYS FAULT({selectedPanel.sysfault ?? 0})
+                      </button>
+                    </div>
+             
+                    <div className={`content-box ${activeTab}`}>
+                      {data.map((item, index) => (
+                        <div key={index} className={`inner-box ${activeTab}`}>
+                          {item.split(",").map((line, i) => (
+                            <div key={i}>{line}</div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
-          )}
+          )} */}
           {allPanel === true && (
             <div className="event-container1">
               <Panels />
@@ -747,6 +751,30 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
             <div className="event-container1">
               <PanelLocations />
             </div>
+          )}
+          {popupType === "addressable" && (
+            <AddressablePopup
+              panel={popupPanel}
+              onClose={handleCloseTypePopup}
+              selectedPanel={selectedPanel}
+            />
+          )}
+          {popupType === "conventional" && (
+            <ConventionalPopup
+              panel={popupPanel}
+              onClose={handleCloseTypePopup}
+              selectedPanel={selectedPanel}
+            />
+          )}
+          {popupType === "regal" && (
+            <RegalPopup panel={popupPanel}
+              onClose={handleCloseTypePopup}
+              selectedPanel={selectedPanel} />
+          )}
+          {popupType === "echo" && (
+            <EchoPopup  panel={popupPanel}
+              onClose={handleCloseTypePopup}
+              selectedPanel={selectedPanel}/>
           )}
         </div>
       </div>
