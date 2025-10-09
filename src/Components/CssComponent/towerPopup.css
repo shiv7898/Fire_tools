@@ -78,7 +78,7 @@
 .panel-card-container{
     width:98%;
     height:85%;
-    margin: 2px 4px 4px 2px;
+    margin: 2px 2px 4px 4px;
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
@@ -87,13 +87,13 @@
     border-radius: 4px;
     padding: 10px;
 }
-.map-container{
-  height: 97%;
-  width: 30%;
-  margin:2px 4px 4px 4px;
-  border-radius: 4px;
+.tower-popup-overlay .map-container{
+  height: 96%;
+  width: 28%;
+  margin:3px 6px 2px 2px;
   background-color: aliceblue;
-  padding: 5px;
+  border-radius: 4px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -416,4 +416,21 @@ MapContainer{
   position: absolute;
   top: 40%;
   width:95%;
+}
+@media (max-width: 800px){
+  .panel-status-grid{
+    column-gap: 100px;
+  }
+  .panel-status-grid-two{
+    column-gap: 60px;
+  }
+}
+
+@media (max-width: 600px){
+  .panel-status-grid{
+    column-gap: 60px;
+  }
+  .panel-status-grid-two{
+    column-gap: 40px;
+  }
 }
