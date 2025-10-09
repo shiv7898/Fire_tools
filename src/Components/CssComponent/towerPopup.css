@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,5 +11,409 @@
   border-radius: 12px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.3s ease-out;
+} */
+ @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400;500;600;700;800;900&display=swap');
+*{
+  /* font-family: 'Poppins', sans-serif; */
+  font-family: Overpass;
+}
+.tower-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* margin: 10px; */
+  /* margin-left: 10%; */
+  /* background: linear-gradient(to bottom, #e4f2ff, #ebfbea); */
+   display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  /* align-items: center; Fire DEV :01 LOOP:01
+[                   ]*/
+  z-index: 1000;
+  padding:10px;
+  border-radius: 8px;
+  border: 1px solid gray;
+  background-color: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out;
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.towerheading{
+    height:8%;
+    width: 99.2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(201, 229, 252);
+    border-radius: 2.5px;
+    margin: 4px;
+    padding: 4px;
+}
+.aboutpanel{
+    display:flex;
+
+    width:100%;
+    height: 93%;
+    margin: 0;
+    padding: 0;
+}
+.panel-information{
+   width:74%;
+   height:97%;
+   margin: 0;
+   padding:0;
+   
+}
+.panel-card-container{
+    width:98%;
+    height:85%;
+    margin: 2px 4px 4px 2px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    /* gap:1rem; */
+    background-color: aliceblue;
+    border-radius: 4px;
+    padding: 10px;
+}
+.map-container{
+  height: 97%;
+  width: 30%;
+  margin:2px 4px 4px 4px;
+  border-radius: 4px;
+  background-color: aliceblue;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+}
+.fire-card, .fault-card, .activated-card, .sysfault-card{
+    height:100%;
+    width:26%;
+    margin:2px;
+    border-radius: 2px;
+    background-color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: first baseline;
+}
+.fire-heading {
+    height: 9%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF4C4C;
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 8px;
+    font-size: 16px;
 }
 
+.fault-heading{
+    height: 9%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#FFC22F;
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 8px;
+}
+.activated-heading{
+    height: 9%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3EB68E;
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 8px;
+}
+.sysfault-heading{
+    height: 9%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9969FF;
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 8px;
+}
+.fire-data{
+
+    height: 90%;
+    width: 100%;
+    border: 1.4px solid #FF5858;
+    border-radius: 5px;
+    padding: 8px 5px 5px 5px ;
+    margin-top: 5px;
+    position: relative;
+    
+}
+.fault-data{
+    height: 90%;
+    width: 100%;
+   border: 1.4px solid #FFE100;
+    border-radius: 5px;
+    padding: 8px 5px 5px 5px;
+    margin-top: 5px;
+    position: relative;
+   
+}
+.activated-data{
+    height: 90%;
+    width: 100%;
+   border: 1.4px solid #3EB68E;
+    border-radius: 5px;
+    padding: 8px 5px 5px 5px;
+    margin-top: 5px;
+    position: relative;
+   
+}
+.sysfault-data{
+    height: 90%;
+    width: 100%;
+    border: 1.4px solid #9969FF;
+    border-radius: 5px;
+    padding: 8px 5px 5px 5px;
+    margin-top: 5px;
+    position: relative;
+   
+}
+.chead{
+  font-weight: bold;
+  font-size: 14px;
+  font-family: 'Overpass';
+}
+.faultcount{
+  font-weight: 600;
+  font-size: 22px;
+  margin-left: 1px;
+   font-family: 'Overpass';
+}
+.towerheading p{
+  
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: rgb(51, 49, 49);
+}
+.map-card{
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  background-color: white;
+  padding: 5px;
+}
+.map-heading{
+  height: 9%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.close-btn {
+  position: absolute;
+  top: 23px;
+  left: 20px;
+  font-size: 22px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s ease;
+}
+.fire-data ul li{
+  list-style: none;
+  background-color: #FFEEEE;
+  padding: 8px;
+  margin: 5px 4px 10px 4px;
+  border-radius: 2px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: fit-content;
+  font-size: 14px;
+  font-weight: 500;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+
+}
+
+
+.fault-data ul li{
+  list-style: none;
+  background-color: #F6F3E0;
+  padding: 8px;
+ margin: 5px 4px 10px 4px;
+  border-radius: 2px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: fit-content;
+   font-size: 14px;
+    font-weight: 500;
+    word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.activated-data ul li{
+  list-style: none;
+  background-color: #DEF4ED;
+  padding: 8px;
+  margin: 5px 4px 10px 4px;
+  border-radius: 2px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: fit-content;
+   font-size: 14px;
+    font-weight: 500;
+    word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+
+}
+.sysfault-data ul li{
+  list-style: none;
+  background-color: #EFE8FF;
+  padding: 8px;
+  margin: 5px 4px 10px 4px;
+  border-radius: 2px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: fit-content;
+  font-size: 14px;
+  font-weight: 500;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+
+}
+MapContainer{
+  margin-top: 5px;
+}
+.led-info{
+  height: 13%;  width: 98%;
+  display: flex;
+  padding: 10px 10px 10px 70px;
+  background-color: aliceblue;
+  border-radius: 4px;
+  margin: 4px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  place-items: center;
+}
+.status-item {
+  display: flex;
+  align-items: center;
+  
+ 
+}
+
+.status-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.panel-status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-template-rows: repeat(2, auto); /* 2 rows */
+  gap: 10px 140px;  
+  width: 100%; /* make grid take full width */
+  justify-items: stretch;  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #777;
+  box-sizing: border-box;
+}
+.status-label{
+  margin-left: 2px;
+}
+
+
+.status-icon{
+  width: 14px;
+  height: 14px;
+  margin-bottom: 5px;
+}
+.status-icon svg{
+  width: 1.4em;
+  height: 1.4em;
+  margin-bottom: 2.8px;
+}
+.panel-status-grid-two {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 columns */
+  grid-template-rows: repeat(2, auto); /* 2 rows */
+ gap: 10px 90px; /* increase spacing between items (row, column) */
+  width: 100%; /* make grid take full width */
+  height: auto;
+  justify-items: stretch; /* stretch items across columns */
+  box-sizing: border-box;
+}
+.status-item.active .status-icon.mains {
+  color: #28a745; /* Green */
+}
+.status-item.active .status-icon.battery {
+  color: #ffc107; /* Yellow */
+}
+.status-item.active .status-icon.fire svg{
+  color: #dc3545; /* Red */
+  animation: blink 1s infinite alternate;
+}
+.status-item.active .status-icon.fault {
+  color: #ff8c00; /* Orange */
+}
+.status-item.active .status-icon.sil-alarm {
+  color: #007bff; /* Blue */
+}
+.status-item.active .status-icon.pre-alarm {
+  color: #6f42c1; /* Purple */
+}
+
+/* 🔥 Optional blinking animation for FIRE */
+@keyframes blink {
+  from { opacity: 1; filter: brightness(1); }
+  to { opacity: 0.5; filter: brightness(1.5); }
+}
+.nofault{
+  position: absolute;
+  top: 40%;
+  width:95%;
+}

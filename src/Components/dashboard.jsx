@@ -33,7 +33,7 @@ export default function Dashboard({ userData }) {
 
   const [panels, setPanels] = useState();
 
-  const sidebarRef = useRef(null);
+  // const sidebarRef = useRef(null);
 
   const [mainValue, setMainValue] = useState("r1/tower/1111");
   const [popupValue, setPopupValue] = useState(mainValue);
@@ -56,6 +56,9 @@ export default function Dashboard({ userData }) {
   console.log("events...", events);
 
   const [tower, setTowers] = useState([]);
+  const sidebarRef = useRef(null);
+  const locationSidebarRef = useRef(null);
+const popupWrapperRef = useRef(null);
 
   // const data = [
   //   "Fire DEV :01 LOOP:01, []",
@@ -142,6 +145,7 @@ export default function Dashboard({ userData }) {
         fault: matchedEventPanel?.faults?.length || 0,
         sysfault: matchedEventPanel?.sysfaults?.length || 0,
         led_status: matchedEventPanel?.led_status || null,
+
       };
     });
   }, [dataResponse, events]);
@@ -156,14 +160,24 @@ export default function Dashboard({ userData }) {
 
   console.log("panel....", panels);
 
-  // const handleOpenPopup = () => {
-  //   setPopupValue(mainValue);
-  //   setShowPopup(true);
-  // };
-  const handleTowerPopup = (userData) => {
-    setSelectedTower(userData);
-    setShowTowerPopup(true);
+  const handleOpenPopup = () => {
+    setPopupValue(mainValue);
+    setShowPopup(true);
   };
+  // const handleTowerPopup = (userData) => {
+  //   setSelectedTower(userData);
+  //   setShowTowerPopup(true);
+  //   console.log("clicked tower:", userData);
+  // };
+  const handleTowerPopup = (topic) => {
+  const matchedPanel = combinedPanels.find((p) => p.topic === topic);
+  if (matchedPanel) {
+    setSelectedTower(matchedPanel); // store full panel object
+    setShowTowerPopup(true);
+    console.log("Selected panel data:", matchedPanel);
+  }
+};
+
 
   const handleClosePopup = () => setShowPopup(false);
 
@@ -478,7 +492,7 @@ export default function Dashboard({ userData }) {
             <div
               className={`location-sidebar${
                 locationSidebarOpen ? " open" : ""
-              }`}
+              }`} ref={locationSidebarRef}
             >
               <div className="location-sidebar-header">Panels</div>
               <ul className="location-list">
@@ -486,18 +500,38 @@ export default function Dashboard({ userData }) {
                   <li
                     key={i}
                     className="location-list-item"
-                    onClick={() => handleTowerPopup(v)} // pass clicked tower
+                    onClick={() => handleTowerPopup(v.panel_topic)} // pass clicked tower
                   >
                     {v.panel_topic}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="tower-heading">
+            {/* <div className="tower-heading">
               {showTowerPopup === true && (
-                <TowerPopup towerName={selectedTower} />
+                <EchoPopup towerName={selectedTower} 
+                 onClose={() => setShowTowerPopup(false)}/>
               )}
-            </div>
+            </div> */}
+            <div className="tower-heading">
+  {showTowerPopup && selectedTower && (
+    <>
+      {selectedTower.type === "Addressable" && (
+        <TowerPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
+      )}
+      {selectedTower.type === "Eco" && (
+        <EchoPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
+      )}
+      {selectedTower.type === "Conventional" && (
+        <ConventionalPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
+      )}
+      {selectedTower.type === "Regal" && (
+        <RegalPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
+      )}
+    </>
+  )}
+</div>
+
             <div className="card-container">
               <div className="card1" onClick={handleAllPanelClick}>
                 <div className="card1-text">
