@@ -145,7 +145,9 @@ const popupWrapperRef = useRef(null);
         fault: matchedEventPanel?.faults?.length || 0,
         sysfault: matchedEventPanel?.sysfaults?.length || 0,
         led_status: matchedEventPanel?.led_status || null,
-
+        fires: matchedEventPanel?.fires || [],
+        faults: matchedEventPanel?.faults || [],
+        sysfaults: matchedEventPanel?.sysfaults || [],
       };
     });
   }, [dataResponse, events]);
