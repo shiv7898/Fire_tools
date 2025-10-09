@@ -21,10 +21,13 @@ import axios from "axios";
 import ActivePanel from "../Pages/ActivePanel/ActivePanel";
 import InactivePanel from "../Pages/InactivePanel/InactivPanel";
 import PanelLocations from "../Pages/PanelLocations/PanelLocations";
-import AddressablePopup from "./PanelTypePopups/AddressablePopup";
-import ConventionalPopup from "./PanelTypePopups/ConventionalPopup";
-import RegalPopup from "./PanelTypePopups/RegalPopup";
-import EchoPopup from "./PanelTypePopups/EchoPopup";
+import AddressablePopup from "./PanelTypePopups/AddressablePopups";
+import ConventionalPopup from "./PanelTypePopups/ConventionalPopups";
+import RegalPopup from "./PanelTypePopups/RegalPopus";
+import EchoPopup from "./PanelTypePopups/EchoPopups";
+import EchoEvent from "../Pages/EchoEvent";
+import RegalEvent from "../Pages/RegalEvent";
+import ConventionalEvent from "../Pages/ConventionalEvent";
 
 export default function Dashboard({ userData }) {
   console.log("dash...", userData);
@@ -58,7 +61,7 @@ export default function Dashboard({ userData }) {
   const [tower, setTowers] = useState([]);
   const sidebarRef = useRef(null);
   const locationSidebarRef = useRef(null);
-const popupWrapperRef = useRef(null);
+  const popupWrapperRef = useRef(null);
 
   // const data = [
   //   "Fire DEV :01 LOOP:01, []",
@@ -172,14 +175,13 @@ const popupWrapperRef = useRef(null);
   //   console.log("clicked tower:", userData);
   // };
   const handleTowerPopup = (topic) => {
-  const matchedPanel = combinedPanels.find((p) => p.topic === topic);
-  if (matchedPanel) {
-    setSelectedTower(matchedPanel); // store full panel object
-    setShowTowerPopup(true);
-    console.log("Selected panel data:", matchedPanel);
-  }
-};
-
+    const matchedPanel = combinedPanels.find((p) => p.topic === topic);
+    if (matchedPanel) {
+      setSelectedTower(matchedPanel); // store full panel object
+      setShowTowerPopup(true);
+      console.log("Selected panel data:", matchedPanel);
+    }
+  };
 
   const handleClosePopup = () => setShowPopup(false);
 
@@ -355,7 +357,13 @@ const popupWrapperRef = useRef(null);
       time: "5:02",
       date: "03/09/2025",
     },
-    { id: 19, name: "Panel-12", type: "echo", time: "5:02", date: "03/09/2025" },
+    {
+      id: 19,
+      name: "Panel-12",
+      type: "echo",
+      time: "5:02",
+      date: "03/09/2025",
+    },
   ];
   // API CALLING
 
@@ -376,8 +384,7 @@ const popupWrapperRef = useRef(null);
     setActivePanel(false);
     setInctivePanel(false);
     setLocation(false);
-    setPopupType(false)
- 
+    setPopupType(false);
   }
   function handleActivePanelClick() {
     setActiveButton(false);
@@ -416,7 +423,7 @@ const popupWrapperRef = useRef(null);
     if (!panel || !panel.type) return; // 🧱 Prevent crash if panel undefined
 
     setSelectedPanel(panel);
-     setActiveButton(false);
+    setActiveButton(false);
     setAllPanel(false);
     setActivePanel(false);
     setInctivePanel(false);
@@ -494,7 +501,8 @@ const popupWrapperRef = useRef(null);
             <div
               className={`location-sidebar${
                 locationSidebarOpen ? " open" : ""
-              }`} ref={locationSidebarRef}
+              }`}
+              ref={locationSidebarRef}
             >
               <div className="location-sidebar-header">Panels</div>
               <ul className="location-list">
@@ -516,23 +524,35 @@ const popupWrapperRef = useRef(null);
               )}
             </div> */}
             <div className="tower-heading">
-  {showTowerPopup && selectedTower && (
-    <>
-      {selectedTower.type === "Addressable" && (
-        <TowerPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
-      )}
-      {selectedTower.type === "Eco" && (
-        <EchoPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
-      )}
-      {selectedTower.type === "Conventional" && (
-        <ConventionalPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
-      )}
-      {selectedTower.type === "Regal" && (
-        <RegalPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
-      )}
-    </>
-  )}
-</div>
+              {showTowerPopup && selectedTower && (
+                <>
+                  {selectedTower.type === "Addressable" && (
+                    <TowerPopup
+                      panel={selectedTower}
+                      onClose={() => setShowTowerPopup(false)}
+                    />
+                  )}
+                  {selectedTower.type === "Eco" && (
+                    <EchoEvent
+                      panel={selectedTower}
+                      onClose={() => setShowTowerPopup(false)}
+                    />
+                  )}
+                  {selectedTower.type === "Conventional" && (
+                    <ConventionalEvent
+                      panel={selectedTower}
+                      onClose={() => setShowTowerPopup(false)}
+                    />
+                  )}
+                  {selectedTower.type === "Regal" && (
+                    <RegalEvent
+                      panel={selectedTower}
+                      onClose={() => setShowTowerPopup(false)}
+                    />
+                  )}
+                </>
+              )}
+            </div>
 
             <div className="card-container">
               <div className="card1" onClick={handleAllPanelClick}>
@@ -803,14 +823,18 @@ const popupWrapperRef = useRef(null);
             />
           )}
           {popupType === "regal" && (
-            <RegalPopup panel={popupPanel}
+            <RegalPopup
+              panel={popupPanel}
               onClose={handleCloseTypePopup}
-              selectedPanel={selectedPanel} />
+              selectedPanel={selectedPanel}
+            />
           )}
           {popupType === "echo" && (
-            <EchoPopup  panel={popupPanel}
+            <EchoPopup
+              panel={popupPanel}
               onClose={handleCloseTypePopup}
-              selectedPanel={selectedPanel}/>
+              selectedPanel={selectedPanel}
+            />
           )}
         </div>
       </div>

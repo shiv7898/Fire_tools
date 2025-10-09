@@ -8,6 +8,12 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { IoBulb } from "react-icons/io5";
 import { IoMdBatteryCharging } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
+import { TbSettingsExclamation } from "react-icons/tb";
+import { HiMiniSpeakerXMark } from "react-icons/hi2";
+import { MdWrongLocation } from "react-icons/md";
+import { MdDirectionsRun } from "react-icons/md";
+import { RiBatteryLowFill } from "react-icons/ri";
+import { IoBatteryChargingOutline } from "react-icons/io5";
 import {
   FaBell,
   FaFire,
@@ -19,19 +25,8 @@ import { LuSiren } from "react-icons/lu";
 import { FaF } from 'react-icons/fa6';
 
 
-   const ConventionalPopup = ({ panel, onClose }) => {
-  const navigate = useNavigate();
-const led = panel?.led_status || "";
-  const leds = {
-    mains: led[0] === "1",
-    battery: led[1] === "1",
-    fire: led[2] === "1",
-    fault: led[3] === "1",
-    silAlarm: led[4] === "1",
-    preAlarm: led[5] === "1",
-  };
- console.log("leds",leds);
-  
+const EchoEvent = ({ panel , onClose }) => {
+   const navigate = useNavigate();
    
 
 
@@ -42,40 +37,49 @@ const led = panel?.led_status || "";
            <button className="close-btn" onClick={onClose}>
            {/* ⬅ */}<IoArrowBackSharp size={25} color='black' />
          </button>
-             <p>{`${panel.name}`} (Conventional)</p>
+             <p>{`${panel.name}`} (Echo)</p>
          </div>
          <div className='aboutpanel'>
          <div className='panel-information'>  
           <div className='led-info' >
          
  
-   <div className="panel-status-grid">
-  <div className={`status-item ${leds.mains ? "active" : ""}`}>
-    <span className="status-icon mains"><IoBulb /></span>
-    <span className="status-label">MAINS</span>
-  </div>
-  <div className={`status-item ${leds.battery ? "active" : ""}`}>
-    <span className="status-icon battery"><IoMdBatteryCharging /></span>
-    <span className="status-label">BATTERY MODE</span>
-  </div>
-  <div className={`status-item ${leds.fire ? "active" : ""}`}>
-    <span className="status-icon fire"><FaFire /></span>
-    <span className="status-label">FIRE</span>
-  </div>
-  <div className={`status-item ${leds.fault ? "active" : ""}`}>
-    <span className="status-icon fault"><FaCogs /></span>
-    <span className="status-label">FAULT</span>
-  </div>
-  <div className={`status-item ${leds.silAlarm ? "active" : ""}`}>
-    <span className="status-icon sil-alarm"><FaVolumeUp /></span>
-    <span className="status-label">SIL ALARM</span>
-  </div>
-  <div className={`status-item ${leds.preAlarm ? "active" : ""}`}>
-    <span className="status-icon pre-alarm"><FaBell /></span>
-    <span className="status-label">PRE ALARM</span>
-  </div>
-</div>
-
+   <div className="panel-status-grid-two">
+     <div className="status-item">
+       <span className="status-icon mains"><IoBulb /></span>
+       <span className="status-label">MAINS</span>
+     </div>
+     <div className="status-item">
+       <span className="status-icon battery"><IoMdBatteryCharging />
+     </span>
+       <span className="status-label">BATTERY MODE</span>
+     </div>
+     <div className="status-item">
+       <span className="status-icon fire"><FaFire /></span>
+       <span className="status-label">FIRE</span>
+     </div>
+     <div className="status-item">
+       <span className="status-icon fault"><FaCogs /></span>
+       <span className="status-label">FAULT</span>
+     </div>
+     <div className="status-item">
+       <span className="status-icon sil-alarm"><TbSettingsExclamation /></span>
+       <span className="status-label">SYS FAULT</span>
+     </div>
+       <div className="status-item">
+       <span className="status-icon sil-alarm"><IoBatteryChargingOutline /></span>
+       <span className="status-label">B.CHARGE</span>
+     </div>
+      <div className="status-item">
+       <span className="status-icon sil-alarm"><RiBatteryLowFill /></span>
+       <span className="status-label">B.LOW</span>
+     </div>
+      <div className="status-item">
+       <span className="status-icon sil-alarm"><HiMiniSpeakerXMark /></span>
+       <span className="status-label">SILENCE</span>
+     </div>
+    
+   </div>
           </div>
          <div className='panel-card-container'>
              <div className ="fire-card">
@@ -84,9 +88,11 @@ const led = panel?.led_status || "";
                </div>
               <div className="fire-data">
               <ul>
-                  {panel?.fires?.length > 0
-                    ? panel.fires.map((item, i) => <li key={i}>{JSON.stringify(item)}</li>)
-                    : <li>No Fire Events</li>}
+                  {panel?.fires?.length > 0 ? (
+                  panel.fires.map((item, index) => <li key={index}>{item}</li>)
+                  ) : (
+                  <div className='nofault'><li>No Fire Faults</li></div>
+                    )}
                   </ul>
                    </div>
                      </div>
@@ -97,23 +103,25 @@ const led = panel?.led_status || "";
              
                  <div className="fault-data">
                   <ul>
-                  {panel?.fault?.length > 0 ? (
-                   panel.fault.map((item, index) => <li key={index}>{item}</li>)
+                  {panel?.faults?.length > 0 ? (
+                   panel.faults.map((item, index) => <li key={index}>{item}</li>)
                     ) : (
-                  <li>No Faults</li>
+                  <div className='nofault'><li>No Faults</li></div>
                     )}
                      </ul>
                        </div>              
                            </div>
                 <div className ="activated-card">
                  <div className='activated-heading'>
-                   <p className ='chead'>ACTIVATED</p><p className="faultcount">({panel?.faults?.length || 0})</p>
+                   <p className ='chead'>ACTIVATED</p><p className="faultcount">({panel?.activated?.length || 0})</p>
                       </div>
                   <div className="activated-data">
                    <ul>
-                   {panel?.faults?.length > 0
-                    ? panel.faults.map((item, i) => <li key={i}>{JSON.stringify(item)}</li>)
-                    : <li>No Faults</li>}
+                   {panel?.activated?.length > 0 ? (
+                   panel.activated.map((item, index) => <li key={index}>{item}</li>)
+                      ) : (
+                    <div className='nofault'><li>No Activations</li></div>
+                      )}
                        </ul>
                          </div>       
                             </div>
@@ -123,10 +131,11 @@ const led = panel?.led_status || "";
                     </div>
                     <div className="sysfault-data">
                      <ul>
-                    {panel?.faults?.length > 0
-                    ? panel.faults.map((item, i) => <li key={i}>{JSON.stringify(item)}</li>)
-                    : <li>No Faults</li>}
-                          
+                     {panel?.sysfaults?.length > 0 ? (
+                      panel.sysfaults.map((item, index) => <li key={index}>{item}</li>)
+                       ) : (
+                     <div className='nofault'><li>No System Faults</li></div>
+                          )}
                            </ul>
                             </div>
  
@@ -155,6 +164,5 @@ const led = panel?.led_status || "";
        </div>
    );
  }
+export default EchoEvent;
  
-
-export default ConventionalPopup;
