@@ -14,39 +14,35 @@ function Login(props) {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post(
-      "http://192.168.14.4:8000/v2/users/login",
-      {
-        user_id: form.username,
-        password: form.password,
-        platform: "web",
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://192.168.14.4:8000/v2/users/login",
+        {
+          user_id: form.username,
+          password: form.password,
+          platform: "web",
+        }
+      );
+
+      console.log("Login Response:", response.data);
+
+      if (response.data) {
+        if (response.data.access_token) {
+          localStorage.setItem("access_token", response.data.access_token);
+        }
+
+        if (props.getData) {
+          props.getData(response.data);
+        }
+
+        navigate("/dashboard");
       }
-    );
-
-    console.log("Login Response:", response.data);
-
-    if (response.data) {
-     
-      if (response.data.access_token) {
-        localStorage.setItem("access_token", response.data.access_token);
-      }
-
-     
-      if (props.getData) {
-        props.getData(response.data);
-      }
-
-     
-      navigate("/dashboard");
+    } catch (err) {
+      setError("Login failed. Please try again.");
+      console.error("Login error:", err);
     }
-  } catch (err) {
-    setError("Login failed. Please try again.");
-    console.error("Login error:", err);
-  }
-};
-
+  };
 
   return (
     <div className="login-bg">

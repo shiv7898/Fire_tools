@@ -594,7 +594,7 @@ th {
   padding: 8px 12px;
   border-radius: 6px;
   font-weight: bold;
-  width: 100%;
+      width: 100%;
   text-align: center;
   color: #807c7c;
   cursor: pointer;
@@ -814,9 +814,31 @@ th {
 
 /* update value popup */
 .location {
-  margin: 6px;
+    margin: 6px;
+    /* border: 1px solid black; */
+    color: black;
+    font-size: 0.7rem;
+    display: flex
+;
+    justify-content: center;
+      align-items: center;
+    padding: 7px;
+    width: 100%;
   
 }
+.location span{
+      border: none;
+    background: #fffefe;
+    box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    color: #807c7c;
+    cursor: pointer;
+}
+
 
 
 
