@@ -67,21 +67,21 @@ const TowerPopup = ({ panel , onClose }) => {
         <div className='panel-card-container'>
             <div className ="fire-card">
               <div className='fire-heading'>
-                <p className='chead'>FIRE</p><p className="faultcount">({panel?.fires?.length || 0})</p>
+                <p className='chead'>FIRE</p><p className="faultcount">{panel?.fires?.length > 0 ? `(${panel.fires.length})` : ""}</p>
               </div>
              <div className="fire-data">
              <ul>
-                 {panel?.firefault?.length > 0 ? (
+                 {panel?.fires?.length > 0 ? (
                  panel.fires.map((item, index) => <li key={index}>{item}</li>)
                  ) : (
-                 <li>No Fire Faults</li>
+                 <div className='nofault'><li>No Fire Faults</li></div>
                    )}
                  </ul>
                   </div>
                     </div>
             <div className ="fault-card">
               <div className='fault-heading'>
-                <p className ='chead'>FAULT</p><p className="faultcount">({panel?.faults?.length || 0})</p>
+                <p className ='chead'>FAULT</p><p className="faultcount">{panel?.faults?.length > 0 ? `(${panel.faults.length})` : ""}</p>
               </div>
             
                 <div className="fault-data">
@@ -89,35 +89,35 @@ const TowerPopup = ({ panel , onClose }) => {
                  {panel?.faults?.length > 0 ? (
                   panel.fault.map((item, index) => <li key={index}>{item}</li>)
                    ) : (
-                 <li>No Faults</li>
+                 <div className='nofault'><li>No Faults</li></div>
                    )}
                     </ul>
                       </div>              
                           </div>
                <div className ="activated-card">
                 <div className='activated-heading'>
-                  <p className ='chead'>ACTIVATED</p><p className="faultcount">({panel?.activated?.length || 0})</p>
+                  <p className ='chead'>ACTIVATED</p><p className="faultcount">{panel?.activated?.length > 0 ? `(${panel.activated.length})` : ""}</p>
                      </div>
                  <div className="activated-data">
                   <ul>
                   {/* {panel?.activated?.length > 0 ? (
                   panel.activated.map((item, index) => <li key={index}>{item}</li>)
                      ) : ( */}
-                   <li>No Activations</li>
+                  <div className='nofault'><li>No Activations</li></div> 
                      {/* )} */}
                       </ul>
                         </div>       
                            </div>
                    <div className ="sysfault-card">
                    <div className='sysfault-heading'>
-                   <p className ='chead'>SYS FAULT</p><p className="faultcount">({panel?.systemfault?.length || 0})</p>
+                   <p className ='chead'>SYS FAULT</p><p className="faultcount">{panel?.sysfaults?.length > 0 ? `(${panel.sysfaults.length})` : ""}</p>
                    </div>
                    <div className="sysfault-data">
                     <ul>
-                    {panel?.systemfault?.length > 0 ? (
-                     panel.systemfault.map((item, index) => <li key={index}>{item}</li>)
+                    {panel?.sysfaults?.length > 0 ? (
+                     panel.sysfaults.map((item, index) => <li key={index}>{item}</li>)
                       ) : (
-                    <li>No System Faults</li>
+                    <div className='nofault'><li>No System Faults</li></div>
                          )}
                           </ul>
                            </div>

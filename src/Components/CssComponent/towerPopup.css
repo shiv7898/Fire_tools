@@ -164,6 +164,7 @@
     border-radius: 5px;
     padding: 8px 5px 5px 5px ;
     margin-top: 5px;
+    position: relative;
     
 }
 .fault-data{
@@ -173,6 +174,7 @@
     border-radius: 5px;
     padding: 8px 5px 5px 5px;
     margin-top: 5px;
+    position: relative;
    
 }
 .activated-data{
@@ -182,6 +184,7 @@
     border-radius: 5px;
     padding: 8px 5px 5px 5px;
     margin-top: 5px;
+    position: relative;
    
 }
 .sysfault-data{
@@ -191,6 +194,7 @@
     border-radius: 5px;
     padding: 8px 5px 5px 5px;
     margin-top: 5px;
+    position: relative;
    
 }
 .chead{
@@ -407,4 +411,9 @@ MapContainer{
 @keyframes blink {
   from { opacity: 1; filter: brightness(1); }
   to { opacity: 0.5; filter: brightness(1.5); }
+}
+.nofault{
+  position: absolute;
+  top: 40%;
+  width:95%;
 }

@@ -91,7 +91,7 @@ const EchoPopup = ({ panel , onClose }) => {
                   {panel?.fires?.length > 0 ? (
                   panel.fires.map((item, index) => <li key={index}>{item}</li>)
                   ) : (
-                  <li>No Fire Faults</li>
+                  <div className='nofault'><li>No Fire Faults</li></div>
                     )}
                   </ul>
                    </div>
@@ -106,7 +106,7 @@ const EchoPopup = ({ panel , onClose }) => {
                   {panel?.faults?.length > 0 ? (
                    panel.faults.map((item, index) => <li key={index}>{item}</li>)
                     ) : (
-                  <li>No Faults</li>
+                  <div className='nofault'><li>No Faults</li></div>
                     )}
                      </ul>
                        </div>              
@@ -120,7 +120,7 @@ const EchoPopup = ({ panel , onClose }) => {
                    {panel?.activated?.length > 0 ? (
                    panel.activated.map((item, index) => <li key={index}>{item}</li>)
                       ) : (
-                    <li>No Activations</li>
+                    <div className='nofault'><li>No Activations</li></div>
                       )}
                        </ul>
                          </div>       
@@ -134,7 +134,7 @@ const EchoPopup = ({ panel , onClose }) => {
                      {panel?.sysfaults?.length > 0 ? (
                       panel.sysfaults.map((item, index) => <li key={index}>{item}</li>)
                        ) : (
-                     <li>No System Faults</li>
+                     <div className='nofault'><li>No System Faults</li></div>
                           )}
                            </ul>
                             </div>
