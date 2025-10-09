@@ -22,6 +22,9 @@ import axios from "axios";
 import ActivePanel from "../Pages/ActivePanel/ActivePanel";
 import InactivePanel from "../Pages/InactivePanel/InactivPanel";
 import PanelLocations from "../Pages/PanelLocations/PanelLocations";
+import ConventionalPopup from "../Pages/ConventionalPopup";
+import RegalPopup from "../Pages/RegalPopup";
+import EchoPopup from "../Pages/EchoPopup";
 
 export default function Dashboard({ userData }) {
   console.log("dash...", userData);
@@ -30,7 +33,7 @@ export default function Dashboard({ userData }) {
 
   const [panels, setPanels] = useState();
 
-  const sidebarRef = useRef(null);
+  // const sidebarRef = useRef(null);
 
   const [mainValue, setMainValue] = useState("r1/tower/1111");
   const [popupValue, setPopupValue] = useState(mainValue);
@@ -49,6 +52,9 @@ export default function Dashboard({ userData }) {
   console.log("events...", events);
 
   const [tower, setTowers] = useState([]);
+  const sidebarRef = useRef(null);
+  const locationSidebarRef = useRef(null);
+const popupWrapperRef = useRef(null);
 
   const data = [
     "Fire DEV :01 LOOP:01, []",
@@ -138,9 +144,13 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
         fire: matchedEventPanel?.fires?.length || 0,
         fault: matchedEventPanel?.faults?.length || 0,
         sysfault: matchedEventPanel?.sysfaults?.length || 0,
+        fires: matchedEventPanel?.fires || [],
+        faults: matchedEventPanel?.faults || [],
+        sysfaults: matchedEventPanel?.sysfaults || [],
 
         // optional: bring led_status if you need
         led_status: matchedEventPanel?.led_status || null,
+
       };
     })
   : [];
@@ -155,10 +165,20 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
     setPopupValue(mainValue);
     setShowPopup(true);
   };
-  const handleTowerPopup = (userData) => {
-    setSelectedTower(userData);
+  // const handleTowerPopup = (userData) => {
+  //   setSelectedTower(userData);
+  //   setShowTowerPopup(true);
+  //   console.log("clicked tower:", userData);
+  // };
+  const handleTowerPopup = (topic) => {
+  const matchedPanel = combinedPanels.find((p) => p.topic === topic);
+  if (matchedPanel) {
+    setSelectedTower(matchedPanel); // store full panel object
     setShowTowerPopup(true);
-  };
+    console.log("Selected panel data:", matchedPanel);
+  }
+};
+
 
   const handleClosePopup = () => setShowPopup(false);
 
@@ -199,154 +219,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
   const [selectedPanel, setSelectedPanel] = useState("Panel-1");
   console.log(selectedPanel);
 
-  const activePanels = [
-    {
-      id: 1,
-      name: "r1/tower/1111",
-      type: "addressable",
-      status1: "01",
-      status2: "05",
-      status3: "00",
-    },
-    {
-      id: 2,
-      name: "r1/tower/11112",
-      type: "conventional",
-      status1: "01",
-      status2: "00",
-      status3: "00",
-    },
-    {
-      id: 3,
-      name: "r1/tower/1113",
-      type: "regal",
-      status1: "00",
-      status2: "04",
-      status3: " 00",
-    },
-    {
-      id: 4,
-      name: "r1/tower/1114",
-      type: "eco",
-      status1: "00",
-      status2: "00",
-      status3: "00",
-    },
-    {
-      id: 5,
-      name: "r1/tower/1115",
-      type: "addressable",
-      status1: "01",
-      status2: "05",
-      status3: "11",
-    },
-    {
-      id: 6,
-      name: "r1/tower/1116",
-      type: "conventional",
-      status1: "01",
-      status2: "04",
-      status3: "04",
-    },
-    {
-      id: 7,
-      name: "r1/tower/1117",
-      type: "regal",
-      status1: "00",
-      status2: "00",
-      status3: " 00",
-    },
-    {
-      id: 8,
-      name: "r1/tower/1118",
-      type: "eco",
-      status1: "01",
-      status2: "04",
-      status3: "04",
-    },
-    {
-      id: 9,
-      name: "r1/tower/1119",
-      type: "addressable",
-      status1: "01",
-      status2: "05",
-      status3: "11",
-    },
-    {
-      id: 10,
-      name: "r1/tower/1120",
-      type: "conventional",
-      status1: "01",
-      status2: "04",
-      status3: "04",
-    },
-    {
-      id: 11,
-      name: "r1/tower/1121",
-      type: "regal",
-      status1: "01",
-      status2: "04",
-      status3: " 04",
-    },
-    {
-      id: 12,
-      name: "r1/tower/1122",
-      type: "eco",
-      status1: "01",
-      status2: "04",
-      status3: "04",
-    },
-    {
-      id: 13,
-      name: "r1/tower/1123",
-      type: "addressable",
-      status1: "01",
-      status2: "05",
-      status3: "11",
-    },
-    {
-      id: 14,
-      name: "r1/tower/1124",
-      type: "conventional",
-      status1: "01",
-      status2: "04",
-      status3: "04",
-    },
-    {
-      id: 15,
-      name: "r1/tower/1125",
-      type: "regal",
-      status1: "01",
-      status2: "04",
-      status3: " 04",
-    },
-  ];
-
-  const inactivePanels = [
-    {
-      id: 16,
-      name: "r1/tower/1111",
-      type: "Addressable",
-      time: "5:02",
-      date: "03/09/2025",
-    },
-    {
-      id: 17,
-      name: "Panel-10",
-      type: "conventional",
-      time: "5:02",
-      date: "03/09/2025",
-    },
-    {
-      id: 18,
-      name: "Panel-11",
-      type: "regal",
-      time: "5:02",
-      date: "03/09/2025",
-    },
-    { id: 19, name: "Panel-12", type: "eco", time: "5:02", date: "03/09/2025" },
-  ];
-  // API CALLING
+  
 
   // Close sidebar on outside click
   useEffect(() => {
@@ -440,7 +313,7 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
             <div
               className={`location-sidebar${
                 locationSidebarOpen ? " open" : ""
-              }`}
+              }`} ref={locationSidebarRef}
             >
               <div className="location-sidebar-header">Panels</div>
               <ul className="location-list">
@@ -448,18 +321,38 @@ const combinedPanels = Array.isArray(dataResponse?.panels)
                   <li
                     key={i}
                     className="location-list-item"
-                    onClick={() => handleTowerPopup(v)} // pass clicked tower
+                    onClick={() => handleTowerPopup(v.panel_topic)} // pass clicked tower
                   >
                     {v.panel_topic}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="tower-heading">
+            {/* <div className="tower-heading">
               {showTowerPopup === true && (
-                <TowerPopup towerName={selectedTower} />
+                <EchoPopup towerName={selectedTower} 
+                 onClose={() => setShowTowerPopup(false)}/>
               )}
-            </div>
+            </div> */}
+            <div className="tower-heading">
+  {showTowerPopup && selectedTower && (
+    <>
+      {selectedTower.type === "Addressable" && (
+        <TowerPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
+      )}
+      {selectedTower.type === "Eco" && (
+        <EchoPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
+      )}
+      {selectedTower.type === "Conventional" && (
+        <ConventionalPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
+      )}
+      {selectedTower.type === "Regal" && (
+        <RegalPopup panel={selectedTower} onClose={() => setShowTowerPopup(false)} />
+      )}
+    </>
+  )}
+</div>
+
             <div className="card-container">
               <div className="card1" onClick={handleAllPanelClick}>
                 <div className="card1-text">
