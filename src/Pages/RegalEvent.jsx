@@ -8,6 +8,10 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { IoBulb } from "react-icons/io5";
 import { IoMdBatteryCharging } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
+import { TbSettingsExclamation } from "react-icons/tb";
+import { HiMiniSpeakerXMark } from "react-icons/hi2";
+import { MdWrongLocation } from "react-icons/md";
+import { MdDirectionsRun } from "react-icons/md";
 import {
   FaBell,
   FaFire,
@@ -15,9 +19,10 @@ import {
   FaCogs,
   FaInfinity,
 } from "react-icons/fa";
+import { LuSiren } from "react-icons/lu";
 import { FaF } from "react-icons/fa6";
 
-const TowerPopup = ({ panel, onClose }) => {
+const RegalEvent = ({ panel, onClose }) => {
   const navigate = useNavigate();
 
   return (
@@ -27,12 +32,12 @@ const TowerPopup = ({ panel, onClose }) => {
           {/* ⬅ */}
           <IoArrowBackSharp size={25} color="black" />
         </button>
-        <p>{`${panel.name}`} (Addressable)</p>
+        <p>{`${panel.name}`} (Regal)</p>
       </div>
       <div className="aboutpanel">
         <div className="panel-information">
           <div className="led-info">
-            <div className="panel-status-grid">
+            <div className="panel-status-grid-two">
               <div className="status-item">
                 <span className="status-icon mains">
                   <IoBulb />
@@ -59,15 +64,27 @@ const TowerPopup = ({ panel, onClose }) => {
               </div>
               <div className="status-item">
                 <span className="status-icon sil-alarm">
-                  <FaVolumeUp />
+                  <TbSettingsExclamation />
                 </span>
-                <span className="status-label">SIL ALARM</span>
+                <span className="status-label">SYS FAULT</span>
               </div>
               <div className="status-item">
-                <span className="status-icon pre-alarm">
-                  <FaBell />
+                <span className="status-icon sil-alarm">
+                  <MdWrongLocation />
                 </span>
-                <span className="status-label">PRE ALARM</span>
+                <span className="status-label">ZONE ISO</span>
+              </div>
+              <div className="status-item">
+                <span className="status-icon sil-alarm">
+                  <MdDirectionsRun />
+                </span>
+                <span className="status-label">EVACUATE</span>
+              </div>
+              <div className="status-item">
+                <span className="status-icon sil-alarm">
+                  <HiMiniSpeakerXMark />
+                </span>
+                <span className="status-label">SILENCE</span>
               </div>
             </div>
           </div>
@@ -75,9 +92,7 @@ const TowerPopup = ({ panel, onClose }) => {
             <div className="fire-card">
               <div className="fire-heading">
                 <p className="chead">FIRE</p>
-                <p className="faultcount">
-                  {panel?.fires?.length > 0 ? `(${panel.fires.length})` : ""}
-                </p>
+                <p className="faultcount">({panel?.fires?.length || 0})</p>
               </div>
               <div className="fire-data">
                 <ul>
@@ -96,15 +111,13 @@ const TowerPopup = ({ panel, onClose }) => {
             <div className="fault-card">
               <div className="fault-heading">
                 <p className="chead">FAULT</p>
-                <p className="faultcount">
-                  {panel?.faults?.length > 0 ? `(${panel.faults.length})` : ""}
-                </p>
+                <p className="faultcount">({panel?.faults?.length || 0})</p>
               </div>
 
               <div className="fault-data">
                 <ul>
                   {panel?.faults?.length > 0 ? (
-                    panel.fault.map((item, index) => (
+                    panel.faults.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))
                   ) : (
@@ -118,32 +131,26 @@ const TowerPopup = ({ panel, onClose }) => {
             <div className="activated-card">
               <div className="activated-heading">
                 <p className="chead">ACTIVATED</p>
-                <p className="faultcount">
-                  {panel?.activated?.length > 0
-                    ? `(${panel.activated.length})`
-                    : ""}
-                </p>
+                <p className="faultcount">({panel?.activated?.length || 0})</p>
               </div>
               <div className="activated-data">
                 <ul>
-                  {/* {panel?.activated?.length > 0 ? (
-                  panel.activated.map((item, index) => <li key={index}>{item}</li>)
-                     ) : ( */}
-                  <div className="nofault">
-                    <li>No Activations</li>
-                  </div>
-                  {/* )} */}
+                  {panel?.activated?.length > 0 ? (
+                    panel.activated.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))
+                  ) : (
+                    <div className="nofault">
+                      <li>No Activations</li>
+                    </div>
+                  )}
                 </ul>
               </div>
             </div>
             <div className="sysfault-card">
               <div className="sysfault-heading">
                 <p className="chead">SYS FAULT</p>
-                <p className="faultcount">
-                  {panel?.sysfaults?.length > 0
-                    ? `(${panel.sysfaults.length})`
-                    : ""}
-                </p>
+                <p className="faultcount">({panel?.sysfaults?.length || 0})</p>
               </div>
               <div className="sysfault-data">
                 <ul>
@@ -177,10 +184,10 @@ const TowerPopup = ({ panel, onClose }) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               {/* <Marker position={[51.505, -0.09]}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker> */}
+               <Popup>
+                 A pretty CSS3 popup. <br /> Easily customizable.
+               </Popup>
+             </Marker> */}
             </MapContainer>
           </div>
         </div>
@@ -189,4 +196,4 @@ const TowerPopup = ({ panel, onClose }) => {
   );
 };
 
-export default TowerPopup;
+export default RegalEvent;
