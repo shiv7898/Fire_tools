@@ -7,6 +7,7 @@ import { RiResetLeftFill } from "react-icons/ri";
 import { GiRingingBell } from "react-icons/gi";
 import { GiRingingAlarm } from "react-icons/gi";
 import { FaPersonRunning } from "react-icons/fa6";
+import { TbSettingsExclamation } from "react-icons/tb";
 
 import { Link } from "react-router-dom";
 import "../CssComponent/PanelTypePopup/AddressablePopup.css";
@@ -25,6 +26,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
   const [mainValue, setMainValue] = useState("r1/tower/1111");
   const [confirmation, setConfirmation] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [clicked, setClicked] = useState(null);
   const dropdownRef = useRef(null);
 
   const options = [
@@ -50,12 +52,21 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
   const handleOpenPopup = () => {
     setPopupValue("popupValue");
     setShowPopup(true);
+    
   };
-  const handleClosePopup = () => setShowPopup(false);
+  const handleClosePopup = () => {
+    setClicked("cancel");
+    setShowPopup(false);
+ 
+ 
+    
+  }
   const handleSave = () => {
     if (confirmation === "Yes") {
       setMainValue(popupValue);
     }
+     setShowPopup(false);
+    
   };
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -134,13 +145,13 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
               <div className="addressable-popup-actions">
                 <button
                   onClick={handleClosePopup}
-                  className="addressable-btn addressable-cancel"
+                  className="addressable-cancel"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSave}
-                  className="addressable-btn addressable-confirm"
+                  className="addressable-confirm"
                 >
                   Save
                 </button>
@@ -169,7 +180,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
           <FaVolumeUp className="addressable-icon" /> <span>SIL ALARM</span>
         </div>
         <div className="addressable-status-item gray">
-          <FaCogs className="addressable-icon" /> <span>SYS FAULT</span>
+          <TbSettingsExclamation  className="addressable-icon" /> <span>SYS FAULT</span>
         </div>
         <div className="addressable-status-item gray">
           <FaBell className="addressable-icon" /> <span>PRE ALARM</span>
@@ -218,6 +229,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
             </div>
 
             <div className={`addressable-content-box ${activeTab}`}>
+              <div className="content-scroll">
               {data.map((item, index) => (
                 <div
                   key={index}
@@ -228,6 +240,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
                   ))}
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>

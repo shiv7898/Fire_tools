@@ -95,6 +95,7 @@ const RegalEvent = ({ panel, onClose }) => {
                 <p className="faultcount">({panel?.fires?.length || 0})</p>
               </div>
               <div className="fire-data">
+                <div className="fault-scroll">
                 <ul>
                   {panel?.fires?.length > 0 ? (
                     panel.fires.map((item, index) => (
@@ -106,6 +107,7 @@ const RegalEvent = ({ panel, onClose }) => {
                     </div>
                   )}
                 </ul>
+                </div>
               </div>
             </div>
             <div className="fault-card">
@@ -115,6 +117,7 @@ const RegalEvent = ({ panel, onClose }) => {
               </div>
 
               <div className="fault-data">
+                <div className="fault-scroll">
                 <ul>
                   {panel?.faults?.length > 0 ? (
                     panel.faults.map((item, index) => (
@@ -126,6 +129,7 @@ const RegalEvent = ({ panel, onClose }) => {
                     </div>
                   )}
                 </ul>
+                </div>
               </div>
             </div>
             <div className="activated-card">
@@ -134,6 +138,7 @@ const RegalEvent = ({ panel, onClose }) => {
                 <p className="faultcount">({panel?.activated?.length || 0})</p>
               </div>
               <div className="activated-data">
+                <div className="fault-scroll">
                 <ul>
                   {panel?.activated?.length > 0 ? (
                     panel.activated.map((item, index) => (
@@ -145,6 +150,7 @@ const RegalEvent = ({ panel, onClose }) => {
                     </div>
                   )}
                 </ul>
+                </div>
               </div>
             </div>
             <div className="sysfault-card">
@@ -153,6 +159,7 @@ const RegalEvent = ({ panel, onClose }) => {
                 <p className="faultcount">({panel?.sysfaults?.length || 0})</p>
               </div>
               <div className="sysfault-data">
+                <div className="fault-scroll">
                 <ul>
                   {panel?.sysfaults?.length > 0 ? (
                     panel.sysfaults.map((item, index) => (
@@ -164,11 +171,12 @@ const RegalEvent = ({ panel, onClose }) => {
                     </div>
                   )}
                 </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="map-container">
+        <div className="map-containers">
           <div className="map-card">
             <div className="map-heading">
               <p>Panel Location</p>

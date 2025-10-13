@@ -103,13 +103,15 @@ const ConventionalEvent = ({ panel, onClose }) => {
             <div className="fault-card">
               <div className="fault-heading">
                 <p className="chead">FAULT</p>
-                <p className="faultcount">({panel?.faults?.length || 0})</p>
+                <p className="faultcount">{panel?.sysfaults?.length > 0
+                    ? `(${panel.sysfaults.length})`
+                    : ""}</p>
               </div>
 
               <div className="fault-data">
                 <ul>
-                  {panel?.fault?.length > 0 ? (
-                    panel.fault.map((item, index) => (
+                  {panel?.faults?.length > 0 ? (
+                    panel.faults.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))
                   ) : (
@@ -121,16 +123,18 @@ const ConventionalEvent = ({ panel, onClose }) => {
             <div className="activated-card">
               <div className="activated-heading">
                 <p className="chead">ACTIVATED</p>
-                <p className="faultcount">({panel?.faults?.length || 0})</p>
+                <p className="faultcount">{panel?.activated?.length > 0
+                    ? `(${panel.sysfaults.length})`
+                    : ""}</p>
               </div>
               <div className="activated-data">
                 <ul>
-                  {panel?.faults?.length > 0 ? (
-                    panel.faults.map((item, i) => (
+                  {panel?.activated?.length > 0 ? (
+                    panel.activated.map((item, i) => (
                       <li key={i}>{JSON.stringify(item)}</li>
                     ))
                   ) : (
-                    <li>No Faults</li>
+                    <div className="nofault"><li>No Faults</li></div>
                   )}
                 </ul>
               </div>
@@ -138,7 +142,9 @@ const ConventionalEvent = ({ panel, onClose }) => {
             <div className="sysfault-card">
               <div className="sysfault-heading">
                 <p className="chead">SYS FAULT</p>
-                <p className="faultcount">({panel?.sysfaults?.length || 0})</p>
+                <p className="faultcount">{panel?.sysfaults?.length > 0
+                    ? `(${panel.sysfaults.length})`
+                    : ""}</p>
               </div>
               <div className="sysfault-data">
                 <ul>
@@ -154,7 +160,7 @@ const ConventionalEvent = ({ panel, onClose }) => {
             </div>
           </div>
         </div>
-        <div className="map-container">
+        <div className="map-containers">
           <div className="map-card">
             <div className="map-heading">
               <p>Panel Location</p>

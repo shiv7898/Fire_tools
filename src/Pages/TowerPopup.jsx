@@ -80,6 +80,7 @@ const TowerPopup = ({ panel, onClose }) => {
                 </p>
               </div>
               <div className="fire-data">
+                <div className="fault-scroll">
                 <ul>
                   {panel?.fires?.length > 0 ? (
                     panel.fires.map((item, index) => (
@@ -91,6 +92,7 @@ const TowerPopup = ({ panel, onClose }) => {
                     </div>
                   )}
                 </ul>
+                </div>
               </div>
             </div>
             <div className="fault-card">
@@ -102,9 +104,10 @@ const TowerPopup = ({ panel, onClose }) => {
               </div>
 
               <div className="fault-data">
+                <div className="fault-scroll">
                 <ul>
                   {panel?.faults?.length > 0 ? (
-                    panel.fault.map((item, index) => (
+                    panel.faults.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))
                   ) : (
@@ -113,6 +116,7 @@ const TowerPopup = ({ panel, onClose }) => {
                     </div>
                   )}
                 </ul>
+                </div>
               </div>
             </div>
             <div className="activated-card">
@@ -125,15 +129,17 @@ const TowerPopup = ({ panel, onClose }) => {
                 </p>
               </div>
               <div className="activated-data">
+                <div className="fault-scroll">
                 <ul>
-                  {/* {panel?.activated?.length > 0 ? (
+                  {panel?.activated?.length > 0 ? (
                   panel.activated.map((item, index) => <li key={index}>{item}</li>)
-                     ) : ( */}
+                     ) : (
                   <div className="nofault">
                     <li>No Activations</li>
                   </div>
-                  {/* )} */}
+                  )}
                 </ul>
+                </div>
               </div>
             </div>
             <div className="sysfault-card">
@@ -146,6 +152,7 @@ const TowerPopup = ({ panel, onClose }) => {
                 </p>
               </div>
               <div className="sysfault-data">
+                <div className="fault-scroll">
                 <ul>
                   {panel?.sysfaults?.length > 0 ? (
                     panel.sysfaults.map((item, index) => (
@@ -158,10 +165,11 @@ const TowerPopup = ({ panel, onClose }) => {
                   )}
                 </ul>
               </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="map-container">
+        <div className="map-containers">
           <div className="map-card">
             <div className="map-heading">
               <p>Panel Location</p>

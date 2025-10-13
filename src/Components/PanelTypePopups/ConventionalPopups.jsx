@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { IoBulb } from "react-icons/io5";
 import { IoMdBatteryCharging } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
+import { RiResetLeftFill } from "react-icons/ri";
+import { GiRingingBell } from "react-icons/gi";
+import { GiRingingAlarm } from "react-icons/gi";
+import { TbBulbFilled } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import "../CssComponent/PanelTypePopup/ConventionalPopup.css"
 import {
@@ -153,6 +157,22 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
          <div className="conventional-status-item gray">
            <FaVolumeUp className="conventional-icon" /> <span>HOOTER</span>
          </div>
+         </div>
+         <div className="conventional-button-container">
+          <button className="conventional-btn-main">
+            <RiResetLeftFill className="conventional-btn-icon" /><span className="conventional-btn-label">RESET</span>
+          </button>
+          <button className="conventional-btn-main">
+            <GiRingingBell className="conventional-btn-icon" /><span className="conventional-btn-label">SIL BUZZ </span>
+          </button>
+          <button className="conventional-btn-main">
+            <GiRingingAlarm className="conventional-btn-icon" /><span className="conventional-btn-label">SIL ALARM</span>
+          </button>
+          <button className="conventional-btn-main">
+            <TbBulbFilled className="conventional-btn-icon" /><span className="conventional-btn-label">L TEST</span>
+          </button>
+          
+         </div>
          {/* <div className="conventional-status-item gray">
            <FaCogs className="conventional-icon" /> <span>SYS FAULT</span>
          </div>
@@ -162,7 +182,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
          <div className="conventional-status-item gray">
            <FaInfinity className="conventional-icon" /> <span>CONNECTED</span>
          </div> */}
-       </div>
+       
  
        {/* {selectedPanel && (
          <div className="conventional-container">

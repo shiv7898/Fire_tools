@@ -86,7 +86,7 @@ export default function Dashboard({ userData }) {
 
       try {
         const response = await axios.get(
-          "http://192.168.14.4:8000/v2/users/me",
+          "http://192.168.14.240:8000/v2/users/me",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -112,7 +112,7 @@ export default function Dashboard({ userData }) {
       console.log("Fetching events for user ID:", userId);
       try {
         const response = await axios.get(
-          `http://192.168.14.4:8000/v2/events/temps?id=${userId}`,
+          `http://192.168.14.240:8000/v2/events/temps?id=${userId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -368,16 +368,32 @@ export default function Dashboard({ userData }) {
   // API CALLING
 
   // Close sidebar on outside click
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
-        setIsOpen(false);
-        setLocationSidebarOpen(false);
-      }
+   useEffect(() => {
+  function handleClickOutside(e) {
+    const clickedInsideMainSidebar = sidebarRef.current && sidebarRef.current.contains(e.target);
+    const clickedInsideLocationSidebar = locationSidebarRef.current && locationSidebarRef.current.contains(e.target);
+    const clickedInsidePopup = popupWrapperRef.current && popupWrapperRef.current.contains(e.target);
+
+    // If click is outside ALL of these, then close sidebars
+    if (!clickedInsideMainSidebar && !clickedInsideLocationSidebar && !clickedInsidePopup) {
+      setIsOpen(false);
+      setLocationSidebarOpen(false);
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
+  // useEffect(() => {
+  //   function handleClickOutside(e) {
+  //     if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+  //       setIsOpen(false);
+  //       setLocationSidebarOpen(false);
+  //     }
+  //   }
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
   function handleAllPanelClick() {
     setActiveButton(false);
     setAllPanel(true);
@@ -473,13 +489,13 @@ export default function Dashboard({ userData }) {
           </button>
           {isOpen && (
             <div className="sidebar-menu">
-              <Link
+              {/* <Link
                 className="log"
                 to="/dashboard"
                 onClick={handleDashboardClick}
               >
                 Home
-              </Link>
+              </Link> */}
               <Link
                 className="log"
                 to=""
@@ -510,7 +526,9 @@ export default function Dashboard({ userData }) {
                   <li
                     key={i}
                     className="location-list-item"
-                    onClick={() => handleTowerPopup(v.panel_topic)} // pass clicked tower
+                    onClick={(e) => {
+                       e.stopPropagation(); 
+                      handleTowerPopup(v.panel_topic)}} // pass clicked tower
                   >
                     {v.panel_topic}
                   </li>

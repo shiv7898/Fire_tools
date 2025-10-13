@@ -20,7 +20,7 @@
 }
 
 .conventional-title {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
   margin-bottom: 6px;
 }
@@ -43,7 +43,7 @@
 }
 .conventional-location {
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 #conventional-location-input {
@@ -51,6 +51,7 @@
   background: #fffefe;
   box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7); /* light blue shadow */
   padding: 8px 12px;
+
   border-radius: 6px;
   font-weight: bold;
   width: 50%;
@@ -64,6 +65,7 @@
   padding: 8px 12px;
   border-radius: 6px;
   font-weight: bold;
+  font-size: 14px;
   width: 50%;
   text-align: center;
   color: #807c7c;
@@ -88,12 +90,10 @@
 .conventional-status-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px 56px;
-  max-width: 351px;
-  /* margin: 20px 55px; */
+  gap: 12px 100px;
+  /* max-width: 391px; */
+  margin: 10px 60px;
   font-family: Arial, sans-serif;
-  margin-left: 97px;
-  margin-top: 41px;
 }
 
 .conventional-status-item {
@@ -101,12 +101,12 @@
   align-items: center;
   font-size: 10px;
   font-weight: 700;
-
+  margin-top: 10px;
   color: #6d6d6d;
 }
 
 .conventional-status-item .conventional-icon {
-  font-size: 16px;
+  font-size: 15px;
   margin-right: 8px;
 }
 
@@ -297,6 +297,7 @@
   padding: 8px 12px;
   border-radius: 6px;
   font-weight: bold;
+  font-size: 13px;
   width: 50%;
   text-align: center;
   color: #807c7c;
@@ -464,3 +465,54 @@
   border: 1px solid #9b59b6;
   background: #f7ebff;
 }
+.conventional-button-container{
+  width:100%;
+  height: 10%;
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-evenly;
+  gap:5px;
+}
+.conventional-btn-main {
+  width: 23%;
+  background-color: white;
+  padding: 7px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* font-size: 12px; */
+  height: 40px;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 0.5px solid #707070;;
+}
+.conventional-btn-icon{
+  font-size: 17px;
+  color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  /* text-align: center; */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.conventional-btn-label{
+   font-size: 12px;
+  color: #707070;
+   padding: 2px 0px 0px 2px;
+   font-weight: bold;
+  transition: color 0.3s ease;
+}
+.conventional-btn-icon svg{
+height: 1.8em;
+width: 1.8em;
+}
+
+.conventional-btn-main:hover {
+  background-color: #acd4ff;
+}
+

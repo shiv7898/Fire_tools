@@ -31,6 +31,7 @@
   border-collapse: collapse;
   min-width: 400px; 
   background-color: white;
+  color: #555;
 }
 
 .inactive-table th,

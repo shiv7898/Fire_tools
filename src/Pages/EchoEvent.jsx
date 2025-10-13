@@ -87,6 +87,7 @@ const EchoEvent = ({ panel , onClose }) => {
                  <p className='chead'>FIRE</p><p className="faultcount">{panel?.fires?.length > 0 ? `(${panel.sysfaults.length})` : ""}</p>
                </div>
               <div className="fire-data">
+                <div className="fault-scroll">
               <ul>
                   {panel?.fires?.length > 0 ? (
                   panel.fires.map((item, index) => <li key={index}>{item}</li>)
@@ -94,6 +95,7 @@ const EchoEvent = ({ panel , onClose }) => {
                   <div className='nofault'><li>No Fire Faults</li></div>
                     )}
                   </ul>
+                  </div>
                    </div>
                      </div>
              <div className ="fault-card">
@@ -102,6 +104,7 @@ const EchoEvent = ({ panel , onClose }) => {
                </div>
              
                  <div className="fault-data">
+                  <div className="fault-scroll">
                   <ul>
                   {panel?.faults?.length > 0 ? (
                    panel.faults.map((item, index) => <li key={index}>{item}</li>)
@@ -109,6 +112,7 @@ const EchoEvent = ({ panel , onClose }) => {
                   <div className='nofault'><li>No Faults</li></div>
                     )}
                      </ul>
+                     </div>
                        </div>              
                            </div>
                 <div className ="activated-card">
@@ -116,6 +120,7 @@ const EchoEvent = ({ panel , onClose }) => {
                    <p className ='chead'>ACTIVATED</p><p className="faultcount">{panel?.activated?.length > 0 ? `(${panel.activated.length})` : ""}</p>
                       </div>
                   <div className="activated-data">
+                    <div className="fault-scroll">
                    <ul>
                    {panel?.activated?.length > 0 ? (
                    panel.activated.map((item, index) => <li key={index}>{item}</li>)
@@ -123,6 +128,7 @@ const EchoEvent = ({ panel , onClose }) => {
                     <div className='nofault'><li>No Activations</li></div>
                       )}
                        </ul>
+                       </div>
                          </div>       
                             </div>
                     <div className ="sysfault-card">
@@ -130,6 +136,7 @@ const EchoEvent = ({ panel , onClose }) => {
                     <p className ='chead'>SYS FAULT</p><p className="faultcount">{panel?.sysfaults?.length > 0 ? `(${panel.sysfaults.length})` : ""}</p>
                     </div>
                     <div className="sysfault-data">
+                      <div className="fault-scroll">
                      <ul>
                      {panel?.sysfaults?.length > 0 ? (
                       panel.sysfaults.map((item, index) => <li key={index}>{item}</li>)
@@ -137,12 +144,12 @@ const EchoEvent = ({ panel , onClose }) => {
                      <div className='nofault'><li>No System Faults</li></div>
                           )}
                            </ul>
+                           </div>
                             </div>
- 
                               </div>
                                    </div>
            </div>
-         <div className="map-container">
+         <div className="map-containers">
           <div className='map-card'>
            <div className='map-heading'>
              <p>Panel Location</p>

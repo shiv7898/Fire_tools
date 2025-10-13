@@ -17,6 +17,8 @@ export default function Panels() {
     { name: 'r1/tower/1116', type: 'regal', time: '06:10 pm', date: '01/08/25' },
     { name: 'r1/tower/1117', type: 'addressable', time: '01:10 am', date: '01/08/25' },
     { name: 'r1/tower/1118', type: 'addressable', time: '03:10 am', date: '01/08/25' },
+    { name: 'r1/tower/1118', type: 'addressable', time: '03:10 am', date: '01/08/25' },
+    { name: 'r1/tower/1118', type: 'addressable', time: '03:10 am', date: '01/08/25' },
   ];
 
   return (
@@ -52,7 +54,7 @@ export default function Panels() {
       <div className="panel-section">
         <h3 className="panel-title">Inactive Panel</h3>
         <div className="table-container">
-          <table className="panel-table">
+          <table className="panel-table-1">
             <thead>
               <tr>
                 <th>Name</th>

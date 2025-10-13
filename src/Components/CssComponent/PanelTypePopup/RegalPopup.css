@@ -87,9 +87,9 @@
 .regal-status-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px 41px;
+  gap: 12px 70px;
   /* max-width: 391px; */
-  margin: 8px 96px;
+  margin: 10px 60px;
   font-family: Arial, sans-serif;
 }
 
@@ -302,6 +302,7 @@
   height: 33px;
   margin-top: 10px;
   font-weight: 600;
+  background-color: #fff;
 }
 .icon {
   border: none;
@@ -384,14 +385,14 @@
 
 .regal-tabs {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 30px;
   margin-bottom: 20px;
   margin-top: 24px;
 }
 
 .regal-tab {
-  width: 24%;
+  width: 28%;
   padding: 13px 3px;
   border: none;
   cursor: pointer;
@@ -427,10 +428,17 @@
 .regal-content-box {
   border: 1px solid transparent;
   border-radius: 8px;
-  padding: 20px;
+  padding: 20px 8px 20px 20px;
   background: #ffffff;
   max-height: 254px;
-  overflow: scroll;
+  
+}
+.content-scroll {
+  max-height: 214px;      /* 254 - 40px padding (top + bottom) */
+  overflow-y: auto;       /* Only the inner content scrolls */
+}
+.content-scroll::-webkit-scrollbar {
+  display: none;
 }
 .regal-content-box::-webkit-scrollbar {
   display: none;
@@ -531,8 +539,8 @@
 .regal-dropdown-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 8px;
+  padding: 8px 12px;
   cursor: pointer;
   transition: all 0.3s ease;
 }

@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { IoBulb } from "react-icons/io5";
 import { IoMdBatteryCharging } from "react-icons/io";
-import { FaVolumeUp } from "react-icons/fa";
+import { FaVolumeUp , FaBellSlash } from "react-icons/fa";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 import { RiResetLeftFill } from "react-icons/ri";
 import { GiRingingBell } from "react-icons/gi";
-import { GiRingingAlarm } from "react-icons/gi";
 import { FaPersonRunning } from "react-icons/fa6";
+import { TbSettingsExclamation } from "react-icons/tb";
+import { MdWrongLocation } from "react-icons/md";
 
 import { Link } from "react-router-dom";
 import "../CssComponent/PanelTypePopup/RegalPopup.css";
@@ -29,9 +30,7 @@ export default function RegalPopup({ panel, onClose, selectedPanel }) {
 
   const options = [
     { label: "RESET", icon: <RiResetLeftFill /> },
-    { label: "SIL BUZZ", icon: <GiRingingBell /> },
-    { label: "SIL ALARM", icon: <GiRingingAlarm /> },
-    { label: "RESOUND", icon: <FaVolumeUp /> },
+    { label: "SILENCE", icon: <FaBellSlash /> },
     { label: "EVACUATE", icon: <FaPersonRunning /> },
   ];
 
@@ -166,16 +165,16 @@ export default function RegalPopup({ panel, onClose, selectedPanel }) {
           <span>FAULT</span>
         </div>
         <div className="regal-status-item gray">
-          <FaVolumeUp className="regal-icon" /> <span>SIL ALARM</span>
+          <FaBellSlash className="regal-icon" /> <span>SILENCE</span>
         </div>
         <div className="regal-status-item gray">
-          <FaCogs className="regal-icon" /> <span>SYS FAULT</span>
+          <TbSettingsExclamation className="regal-icon" /> <span>SYS FAULT</span>
         </div>
         <div className="regal-status-item gray">
-          <FaBell className="regal-icon" /> <span>PRE ALARM</span>
+          <MdWrongLocation  className="regal-icon" /> <span>ZONE ISO</span>
         </div>
         <div className="regal-status-item gray">
-          <FaInfinity className="regal-icon" /> <span>CONNECTED</span>
+          <FaPersonRunning className="regal-icon" /> <span>EVACUATE</span>
         </div>
       </div>
 
@@ -199,14 +198,14 @@ export default function RegalPopup({ panel, onClose, selectedPanel }) {
               >
                 FAULT({selectedPanel.fault ?? 0})
               </button>
-              <button
+              {/* <button
                 className={`tab ${
                   activeTab === "activated" ? "active activated" : ""
                 }`}
                 onClick={() => setActiveTab("activated")}
               >
                 ACTIVATED({selectedPanel.activated ?? 0})
-              </button>
+              </button> */}
               <button
                 className={`regal-tab ${
                   activeTab === "sysfault" ? "active sysfault" : ""
@@ -218,6 +217,7 @@ export default function RegalPopup({ panel, onClose, selectedPanel }) {
             </div>
 
             <div className={`regal-content-box ${activeTab}`}>
+              <div className="content-scroll">
               {data.map((item, index) => (
                 <div
                   key={index}
@@ -228,6 +228,7 @@ export default function RegalPopup({ panel, onClose, selectedPanel }) {
                   ))}
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>

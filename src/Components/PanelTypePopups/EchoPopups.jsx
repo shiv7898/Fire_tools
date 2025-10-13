@@ -1,12 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
-import { IoBulb } from "react-icons/io5";
+import { IoBulb , IoBatteryChargingOutline } from "react-icons/io5";
 import { IoMdBatteryCharging } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
-import { RiResetLeftFill } from "react-icons/ri";
+import { RiResetLeftFill , RiBatteryLowFill } from "react-icons/ri";
 import { GiRingingBell } from "react-icons/gi";
 import { GiRingingAlarm } from "react-icons/gi";
 import { FaPersonRunning } from "react-icons/fa6";
+import { TbBulbFilled } from "react-icons/tb";
+
+
+
 
 import { Link } from "react-router-dom";
 import "../CssComponent/PanelTypePopup/EchoPopup.css";
@@ -16,6 +20,7 @@ import {
   FaExclamationCircle,
   FaCogs,
   FaInfinity,
+  FaBellSlash,
 } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
 export default function EchoPopup({ panel, onClose, selectedPanel }) {
@@ -29,8 +34,8 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
 
   const options = [
     { label: "RESET", icon: <RiResetLeftFill /> },
-    { label: "SILENCE", icon: <GiRingingBell /> },
-    { label: "L.TEST", icon: <GiRingingAlarm /> },
+    { label: "SILENCE", icon: <FaBellSlash /> },
+    { label: "L.TEST", icon: <TbBulbFilled /> },
    
     { label: "EVACUATE", icon: <FaPersonRunning /> },
   ];
@@ -166,16 +171,16 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
           <span>FAULT</span>
         </div>
         <div className="echo-status-item gray">
-          <FaVolumeUp className="echo-icon" /> <span>EVACUATE</span>
+          <FaPersonRunning className="echo-icon" /> <span>EVACUATE</span>
         </div>
         <div className="echo-status-item gray">
-          <FaCogs className="echo-icon" /> <span>SILENCE</span>
+          <FaBellSlash  className="echo-icon" /> <span>SILENCE</span>
         </div>
         <div className="echo-status-item gray">
-          <FaBell className="echo-icon" /> <span>B.LOW</span>
+          <RiBatteryLowFill className="echo-icon" /> <span>B.LOW</span>
         </div>
         <div className="echo-status-item gray">
-          <FaInfinity className="echo-icon" /> <span>B.CHARGE</span>
+          <IoBatteryChargingOutline className="echo-icon" /> <span>B.CHARGE</span>
         </div>
       </div>
 
@@ -215,9 +220,12 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
               >
                 SYS FAULT({selectedPanel.sysfault ?? 0})
               </button>
-            </div> */}
+               </div>
+            */}
+            
 
             <div className={`echo-content-box ${activeTab}`}>
+              <div className="content-scroll">
               {data.map((item, index) => (
                 <div
                   key={index}
@@ -228,6 +236,7 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
                   ))}
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>

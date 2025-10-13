@@ -31,7 +31,7 @@
   justify-content: center;
   /* align-items: center; Fire DEV :01 LOOP:01
 [                   ]*/
-  z-index: 1000;
+  z-index: 5000;
   padding:10px;
   border-radius: 8px;
   border: 1px solid gray;
@@ -59,26 +59,29 @@
     border-radius: 2.5px;
     margin: 4px;
     padding: 4px;
+    flex-shrink: 0;
 }
 .aboutpanel{
     display:flex;
-
+    flex:1;
+    overflow: hidden;
     width:100%;
     height: 93%;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 .panel-information{
-   width:74%;
+   width:70%;
    height:97%;
    margin: 0;
    padding:0;
-   
+   box-sizing: border-box;
 }
 .panel-card-container{
     width:98%;
     height:85%;
-    margin: 2px 2px 4px 4px;
+    margin: 2px 1px 4px 4px;
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
@@ -87,10 +90,10 @@
     border-radius: 4px;
     padding: 10px;
 }
-.tower-popup-overlay .map-container{
+.map-containers{
   height: 96%;
-  width: 28%;
-  margin:3px 6px 2px 2px;
+  width: 30%;
+  margin:4px 5px 1px 1px;
   background-color: aliceblue;
   border-radius: 4px;
   padding: 10px;
@@ -109,6 +112,7 @@
     display: flex;
     flex-direction: column;
     justify-content: first baseline;
+    box-sizing: border-box;
 }
 .fire-heading {
     height: 9%;
@@ -162,9 +166,10 @@
     width: 100%;
     border: 1.4px solid #FF5858;
     border-radius: 5px;
-    padding: 8px 5px 5px 5px ;
+    padding: 8px 5px 8px 5px ;
     margin-top: 5px;
     position: relative;
+    
     
 }
 .fault-data{
@@ -172,19 +177,32 @@
     width: 100%;
    border: 1.4px solid #FFE100;
     border-radius: 5px;
-    padding: 8px 5px 5px 5px;
+    padding: 8px 5px 8px 5px;
     margin-top: 5px;
     position: relative;
+    overflow-y: hidden;
    
 }
+.fault-scroll{
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow-y: scroll;
+}
+.fault-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 .activated-data{
     height: 90%;
     width: 100%;
    border: 1.4px solid #3EB68E;
     border-radius: 5px;
-    padding: 8px 5px 5px 5px;
+    padding: 8px 5px 8px 5px;
     margin-top: 5px;
     position: relative;
+   
    
 }
 .sysfault-data{
@@ -192,10 +210,9 @@
     width: 100%;
     border: 1.4px solid #9969FF;
     border-radius: 5px;
-    padding: 8px 5px 5px 5px;
+    padding: 8px 5px 8px 5px;
     margin-top: 5px;
     position: relative;
-   
 }
 .chead{
   font-weight: bold;
@@ -206,7 +223,7 @@
   font-weight: 600;
   font-size: 22px;
   margin-left: 1px;
-   font-family: 'Overpass';
+  font-family: 'Overpass';
 }
 .towerheading p{
   
@@ -236,7 +253,7 @@
 .close-btn {
   position: absolute;
   top: 23px;
-  left: 20px;
+  left: 25px;
   font-size: 22px;
   border: none;
   background: none;
@@ -259,6 +276,7 @@
   word-wrap: break-word;
   overflow-wrap: anywhere;
   white-space: normal;
+  
 
 }
 
@@ -278,6 +296,7 @@
     word-wrap: break-word;
   overflow-wrap: anywhere;
   white-space: normal;
+  
 }
 .activated-data ul li{
   list-style: none;
@@ -289,9 +308,9 @@
   text-align: center;
   justify-content: center;
   height: fit-content;
-   font-size: 14px;
-    font-weight: 500;
-    word-wrap: break-word;
+  font-size: 14px;
+  font-weight: 500;
+  word-wrap: break-word;
   overflow-wrap: anywhere;
   white-space: normal;
 
