@@ -211,7 +211,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
                 FAULT({selectedPanel.fault ?? 0})
               </button>
               <button
-                className={`tab ${
+                className={`addressable-tab ${
                   activeTab === "activated" ? "active activated" : ""
                 }`}
                 onClick={() => setActiveTab("activated")}

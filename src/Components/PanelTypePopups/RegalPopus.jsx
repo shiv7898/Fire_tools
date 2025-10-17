@@ -158,7 +158,7 @@ export default function RegalPopup({ panel, onClose, selectedPanel }) {
         </div>
         <div className="regal-status-item gray">
           <IoMdBatteryCharging className="regal-icon" />{" "}
-          <span>BATTERY MODE</span>
+          <span>B.MODE</span>
         </div>
         <div className="regal-status-item gray">
           <FaExclamationCircle className="regal-icon" />{" "}

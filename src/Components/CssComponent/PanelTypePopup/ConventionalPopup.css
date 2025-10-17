@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
 }
-.conventional-event-container {
+.conventional-event-container{
   width: 40%;
   /* max-width: 380px; */
   /* margin: auto; */
@@ -14,6 +14,10 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
 }
 .conventional-event-container::-webkit-scrollbar {
   display: none;
@@ -28,6 +32,7 @@
 .conventional-subtitle {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   /* background: #888; */
   color: #fff;
@@ -35,23 +40,36 @@
   border-radius: 6px;
   /* display: inline-block; */
   margin-bottom: 6px;
+  width: 100%;
 }
 .conventional-address {
-  height: 10px;
-  width: 100%;
-  border: 1px solid black;
+ box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);
+  /* margin: 0px; */
+  /* border: 1px solid black; */
+  color: #5c5c5c;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 8px; */
+  width:40%;
+  border-radius: 6px;
+  height: 33px;
+  margin-top: 10px;
+  font-weight: 600;
+  background-color: white;
 }
 .conventional-location {
   font-weight: bold;
   margin-bottom: 10px;
   cursor: pointer;
+  padding: 18px 22px;
 }
 #conventional-location-input {
   border: none;
   background: #fffefe;
-  box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7); /* light blue shadow */
+  box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7); 
   padding: 8px 12px;
-
   border-radius: 6px;
   font-weight: bold;
   width: 50%;
@@ -61,8 +79,8 @@
 .conventional-location-input-1 {
   border: none;
   background: #fffefe;
-  box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7); /* light blue shadow */
-  padding: 8px 12px;
+  /* box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);  */
+  /* padding: 8px 12px; */
   border-radius: 6px;
   font-weight: bold;
   font-size: 14px;
@@ -88,11 +106,12 @@
 }
 /* left side box icon and led status css */
 .conventional-status-grid {
+  margin-top:10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px 100px;
+  gap: 14px 85px;
   /* max-width: 391px; */
-  margin: 10px 60px;
+  /* margin: 10px 60px; */
   font-family: Arial, sans-serif;
 }
 
@@ -288,9 +307,9 @@
   justify-content: center;
   align-items: center;
   padding: 7px;
-  width: 100%;
+  width: 40%;
 }
-.conventional-location span {
+.conventional-location {
   border: none;
   background: #fffefe;
   box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);
@@ -333,7 +352,7 @@
   width: 90%;
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 8px;
   font-size: 14px;
 }
@@ -468,10 +487,11 @@
 .conventional-button-container{
   width:100%;
   height: 10%;
-  margin-top: 25px;
+  margin-top: 35px;
   display: flex;
   justify-content: space-evenly;
   gap:5px;
+ 
 }
 .conventional-btn-main {
   width: 23%;
@@ -486,9 +506,17 @@
   align-items: center;
   justify-content: center;
   gap: 2px;
-  cursor: pointer;
+  /* cursor: pointer; */
   transition: all 0.3s ease;
-  border: 0.5px solid #707070;;
+  /* border: 0.5px solid #707070; */
+   border: none;
+  cursor: pointer;
+  font-weight: bold;
+  
+  background: #ffffff;
+  color: rgb(103, 103, 103);
+  font-size: 0.7em;
+  box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);
 }
 .conventional-btn-icon{
   font-size: 17px;
@@ -501,7 +529,7 @@
   transition: color 0.3s ease, transform 0.3s ease;
 }
 .conventional-btn-label{
-   font-size: 12px;
+   /* font-size: 12px; */
   color: #707070;
    padding: 2px 0px 0px 2px;
    font-weight: bold;

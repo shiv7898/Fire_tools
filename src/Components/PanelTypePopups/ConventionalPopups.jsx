@@ -102,7 +102,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
            <span>Addressable Panel</span>
          </div> */}
          <div className="conventional-location">
-          <span>{selectedPanel?.type || ""}</span>
+          {selectedPanel?.type || ""}
          </div>
          <div className="conventional-location conventional-update-popup">
            <input

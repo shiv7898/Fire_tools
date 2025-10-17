@@ -8,12 +8,18 @@
   width: 40%;
   /* max-width: 380px; */
   /* margin: auto; */
+  
   background-color: #f1f8ff;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
+  overflow-y: scroll;
 }
 .addressable-event-container::-webkit-scrollbar {
   display: none;
@@ -88,9 +94,9 @@
 .addressable-status-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px 70px;
+  gap: 14px 85px;
   /* max-width: 391px; */
-  margin: 10px 60px;
+  /* margin: 10px 60px; */
   font-family: Arial, sans-serif;
 }
 
@@ -171,7 +177,7 @@
 }
 
 .addressable-activated {
-  background: #d6f5d6;
+  /* background: #d6f5d6; */
   color: #0a662c;
 }
 .addressable-activated.active {
@@ -402,8 +408,8 @@
 }
 
 .addressable-tab {
-  width: 24%;
-  padding: 13px 3px;
+  width: 25%;
+  padding: 10px 3px;
   border: none;
   cursor: pointer;
   font-weight: bold;
@@ -440,11 +446,11 @@
   border-radius: 8px;
   padding: 20px 20px 20px 20px;
   background: #ffffff;
-  max-height: 254px;
-  overflow: scroll;
+  
 }
 .content-scroll {
-  max-height: 214px;      
+
+       
   overflow-y: auto;       
 }
 .content-scroll::-webkit-scrollbar {
@@ -507,7 +513,7 @@
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 5px 12px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -535,7 +541,7 @@
 
 .addressable-dropdown-menu {
   position: absolute;
-  top: 110%;
+  top: 105%;
   left: 0;
   width: 100%;
   background: #ffffff;
@@ -551,9 +557,10 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 7px 10px;
+  padding: 5px 10px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 0.7rem;
 }
 
 .addressable-dropdown-item:hover {
@@ -577,7 +584,7 @@
 }
 
 .addressable-label {
-  font-size: 12px;
+  /* font-size: 12px; */
   color: #707070;
   transition: color 0.3s ease;
 }
