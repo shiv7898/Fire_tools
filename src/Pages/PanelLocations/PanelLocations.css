@@ -1,10 +1,12 @@
 .map-container {
-  max-width: 650px;
+  max-width: 550px;
     margin: 2px auto;
   padding: 20px;
   background: #f9fcff;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  height: auto;
+
 }
 
 .map-title {
@@ -19,7 +21,7 @@
 }
 
 .leaflet-map {
-  height: 400px;
+  height: 435px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 8px;

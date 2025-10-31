@@ -1,5 +1,5 @@
 .inactive-panel-container {
-  max-width: 600px;
+  max-width: 550px;
      margin: 2px auto;
   padding: 20px;
   background: #f9fcff;
@@ -61,5 +61,23 @@
     display: block;
     width: 100%;
     overflow-x: auto;
+  }
+}
+@media (max-width: 768px){
+  .event-container1 {
+    width:94%;
+    margin-left: 6%;
+  }
+}
+@media (max-width: 550px){
+  .event-container1 {
+    width:91%;
+    margin-left: 9%;
+  }
+}
+@media (max-width: 390px) {
+  .event-container1 {
+    width: 90% !important;
+    margin-left:10% !important;
   }
 }

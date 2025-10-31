@@ -8,6 +8,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { IoBulb } from "react-icons/io5";
 import { IoMdBatteryCharging } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
+import { BiArrowBack } from "react-icons/bi";
 import {
   FaBell,
   FaFire,
@@ -36,7 +37,8 @@ const ConventionalEvent = ({ panel, onClose }) => {
       <div className="towerheading">
         <button className="close-btn" onClick={onClose}>
           {/* ⬅ */}
-          <IoArrowBackSharp size={25} color="black" />
+          {/* <IoArrowBackSharp size={25} color="black" /> */}
+          <BiArrowBack />
         </button>
         <p>{`${panel.name}`} (Conventional)</p>
       </div>
@@ -86,7 +88,7 @@ const ConventionalEvent = ({ panel, onClose }) => {
             <div className="fire-card">
               <div className="fire-heading">
                 <p className="chead">FIRE</p>
-                <p className="faultcount">({panel?.fires?.length || 0})</p>
+                <p className="faultcount">{(panel?.fires?.length || "")}</p>
               </div>
               <div className="fire-data">
                 <ul>
@@ -95,7 +97,7 @@ const ConventionalEvent = ({ panel, onClose }) => {
                       <li key={i}>{JSON.stringify(item)}</li>
                     ))
                   ) : (
-                    <li>No Fire Events</li>
+                    <div className="nofault"><li>No Fire Faults</li></div>
                   )}
                 </ul>
               </div>
@@ -115,7 +117,7 @@ const ConventionalEvent = ({ panel, onClose }) => {
                       <li key={index}>{item}</li>
                     ))
                   ) : (
-                    <li>No Faults</li>
+                    <div className="nofault"><li>No Faults</li></div>
                   )}
                 </ul>
               </div>
@@ -134,7 +136,7 @@ const ConventionalEvent = ({ panel, onClose }) => {
                       <li key={i}>{JSON.stringify(item)}</li>
                     ))
                   ) : (
-                    <div className="nofault"><li>No Faults</li></div>
+                    <div className="nofault"><li>No Activated</li></div>
                   )}
                 </ul>
               </div>
@@ -153,7 +155,7 @@ const ConventionalEvent = ({ panel, onClose }) => {
                       <li key={i}>{JSON.stringify(item)}</li>
                     ))
                   ) : (
-                    <li>No Faults</li>
+                   <div className="nofault"><li>No System Faults</li></div> 
                   )}
                 </ul>
               </div>

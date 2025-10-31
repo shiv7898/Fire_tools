@@ -86,7 +86,7 @@ export default function Dashboard({ userData }) {
 
       try {
         const response = await axios.get(
-          "http://192.168.14.240:8000/v2/users/me",
+          "http://192.168.14.102:8000/v2/users/me",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -112,7 +112,7 @@ export default function Dashboard({ userData }) {
       console.log("Fetching events for user ID:", userId);
       try {
         const response = await axios.get(
-          `http://192.168.14.240:8000/v2/events/temps?id=${userId}`,
+          `http://192.168.14.102:8000/v2/events/temps?id=${userId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

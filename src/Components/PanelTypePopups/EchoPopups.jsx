@@ -139,13 +139,13 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
               <div className="echo-popup-actions">
                 <button
                   onClick={handleClosePopup}
-                  className="echo-btn echo-cancel"
+                  className="echo-cancel"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSave}
-                  className="echo-btn echo-confirm"
+                  className="echo-confirm"
                 >
                   Save
                 </button>
@@ -225,7 +225,7 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
             
 
             <div className={`echo-content-box ${activeTab}`}>
-              <div className="content-scroll">
+              <div className="echo-content-scroll">
               {data.map((item, index) => (
                 <div
                   key={index}

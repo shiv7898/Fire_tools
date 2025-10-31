@@ -92,7 +92,7 @@ const RegalEvent = ({ panel, onClose }) => {
             <div className="fire-card">
               <div className="fire-heading">
                 <p className="chead">FIRE</p>
-                <p className="faultcount">({panel?.fires?.length || 0})</p>
+                <p className="faultcount"> {panel?.fires?.length > 0 ? `(${panel.fires.length})` : ""}</p>
               </div>
               <div className="fire-data">
                 <div className="fault-scroll">
@@ -113,7 +113,7 @@ const RegalEvent = ({ panel, onClose }) => {
             <div className="fault-card">
               <div className="fault-heading">
                 <p className="chead">FAULT</p>
-                <p className="faultcount">({panel?.faults?.length || 0})</p>
+                <p className="faultcount"> {panel?.faults?.length > 0 ? `(${panel.faults.length})` : ""}</p>
               </div>
 
               <div className="fault-data">
@@ -135,7 +135,7 @@ const RegalEvent = ({ panel, onClose }) => {
             <div className="activated-card">
               <div className="activated-heading">
                 <p className="chead">ACTIVATED</p>
-                <p className="faultcount">({panel?.activated?.length || 0})</p>
+                <p className="faultcount"> {panel?.faults?.length > 0 ? `(${panel.faults.length})` : ""}</p>
               </div>
               <div className="activated-data">
                 <div className="fault-scroll">
@@ -146,7 +146,7 @@ const RegalEvent = ({ panel, onClose }) => {
                     ))
                   ) : (
                     <div className="nofault">
-                      <li>No Activations</li>
+                      <li>No Activated</li>
                     </div>
                   )}
                 </ul>
@@ -156,7 +156,7 @@ const RegalEvent = ({ panel, onClose }) => {
             <div className="sysfault-card">
               <div className="sysfault-heading">
                 <p className="chead">SYS FAULT</p>
-                <p className="faultcount">({panel?.sysfaults?.length || 0})</p>
+                <p className="faultcount"> {panel?.sysfaults?.length > 0 ? `(${panel.sysfaults.length})` : ""}</p>
               </div>
               <div className="sysfault-data">
                 <div className="fault-scroll">

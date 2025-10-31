@@ -170,7 +170,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
         </div>
         <div className="addressable-status-item gray">
           <IoMdBatteryCharging className="addressable-icon" />{" "}
-          <span>BATTERY MODE</span>
+          <span>B.MODE</span>
         </div>
         <div className="addressable-status-item gray">
           <FaExclamationCircle className="addressable-icon" />{" "}
@@ -200,7 +200,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
                 }`}
                 onClick={() => setActiveTab("fire")}
               >
-                FIRE({selectedPanel.fire ?? 0})
+                FIRE ({selectedPanel.fire ?? 0})
               </button>
               <button
                 className={`addressable-tab ${
@@ -208,7 +208,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
                 }`}
                 onClick={() => setActiveTab("fault")}
               >
-                FAULT({selectedPanel.fault ?? 0})
+                FAULT ({selectedPanel.fault ?? 0})
               </button>
               <button
                 className={`addressable-tab ${
@@ -216,7 +216,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
                 }`}
                 onClick={() => setActiveTab("activated")}
               >
-                ACTIVATED({selectedPanel.activated ?? 0})
+                ACTIVATED ({selectedPanel.activated ?? 0})
               </button>
               <button
                 className={`addressable-tab ${
@@ -224,12 +224,12 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
                 }`}
                 onClick={() => setActiveTab("sysfault")}
               >
-                SYS FAULT({selectedPanel.sysfault ?? 0})
+                SYS FAULT ({selectedPanel.sysfault ?? 0})
               </button>
             </div>
 
             <div className={`addressable-content-box ${activeTab}`}>
-              <div className="content-scroll">
+              <div className="addressable-content-scroll">
               {data.map((item, index) => (
                 <div
                   key={index}

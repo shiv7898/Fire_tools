@@ -17,6 +17,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  overflow-y: scroll;
 }
 .regal-event-container::-webkit-scrollbar {
   display: none;
@@ -25,7 +27,7 @@
 .regal-title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .regal-subtitle {
@@ -45,7 +47,7 @@
 }
 .regal-location {
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   cursor: pointer;
 }
 #regal-location-input {
@@ -303,7 +305,7 @@
   width: 40%;
   border-radius: 6px;
   height: 33px;
-  margin-top: 10px;
+  margin-top: 8px;
   font-weight: 600;
   background-color: #fff;
 }
@@ -380,6 +382,33 @@
   background: #2ecc71;
   color: #fff;
 }
+.regal-confirm {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.regal-cancel{
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+
+}
+
+.regal-cancel:active {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.regal-confirm:active {
+  background-color: #2ecc71;
+  color: #fff;
+}
 
 /* tower popup */
 .regal-status-container {
@@ -390,7 +419,7 @@
   display: flex;
   justify-content: space-between;
   gap: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   margin-top: 24px;
 }
 
@@ -433,14 +462,15 @@
   border-radius: 8px;
   padding: 20px 8px 20px 20px;
   background: #ffffff;
-  /* max-height: 254px; */
+  max-height: 254px;
   
 }
-.content-scroll {
-  max-height: 214px;      /* 254 - 40px padding (top + bottom) */
-  overflow-y: auto;       /* Only the inner content scrolls */
+.regal-content-scroll {
+  max-height: 214px;      
+  overflow-y: auto;   
+  cursor: pointer;    /* Only the inner content scrolls */
 }
-.content-scroll::-webkit-scrollbar {
+.regal-content-scroll::-webkit-scrollbar {
   display: none;
 }
 .regal-content-box::-webkit-scrollbar {
@@ -499,7 +529,7 @@
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 5px 12px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -507,7 +537,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  color: #444;
+  color: #5c5c5c;
   transition: all 0.3s ease;
   box-shadow: 0 0 8px rgba(176, 199, 255, 0.5);
 }
@@ -542,10 +572,11 @@
 .regal-dropdown-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 3px;
+  padding: 3px 10px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 0.7rem;
 }
 
 .regal-dropdown-item:hover {
@@ -572,4 +603,39 @@
   font-size: 12px;
   color: #707070;
   transition: color 0.3s ease;
+}
+@media (max-width: 768px) {
+  .regal-event-container {
+    width: 94%;
+    margin-left: 6%;
+    
+  }
+  .regal-popup-overlay {
+    width: 94% !important;
+  }
+}
+@media (max-width: 550px) {
+  .regal-event-container {
+    width: 91% !important;
+    margin-left:9% !important;
+  }
+  .regal-popup-overlay {
+    width: 91% !important;
+  }
+  .regal-popup-box {
+    width: 280px !important;
+  }
+}
+@media (max-width: 390px) {
+  .regal-event-container {
+    width: 90% !important;
+    margin-left:10% !important;
+    padding: 17px !important;
+  }
+  .regal-popup-overlay {
+    width: 90% !important;
+  }
+  .regal-popup-box{
+    width: 250px !important;
+  }
 }

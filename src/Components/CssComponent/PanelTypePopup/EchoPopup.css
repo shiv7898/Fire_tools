@@ -17,7 +17,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .echo-event-container::-webkit-scrollbar {
@@ -95,7 +95,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 14px 85px;
   /* max-width: 391px; */
-  margin: 10px 60px;
+  /* margin: 10px 60px; */
   font-family: Arial, sans-serif;
 }
 
@@ -306,7 +306,7 @@
   width: 40%;
   border-radius: 6px;
   height: 33px;
-  margin-top: 10px;
+  margin-top: 8px;
   font-weight: 600;
   background-color: #fff;
 }
@@ -383,6 +383,33 @@
   background: #2ecc71;
   color: #fff;
 }
+.echo-confirm {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.echo-cancel{
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+
+}
+
+.echo-cancel:active {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.echo-confirm:active {
+  background-color: #2ecc71;
+  color: #fff;
+}
 
 /* tower popup */
 .echo-status-container {
@@ -441,11 +468,11 @@
   margin-top: 10px;
   /* overflow: scroll; */
 }
-.content-scroll {
+.echo-content-scroll {
   max-height: 214px;      /* 254 - 40px padding (top + bottom) */
   overflow-y: auto;       /* Only the inner content scrolls */
 }
-.content-scroll::-webkit-scrollbar {
+.echo-content-scroll::-webkit-scrollbar {
   display: none;
 }
 .echo-content-box::-webkit-scrollbar {
@@ -504,7 +531,7 @@
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 5px 12px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -512,7 +539,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  color: #444;
+  color: #5c5c5c;
   transition: all 0.3s ease;
   box-shadow: 0 0 8px rgba(176, 199, 255, 0.5);
 }
@@ -545,12 +572,13 @@
 }
 
 .echo-dropdown-item {
-  display: flex;
+   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 12px;
+  gap: 3px;
+  padding: 3px 10px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 0.7rem;
 }
 
 .echo-dropdown-item:hover {
@@ -577,4 +605,39 @@
   font-size: 12px;
   color: #707070;
   transition: color 0.3s ease;
+}
+@media (max-width: 768px) {
+.echo-event-container {
+    width: 94%;
+    margin-left: 6%;
+    
+  }
+  .echo-popup-overlay {
+    width: 94%;
+  }
+}
+@media (max-width: 550px) {
+  .echo-event-container {
+    width: 91% !important;
+    margin-left:9% !important;
+  }
+  .echo-popup-overlay {
+    width: 91% !important;
+  }
+  .echo-popup-box {
+    width: 280px !important;
+  }
+}
+@media (max-width: 390px) {
+  .echo-event-container {
+    width: 90% !important;
+    margin-left:10% !important;
+    padding: 17px !important;
+  }
+  .echo-popup-overlay {
+    width: 90% !important;
+  }
+  .echo-popup-box {
+    width: 250px !important;
+  }
 }

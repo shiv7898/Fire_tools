@@ -104,7 +104,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
          <div className="conventional-location">
           {selectedPanel?.type || ""}
          </div>
-         <div className="conventional-location conventional-update-popup">
+         {/* <div className="conventional-location conventional-update-popup"> */}
            <input
              type="text"
              value={selectedPanel?.name || ""}
@@ -113,7 +113,7 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
              onClick={handleOpenPopup}
              title="Update panel name"
            />
-         </div>
+         {/* </div> */}
        </div>
        <div>
          {showPopup && (
@@ -129,10 +129,10 @@ export default function AddressablePopup({ panel, onClose, selectedPanel }) {
                />
  
                <div className="conventional-popup-actions">
-                 <button onClick={handleClosePopup} className="conventional-btn conventional-cancel">
+                 <button onClick={handleClosePopup} className="conventional-cancel">
                    Cancel
                  </button>
-                 <button onClick={handleSave} className="conventional-btn conventional-confirm">
+                 <button onClick={handleSave} className="conventional-confirm">
                    Save
                  </button>
                </div>

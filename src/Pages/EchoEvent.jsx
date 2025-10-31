@@ -125,7 +125,7 @@ const EchoEvent = ({ panel , onClose }) => {
                    {panel?.activated?.length > 0 ? (
                    panel.activated.map((item, index) => <li key={index}>{item}</li>)
                       ) : (
-                    <div className='nofault'><li>No Activations</li></div>
+                    <div className='nofault'><li>No Activated</li></div>
                       )}
                        </ul>
                        </div>

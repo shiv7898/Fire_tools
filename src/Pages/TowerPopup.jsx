@@ -135,7 +135,7 @@ const TowerPopup = ({ panel, onClose }) => {
                   panel.activated.map((item, index) => <li key={index}>{item}</li>)
                      ) : (
                   <div className="nofault">
-                    <li>No Activations</li>
+                    <li>No Activated</li>
                   </div>
                   )}
                 </ul>

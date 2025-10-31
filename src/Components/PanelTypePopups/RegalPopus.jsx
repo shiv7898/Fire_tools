@@ -133,13 +133,13 @@ export default function RegalPopup({ panel, onClose, selectedPanel }) {
               <div className="regal-popup-actions">
                 <button
                   onClick={handleClosePopup}
-                  className="regal-btn regal-cancel"
+                  className="regal-cancel"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSave}
-                  className="regal-btn regal-confirm"
+                  className="regal-confirm"
                 >
                   Save
                 </button>
@@ -217,7 +217,7 @@ export default function RegalPopup({ panel, onClose, selectedPanel }) {
             </div>
 
             <div className={`regal-content-box ${activeTab}`}>
-              <div className="content-scroll">
+              <div className="regal-content-scroll">
               {data.map((item, index) => (
                 <div
                   key={index}
