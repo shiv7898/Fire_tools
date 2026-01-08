@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
-import { IoBulb , IoBatteryChargingOutline } from "react-icons/io5";
+import axios from "axios";
+import { IoBulb } from "react-icons/io5";
+import { ImSwitch } from "react-icons/im";
 import { IoMdBatteryCharging } from "react-icons/io";
+import { FaBatteryQuarter } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
-import { RiResetLeftFill , RiBatteryLowFill } from "react-icons/ri";
+import { RiResetLeftFill } from "react-icons/ri";
 import { GiRingingBell } from "react-icons/gi";
 import { GiRingingAlarm } from "react-icons/gi";
 import { FaPersonRunning } from "react-icons/fa6";
-import { TbBulbFilled } from "react-icons/tb";
-
-
-
+import { MdOutlineBatterySaver } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import "../CssComponent/PanelTypePopup/EchoPopup.css";
@@ -20,10 +21,18 @@ import {
   FaExclamationCircle,
   FaCogs,
   FaInfinity,
-  FaBellSlash,
 } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
-export default function EchoPopup({ panel, onClose, selectedPanel }) {
+export default function EchoPopup({
+  data: {
+    selectedPanel,
+    selectPanelLedStatuses,
+    processLEDStatus,
+    updateCurrentData,
+    selectedPanelEvent,
+    sendMqttCommand,
+  },
+}) {
   const [activeTab, setActiveTab] = useState("fire");
   const [popupValue, setPopupValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
@@ -31,27 +40,62 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
   const [confirmation, setConfirmation] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  console.log("Selected Panel (Echo):", selectedPanel);
+  console.log("All Live Data:", updateCurrentData);
+
+  // ✅ Filter only current panel data based on ID or Topic
+ 
+
+  const led_status = processLEDStatus(
+    selectedPanel,
+    selectPanelLedStatuses || ""
+  );
+  console.log("LED Status-echo:", led_status);
 
   const options = [
-    { label: "RESET", icon: <RiResetLeftFill /> },
-    { label: "SILENCE", icon: <FaBellSlash /> },
-    { label: "L.TEST", icon: <TbBulbFilled /> },
-   
-    { label: "EVACUATE", icon: <FaPersonRunning /> },
+    {
+      label: "RESET",
+      action: 1,
+      icon: <RiResetLeftFill className="echo_icon_color" />,
+    },
+    {
+      label: "SILENCE",
+      action: 2,
+      icon: <GiRingingBell className="echo_icon_color" />,
+    },
+    {
+      label: "EVACUATE",
+      action: 4,
+      icon: <FaPersonRunning className="echo_icon_color" />,
+    },
+    {
+      label: "L.TEST",
+      action: 6,
+      icon: <GiRingingAlarm className="echo_icon_color" />,
+    },
   ];
 
-  const data = [
-    "Fire DEV :01 LOOP:01, []",
-    "Fire D :01 L:01,[]",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-    "P.NO\\LN-0 Main Fan",
-  ];
+  const handleActionClick = (action) => {
+    sendMqttCommand(selectedPanel.topic, action);
+    setIsOpen(false);
+  };
+  const handlePanelSave = async () => {
+    if (!popupValue.trim()) return;
+
+    try {
+      const res = await axios.put(`/v2/panels/${selectedPanel.id}`, {
+        panel_name: popupValue,
+      });
+
+      handleClosePopup();
+      window.location.reload();
+
+      // ✅ Close popup
+    } catch (error) {
+      console.error("Failed to update panel name", error);
+    }
+  };
+  const data = ["No Event Data"];
   const handleOpenPopup = () => {
     setPopupValue("popupValue");
     setShowPopup(true);
@@ -80,26 +124,20 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
   return (
     <div className="echo-event-container">
       <div className="echo-subtitle">
-        {/* <div className="address">
-           <span>Addressable Panel</span>
-         </div> */}
         <div className="echo-panel-name">
           <span className="">{selectedPanel?.type || ""}</span>
         </div>
-        <div className="echo-location echo-update-popup">
-          <input
-            type="text"
-            value={selectedPanel?.name || ""}
-            className="echo-location-input-1"
-            readOnly
-            onClick={handleOpenPopup}
-            title="Update panel name"
-          />
-        </div>
         <div
-          className="echo-button-container echo-location"
-          ref={dropdownRef}
+          className="echo-location echo-update-popup"
+          onClick={handleOpenPopup}
         >
+          <span>{selectedPanel?.name || ""}</span>
+          <FaEdit className="input-icon-echo" onClick={handleOpenPopup} />
+        </div>
+        <div className="echo-iotid">
+          <span>IOT ID: {selectedPanel?.topic|| "N/A"}</span>
+        </div>
+        <div className="echo-button-container echo-location" ref={dropdownRef}>
           <div className="echo-dropdown">
             <button
               className="echo-dropdown-toggle"
@@ -113,7 +151,12 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
             {isOpen && (
               <div className="echo-dropdown-menu">
                 {options.map((opt, index) => (
-                  <div key={index} className="echo-dropdown-item">
+                  <div
+                    key={index}
+                    className="echo-dropdown-item slide-in"
+                    style={{ animationDelay: `${index * 70}ms` }}
+                    onClick={() => handleActionClick(opt.action)}
+                  >
                     <span className="echo-icon">{opt.icon}</span>
                     <span className="echo-label">{opt.label}</span>
                   </div>
@@ -123,64 +166,83 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
           </div>
         </div>
       </div>
-      <div>
-        {showPopup && (
-          <div className="echo-popup-overlay">
-            <div className="echo-popup-box">
-              <h3>Update</h3>
+      {showPopup && (
+        <div className="addressable-popup-overlay">
+          <div className="addressable-popup-box slide-in-right">
+            <h3>Update Panel Name</h3>
 
-              <input
-                type="text"
-                id="echo-popup-input"
-                value={popupValue}
-                onChange={(e) => setPopupValue(e.target.value)}
-              />
+            <input
+              type="text"
+              id="addressable-popup-input"
+              value={selectedPanel?.name || ""}
+              onChange={(e) => setPopupValue(e.target.value)}
+            />
 
-              <div className="echo-popup-actions">
-                <button
-                  onClick={handleClosePopup}
-                  className="echo-cancel"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSave}
-                  className="echo-confirm"
-                >
-                  Save
-                </button>
-              </div>
+            <div className="addressable-popup-actions">
+              <button onClick={handleClosePopup} className="addressable-cancel">
+                Cancel
+              </button>
+              <button onClick={handlePanelSave} className="addressable-confirm">
+                Save
+              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       <div className="echo-status-grid">
         <div className="echo-status-item green">
-          <IoBulb className="echo-icon" /> <span>MAINS ON</span>
+          <div className="add_icon_background_echo">
+            {" "}
+            <ImSwitch className="echo-icon" />
+          </div>
+          <span>MAINS ON</span>
         </div>
         <div className="echo-status-item red">
-          <FaFire className="echo-icon" /> <span>FIRE</span>
+          <div className="add_icon_background_echo">
+            <FaFire className="echo-icon" />
+          </div>
+          <span>FIRE</span>
         </div>
         <div className="echo-status-item gray">
-          <IoMdBatteryCharging className="echo-icon" />{" "}
+          <div className="add_icon_background_echo">
+            <MdOutlineBatterySaver className="echo-icon" />
+          </div>
+
           <span>B.MODE</span>
         </div>
         <div className="echo-status-item gray">
-          <FaExclamationCircle className="echo-icon" />{" "}
+          <div className="add_icon_background_echo">
+            <FaExclamationCircle className="echo-icon" />
+          </div>
+
           <span>FAULT</span>
         </div>
         <div className="echo-status-item gray">
-          <FaPersonRunning className="echo-icon" /> <span>EVACUATE</span>
+          <div className="add_icon_background_echo">
+            <FaPersonRunning className="echo-icon" />
+          </div>
+          <span>EVACUATE</span>
         </div>
         <div className="echo-status-item gray">
-          <FaBellSlash  className="echo-icon" /> <span>SILENCE</span>
+          <div className="add_icon_background_echo">
+            <FaVolumeUp className="echo-icon" />
+          </div>
+          <span>SILENCE</span>
         </div>
         <div className="echo-status-item gray">
-          <RiBatteryLowFill className="echo-icon" /> <span>B.LOW</span>
+          <div className="add_icon_background_echo">
+            {" "}
+            <FaBatteryQuarter className="echo-icon" />
+          </div>
+          <span>B.LOW</span>
         </div>
         <div className="echo-status-item gray">
-          <IoBatteryChargingOutline className="echo-icon" /> <span>B.CHARGE</span>
+          <div className="add_icon_background_echo">
+            {" "}
+            <IoMdBatteryCharging className="echo-icon" />
+          </div>
+          <span>B.CHARGE</span>
         </div>
       </div>
 
@@ -220,23 +282,16 @@ export default function EchoPopup({ panel, onClose, selectedPanel }) {
               >
                 SYS FAULT({selectedPanel.sysfault ?? 0})
               </button>
-               </div>
-            */}
-            
+            </div> */}
 
             <div className={`echo-content-box ${activeTab}`}>
-              <div className="echo-content-scroll">
               {data.map((item, index) => (
-                <div
-                  key={index}
-                  className={`echo-inner-box ${activeTab}`}
-                >
+                <div key={index} className={`echo-inner-box ${activeTab}`}>
                   {item.split(",").map((line, i) => (
                     <div key={i}>{line}</div>
                   ))}
                 </div>
               ))}
-              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 .inactive-panel-container {
-  max-width: 550px;
+  max-width: 600px;
      margin: 2px auto;
   padding: 20px;
   background: #f9fcff;
@@ -29,24 +29,24 @@
 .inactive-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 400px; 
+ 
   background-color: white;
-  color: #555;
 }
 
 .inactive-table th,
 .inactive-table td {
-  padding: 12px;
+  padding: 13px;
   text-align: left;
   border-bottom: 1px solid #e5e5e5;
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 600;
   white-space: nowrap; /* prevent text breaking */
 }
 
 .inactive-table th {
   position: sticky;
   top: 0;
-  background: #f1f8ff;
+  background: #0d6efd;
   font-weight: 600;
   z-index: 1;
 }
@@ -61,23 +61,5 @@
     display: block;
     width: 100%;
     overflow-x: auto;
-  }
-}
-@media (max-width: 768px){
-  .event-container1 {
-    width:94%;
-    margin-left: 6%;
-  }
-}
-@media (max-width: 550px){
-  .event-container1 {
-    width:91%;
-    margin-left: 9%;
-  }
-}
-@media (max-width: 390px) {
-  .event-container1 {
-    width: 90% !important;
-    margin-left:10% !important;
   }
 }

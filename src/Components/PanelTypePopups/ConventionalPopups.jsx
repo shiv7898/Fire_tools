@@ -1,236 +1,230 @@
 import React, { useState } from "react";
-import { IoBulb } from "react-icons/io5";
-import { IoMdBatteryCharging } from "react-icons/io";
+import axios from "axios";
+import { ImSwitch } from "react-icons/im";
+import { FaBatteryHalf } from "react-icons/fa6";
 import { FaVolumeUp } from "react-icons/fa";
 import { RiResetLeftFill } from "react-icons/ri";
 import { GiRingingBell } from "react-icons/gi";
 import { GiRingingAlarm } from "react-icons/gi";
 import { TbBulbFilled } from "react-icons/tb";
-import { Link } from "react-router-dom";
-import "../CssComponent/PanelTypePopup/ConventionalPopup.css"
-import {
-  FaBell,
-  FaFire,
-  FaExclamationCircle,
-  FaCogs,
-  FaInfinity,
-} from "react-icons/fa";
-export default function AddressablePopup({ panel, onClose, selectedPanel }) {
-   const [activeTab, setActiveTab] = useState("fire");
-   const [popupValue, setPopupValue] = useState("");
-   const [showPopup, setShowPopup] = useState(false);
-    const [mainValue, setMainValue] = useState("r1/tower/1111");
-     const [confirmation, setConfirmation] = useState("");
- 
-   const data = [
-     "Fire DEV :01 LOOP:01, []",
-     "Fire D :01 L:01,[]",
-     "P.NO\\LN-0 Main Fan",
-     "P.NO\\LN-0 Main Fan",
-     "P.NO\\LN-0 Main Fan",
-     "P.NO\\LN-0 Main Fan",
-     "P.NO\\LN-0 Main Fan",
-     "P.NO\\LN-0 Main Fan",
-     "P.NO\\LN-0 Main Fan",
-     "P.NO\\LN-0 Main Fan",
-   ];
-   const handleOpenPopup = () => {
-     setPopupValue("popupValue");
-     setShowPopup(true);
-   };
-   const handleClosePopup = () => setShowPopup(false);
-     const handleSave = () => {
-     if (confirmation === "Yes") {
-       setMainValue(popupValue);
-     }}
- 
-   return (
-     // <div className="container">
-     //   <div className="status-container">
-     //     <div className="tabs">
-     //       <button
-     //         className={`tab ${activeTab === "fire" ? "active fire" : ""}`}
-     //         onClick={() => setActiveTab("fire")}
-     //       >
-     //         FIRE({panel?.fire ?? 0})
-     //       </button>
-     //       <button
-     //         className={`tab ${activeTab === "fault" ? "active fault" : ""}`}
-     //         onClick={() => setActiveTab("fault")}
-     //       >
-     //         FAULT({panel?.fault ?? 0})
-     //       </button>
-     //       <button
-     //         className={`tab ${
-     //           activeTab === "activated" ? "active activated" : ""
-     //         }`}
-     //         onClick={() => setActiveTab("activated")}
-     //       >
-     //         ACTIVATED({panel?.activated ?? 0})
-     //       </button>
-     //       <button
-     //         className={`tab ${
-     //           activeTab === "sysfault" ? "active sysfault" : ""
-     //         }`}
-     //         onClick={() => setActiveTab("sysfault")}
-     //       >
-     //         SYS FAULT({panel?.sysfault ?? 0})
-     //       </button>
-     //     </div>
- 
-     //     <div className={`content-box ${activeTab}`}>
-     //       {data.map((item, index) => (
-     //         <div key={index} className={`inner-box ${activeTab}`}>
-     //           {item.split(",").map((line, i) => (
-     //             <div key={i}>{line}</div>
-     //           ))}
-     //         </div>
-     //       ))}
-     //     </div>
- 
-     //     <div style={{ textAlign: "center", marginTop: "10px" }}>
-     //       <button onClick={onClose} className="btn cancel">
-     //         Close
-     //       </button>
-     //     </div>
-     //   </div>
-     // </div>
- 
-     <div className="conventional-event-container">
-       <div className="conventional-subtitle">
-         {/* <div className="address">
-           <span>Addressable Panel</span>
-         </div> */}
-         <div className="conventional-location">
+import "../CssComponent/PanelTypePopup/ConventionalPopup.css";
+import { FaFire, FaExclamationCircle } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+
+export default function ConventionalPopup({
+  data: {
+    panel,
+    onClose,
+    selectedPanel,
+    selectPanelLedStatuses,
+    processLEDStatus,
+    updateCurrentData,
+    sendMqttCommand,
+  },
+}) {
+  console.log("Panel Props (Conventional):", panel);
+  console.log("Selected Panel (Conventional):", selectedPanel);
+  console.log("Selected Panel LED Statuses:", selectPanelLedStatuses);
+
+  const handleActionClick = (action) => {
+    sendMqttCommand(selectedPanel.topic, action);
+  };
+  const handlePanelSave = async () => {
+    if (!popupValue.trim()) return;
+
+    try {
+      const res = await axios.put(`/v2/panels/${selectedPanel.id}`, {
+        panel_name: popupValue,
+      });
+
+      handleClosePopup();
+      window.location.reload();
+
+      // ✅ Close popup
+    } catch (error) {
+      console.error("Failed to update panel name", error);
+    }
+  };
+
+  const led_status = processLEDStatus(
+    selectedPanel,
+    selectedPanel?.led_status || selectPanelLedStatuses
+  );
+  console.log("Selected Panel (Conventional)axax:", led_status);
+
+  // ✅ Filter only current panel data based on ID or Topic
+  const panelData = Array.isArray(updateCurrentData)
+    ? updateCurrentData.find((p) => p.id === selectedPanel?.id)
+    : updateCurrentData?.id === selectedPanel?.id
+    ? updateCurrentData
+    : null;
+
+  console.log("Matched Conventional Panel Data:", panelData);
+
+  const [activeTab, setActiveTab] = useState("fire");
+  const [popupValue, setPopupValue] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [mainValue, setMainValue] = useState("r1/tower/1111");
+  const [confirmation, setConfirmation] = useState("");
+
+  const handleOpenPopup = () => {
+    setPopupValue(selectedPanel?.name || "");
+    setShowPopup(true);
+  };
+  const handleClosePopup = () => setShowPopup(false);
+  const handleSave = () => {
+    if (confirmation === "Yes") {
+      setMainValue(popupValue);
+    }
+    setShowPopup(false);
+  };
+
+  return (
+    <div className="conventional-event-container">
+      {/* 🔹 Header */}
+      <div className="conventional-subtitle">
+        <div className="conventional-name-container">
           {selectedPanel?.type || ""}
-         </div>
-         {/* <div className="conventional-location conventional-update-popup"> */}
-           <input
-             type="text"
-             value={selectedPanel?.name || ""}
-             className="conventional-location-input-1"
-             readOnly
-             onClick={handleOpenPopup}
-             title="Update panel name"
-           />
-         {/* </div> */}
-       </div>
-       <div>
-         {showPopup && (
-           <div className="conventional-popup-overlay">
-             <div className="conventional-popup-box">
-               <h3>Update</h3>
- 
-               <input
-                 type="text"
-                 id="conventional-popup-input"
-                 value={popupValue}
-                 onChange={(e) => setPopupValue(e.target.value)}
-               />
- 
-               <div className="conventional-popup-actions">
-                 <button onClick={handleClosePopup} className="conventional-cancel">
-                   Cancel
-                 </button>
-                 <button onClick={handleSave} className="conventional-confirm">
-                   Save
-                 </button>
-               </div>
-             </div>
-           </div>
-         )}
-       </div>
- 
-       <div className="conventional-status-grid">
-         <div className="conventional-status-item green">
-           <IoBulb className="conventional-icon" /> <span>MAINS</span>
-         </div>
-         <div className="conventional-status-item red">
-           <FaFire className="conventional-icon" /> <span>FIRE</span>
-         </div>
-         <div className="conventional-status-item gray">
-           <IoMdBatteryCharging className="conventional-icon" /> <span>BATTERY MODE</span>
-         </div>
-         <div className="conventional-status-item gray">
-           <FaExclamationCircle className="conventional-icon" /> <span>FAULT</span>
-         </div>
-         <div className="conventional-status-item gray">
-           <FaVolumeUp className="conventional-icon" /> <span>HOOTER</span>
-         </div>
-         </div>
-         <div className="conventional-button-container">
-          <button className="conventional-btn-main">
-            <RiResetLeftFill className="conventional-btn-icon" /><span className="conventional-btn-label">RESET</span>
-          </button>
-          <button className="conventional-btn-main">
-            <GiRingingBell className="conventional-btn-icon" /><span className="conventional-btn-label">SIL BUZZ </span>
-          </button>
-          <button className="conventional-btn-main">
-            <GiRingingAlarm className="conventional-btn-icon" /><span className="conventional-btn-label">SIL ALARM</span>
-          </button>
-          <button className="conventional-btn-main">
-            <TbBulbFilled className="conventional-btn-icon" /><span className="conventional-btn-label">L TEST</span>
-          </button>
-          
-         </div>
-         {/* <div className="conventional-status-item gray">
-           <FaCogs className="conventional-icon" /> <span>SYS FAULT</span>
-         </div>
-         <div className="conventional-status-item gray">
-           <FaBell className="conventional-icon" /> <span>PRE ALARM</span>
-         </div>
-         <div className="conventional-status-item gray">
-           <FaInfinity className="conventional-icon" /> <span>CONNECTED</span>
-         </div> */}
-       
- 
-       {/* {selectedPanel && (
-         <div className="conventional-container">
-           <div className="conventional-status-container">
-             <div className="conventional-tabs">
-               <button
-                 className={`conventional-tab ${activeTab === "fire" ? "active fire" : ""}`}
-                 onClick={() => setActiveTab("fire")}
-               >
-                 FIRE({selectedPanel.fire ?? 0})
-               </button>
-               <button
-                 className={`conventional-tab ${activeTab === "fault" ? "active fault" : ""}`}
-                 onClick={() => setActiveTab("fault")}
-               >
-                 FAULT({selectedPanel.fault ?? 0})
-               </button>
-               <button
-                 className={`tab ${
-                   activeTab === "activated" ? "active activated" : ""
-                 }`}
-                 onClick={() => setActiveTab("activated")}
-               >
-                 ACTIVATED({selectedPanel.activated ?? 0})
-               </button>
-               <button
-                 className={`conventional-tab ${
-                   activeTab === "sysfault" ? "active sysfault" : ""
-                 }`}
-                 onClick={() => setActiveTab("sysfault")}
-               >
-                 SYS FAULT({selectedPanel.sysfault ?? 0})
-               </button>
-             </div>
- 
-             <div className={`conventional-content-box ${activeTab}`}>
-               {data.map((item, index) => (
-                 <div key={index} className={`conventional-inner-box ${activeTab}`}>
-                   {item.split(",").map((line, i) => (
-                     <div key={i}>{line}</div>
-                   ))}
-                 </div>
-               ))}
-             </div>
-           </div>
-         </div>
-       )} */}
-     </div>
-   );
- }
- 
+        </div>
+        <div
+          className="conventional-location conventional-update-popup"
+          onClick={handleOpenPopup}
+        >
+          <div className="conv-input-icon-container ">
+            <span>{selectedPanel?.name || ""} </span>
+            <FaEdit
+              className="conventional-edit-icon"
+              onClick={handleOpenPopup}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="conventional-iotid">
+        <span>IOT ID: {selectedPanel?.topic || "N/A"}</span>
+      </div>
+
+      {/* 🔹 Update Name Popup */}
+      {showPopup && (
+        <div className="conventional-popup-overlay">
+          <div className="conventional-popup-box slide-in-right">
+            <h3>Update Panel Name</h3>
+
+            <input
+              type="text"
+              id="conventional-popup-input"
+              value={popupValue}
+              onChange={(e) => setPopupValue(e.target.value)}
+            />
+
+            <div className="conventional-popup-actions">
+              <button
+                onClick={handleClosePopup}
+                className="conventional-cancel"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handlePanelSave}
+                className="conventional-confirm"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 🔹 LED Status Indicators */}
+      <div className="conventional-status-grid">
+        <div
+          className={`conventional-status-item ${
+            led_status.main == 1 ? "green" : "gray"
+          }`}
+        >
+          <div className="add_icon_background_conve">
+            <ImSwitch className="conventional-icon" />
+          </div>
+          <span>MAINS</span>
+        </div>
+
+        <div
+          className={`conventional-status-item ${
+            led_status.fire == 1 ? "red" : "gray"
+          }`}
+        >
+          <div className="add_icon_background_conve">
+            <FaFire className="conventional-icon" />
+          </div>
+          <span>FIRE</span>
+        </div>
+
+        <div
+          className={`conventional-status-item gray ${
+            led_status.batt == 1 ? "yellow" : "gray"
+          }`}
+        >
+          <div className="add_icon_background_conve">
+            <FaBatteryHalf className="conventional-icon" />
+          </div>
+
+          <span>BATTERY MODE</span>
+        </div>
+
+        <div
+          className={`conventional-status-item ${
+            led_status.fault == 1 ? "yellow" : "gray"
+          }`}
+        >
+          <div className="add_icon_background_conve">
+            <FaExclamationCircle className="conventional-icon" />
+          </div>
+
+          <span>FAULT</span>
+        </div>
+
+        <div
+          className={`conventional-status-item ${
+            led_status.hooter == 1 ? "yellow" : "gray"
+          }`}
+        >
+          <div className="add_icon_background_conve">
+            <FaVolumeUp className="conventional-icon" />
+          </div>
+          <span>HOOTER</span>
+        </div>
+      </div>
+
+      {/* 🔹 Panel Buttons */}
+      <div className="conventional-button-container">
+        <button
+          className="conventional-btn-main"
+          onClick={() => handleActionClick(1)}
+        >
+          <RiResetLeftFill className="conventional-btn-icon" />
+          <span className="conventional-btn-label">RESET</span>
+        </button>
+        <button
+          className="conventional-btn-main"
+          onClick={() => handleActionClick(2)}
+        >
+          <GiRingingBell className="conventional-btn-icon" />
+          <span className="conventional-btn-label">SIL BUZZ</span>
+        </button>
+        <button
+          className="conventional-btn-main"
+          onClick={() => handleActionClick(3)}
+        >
+          <GiRingingAlarm className="conventional-btn-icon" />
+          <span className="conventional-btn-label">SIL ALARM</span>
+        </button>
+        <button
+          className="conventional-btn-main"
+          onClick={() => handleActionClick(6)}
+        >
+          <TbBulbFilled className="conventional-btn-icon" />
+          <span className="conventional-btn-label">L TEST</span>
+        </button>
+      </div>
+    </div>
+  );
+}

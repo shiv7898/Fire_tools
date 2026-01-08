@@ -1,15 +1,29 @@
 /* Login Page CSS - matches dashboard color scheme */
+
+.login-container {
+  border: 1px solid rgba(215, 215, 0, 0.774);
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+
+  border: 1px solid black;
+}
 .login-bg {
-  min-height: 100vh;
-  width: 100vw;
+  /* border: 1px solid black; */
+  box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);
+
   background: linear-gradient(135deg, #f4f6f9 60%, #e3eafc 100%);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.login-form {
-  background: #fff;
+/* .login-logo-ui{
+    background: #fff;
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(44, 62, 80, 0.1);
   padding: 36px 32px 28px 32px;
@@ -19,11 +33,56 @@
   flex-direction: column;
   gap: 18px;
   border: 1px solid #e3eafc;
+} */
+.login-logo-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* justify-content: center; */
+  align-items: center;
+  text-align: center;
+  min-width: 320px;
+  max-width: 90vw;
+  height: 350px;
+  /* border-radius: 14px; */
+
+  background: #fff; /* light gray background as placeholder */
+  color: #333; /* dark text color */
+  padding: 20px;
+
+  background-image: url("../../../public/img/bg7.png");
+  background-size: cover;
+  background-position: 0px -179px;
+  background-repeat: no-repeat;
+}
+
+.login-logo-ui h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.login-logo-ui p {
+  font-size: 1.2rem;
+  color: #666;
+}
+.login-form {
+  background: #fff;
+  /* border-radius: 14px; */
+  /* box-shadow: 0 2px 12px rgba(44, 62, 80, 0.1); */
+  padding: 36px 32px 28px 32px;
+  min-width: 320px;
+  max-width: 90vw;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  /* border: 1px solid #e3eafc;*/
 }
 
 .login-title {
   color: #2d6db8;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 700;
   text-align: center;
   margin-bottom: 10px;
@@ -38,14 +97,14 @@
 
 .login-field label {
   font-size: 1rem;
-  color: #1c3a57;
+  color: #006bd2;
   font-weight: 500;
 }
 
 .login-field input {
   padding: 9px 12px;
   border-radius: 7px;
-  border: 1px solid #bfc6ce;
+  border: 1px solid #0f6fdd;
   font-size: 1rem;
   background: #f8fbff;
   color: #222;
@@ -58,7 +117,7 @@
 }
 
 .login-btn {
- background-color: #0884ff;
+  background-color: #0884ff;
   color: #ffffff;
   border: none;
   border-radius: 7px;
@@ -69,7 +128,7 @@
   margin-top: 8px;
   transition: background 0.2s;
 }
-.login{
+.login {
   color: white;
 }
 /* .login-btn:hover {
@@ -84,4 +143,218 @@
   font-size: 0.98rem;
   margin-bottom: 4px;
   text-align: center;
+}
+.password-field {
+  position: relative;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+  color: #555;
+}
+
+.toggle-password:hover {
+  color: #0d6efd;
+}
+/* --- Additional modern UI styles appended by update --- */
+.logo-top {
+  display: flex;
+  justify-content: center;
+  /* margin-top: 18px; */
+}
+.logo-circle {
+  /* background: linear-gradient(180deg,#0b66d1,#0a4fb0); */
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(11, 66, 140, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+}
+.app-logo {
+  width: 87px;
+  height: 87px;
+  object-fit: contain;
+}
+.login-logo-ui .welcome-text {
+  font-size: 1.05rem;
+  color: #0b66d1;
+  font-weight: 600;
+}
+.login-logo-ui .signin-text {
+  font-size: 1.55rem;
+  color: #0b66d1;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+.login-bg {
+  padding: 26px;
+  border-radius: 16px;
+  /* max-width: 480px; */
+  width: 54%;
+  margin: 18px;
+  /* flex-direction: column; */
+}
+
+.login-form {
+  padding: 28px;
+  /* border-radius: 12px; */
+  box-shadow: 0 12px 30px rgba(11, 66, 140, 0.06);
+  max-width: 420px;
+  width: 100%;
+  /* margin: 6px auto 18px auto; */
+}
+
+.login-title {
+  font-size: 1.05rem;
+  color: #0b66d1;
+  font-weight: 800;
+}
+
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon-wrapper input {
+  width: 100%;
+  padding-left: 42px;
+  padding-right: 46px;
+}
+.input-icon {
+  position: absolute;
+  left: 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #2d6db8;
+}
+.toggle-password {
+  position: absolute;
+  right: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #3b5ee7;
+}
+
+.below-password-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+.below-password-row .forgot {
+  color: #0866d9;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.below-password-row .help {
+  color: #657786;
+  font-size: 0.92rem;
+}
+  .login-bg{
+    /* border: 1px solid black; */
+        width: 54%;
+  }
+/* small responsive tweaks */
+@media (max-width: 425px) {
+  .logo-circle {
+    width: 72px;
+    height: 72px;
+  }
+  .app-logo {
+    width: 44px;
+    height: 44px;
+  }
+  .login-form {
+    padding: 20px;
+  }
+}
+@media (width:768px) {
+  
+  .login-container {
+    padding: 24px;
+  }
+
+  .login-bg {
+    border: 1px solid black;
+    width: 100%;
+    padding: 24px;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .login-logo-ui {
+    width: 100%;
+    min-width: unset;
+    max-width: 100%;
+    height: auto;
+    padding: 24px 16px;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .login-logo-ui h1 {
+    font-size: 2rem;
+  }
+
+  .login-logo-ui p {
+    font-size: 1rem;
+  }
+
+  .logo-circle {
+    width: 78px;
+    height: 78px;
+  }
+
+  .app-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .login-form {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: 24px;
+  }
+
+  .login-title {
+    font-size: 1.1rem;
+  }
+
+  .login-field label {
+    font-size: 0.95rem;
+  }
+
+  .login-field input {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+
+  .login-btn {
+    font-size: 1rem;
+    padding: 10px 0;
+  }
 }

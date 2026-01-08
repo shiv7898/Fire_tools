@@ -1,7 +1,36 @@
 import React from "react";
 import "./ActivePanel.css"; // we’ll create styles separately
 
-export default function ActivePanel() {
+export default function ActivePanel({dataResponse, eventsResponseAPI}) {
+
+  const mergedPanels = dataResponse.panels.map(panel => {
+
+    // 1️⃣ Set Panel Type Name
+    let panelType = "";
+    if (panel.panel_type === 0) panelType = "Conventional";
+    else if (panel.panel_type === 1) panelType = "Addressable";
+    else if (panel.panel_type === 2) panelType = "Echo";
+    else panelType = "Regal";
+
+    // 2️⃣ Match events by panel_id and topic
+    const matchedEvents = eventsResponseAPI.filter(event =>
+      event.panel_id === panel.id &&
+      event.topic === panel.panel_topic
+    );
+
+    // 3️⃣ Return final merged structure
+    return {
+      panel_id: panel.id,
+      panel_name: panel.panel_name,
+      panel_type: panelType,        // ← added
+      panel_topic: panel.panel_topic,
+      led_status: panel.led_status,
+      status: dataResponse.status,
+      events: matchedEvents
+    };
+  });
+
+  console.log("MERGED PANELS FINAL:", mergedPanels);
   const data = [
     { name: "r1/tower/1111", type: "addressable", status: "True" },
     { name: "r1/tower/1112", type: "conventional", status: "True" },
@@ -29,13 +58,13 @@ export default function ActivePanel() {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, index) => (
-              <tr key={index}>
-                <td>{row.name}</td>
-                <td>{row.type}</td>
-                <td>{row.status}</td>
-              </tr>
-            ))}
+             { mergedPanels.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.panel_name}</td>
+                  <td>{row.panel_type}</td>
+                  <td>{row.status?"Active":"Inactive"}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

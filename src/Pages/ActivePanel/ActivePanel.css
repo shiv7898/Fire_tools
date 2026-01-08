@@ -32,16 +32,16 @@
 
 .panel-table th,
 .panel-table td {
-  padding: 12px;
+  /* padding: 12px; */
   text-align: left;
   border-bottom: 1px solid #e5e5e5;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .panel-table th {
   position: sticky;
   top: 0;
-  background: #f1f8ff;
+  /* background: #f1f8ff; */
   font-weight: 600;
   z-index: 1;
 }

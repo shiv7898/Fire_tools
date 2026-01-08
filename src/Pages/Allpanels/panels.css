@@ -7,7 +7,7 @@
   width: 40%;
   /* max-width: 380px; */
   /* margin: auto; */
-  background-color: #f1f8ff;
+  background-color: #f8fbff;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -15,7 +15,7 @@
   box-sizing: border-box;
   overflow: scroll;
 }
-.event-container1::-webkit-scrollbar {
+.event-container1::-webkit-scrollbar{
   display: none;
 }
 .table-container {
@@ -40,7 +40,7 @@
 /* Individual Panel Section - Creates the card/box effect */
 .panel-section {
   margin-bottom: 32px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for lift effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px; /* Rounded corners */
   background-color: white;
   overflow: hidden;
@@ -79,6 +79,13 @@
   background-color: white;
   /* border: 1px solid black; */
 }
+.panel-table-1 td{
+      padding: 5px 10px;
+    /* border-radius: 999px; */
+    font-size: 12px;
+    font-weight: 600;
+    /* display: inline-block; */
+}
 
 /* Table Header Row */
 .panel-table-1 thead tr {
@@ -93,10 +100,10 @@
   position: sticky;
   top: 0px;
   z-index: 2;
-  padding: 5px 15px;
+  padding: 4px 15px;
   text-align: left;
   font-weight: 500;
-  color: #333;
+      color: white;
   border-bottom: 1px solid #ddd;
 }
 
@@ -109,23 +116,16 @@
 }
 
 /* Table Data Cells */
-
 .panel-table-1 td {
-  padding: 7px 15px;
+ padding: 11px 15px;
   text-align: left;
   border-bottom: 1px solid #eee;
-  color: #444;
-  font-size: 0.8em;
+  color: #323232;
+  /* font-size: 0.8em; */
 }
-.panel-table td{
-   padding: 7px 15px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  color: #444;
-  font-size: 0.8em;
-
+.inactive th{
+padding: 4px 15px;
 }
-
 /* Remove the border from the last row's cells */
 .panel-table-1 tbody tr:last-child td {
   border-bottom: none;
@@ -137,7 +137,6 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* Center content horizontally */
-  padding-bottom: 15px;
 }
 
 .table-container {
@@ -147,23 +146,27 @@
 }
 .table-container::-webkit-scrollbar {
   display: none;
-  padding-bottom: 5px;
 }
 
-.panel-table,
-.panel-table-1 {
-  width: 100%;
-  border-collapse: collapse;
-}
 
+.panel-table td{
+      padding: 15px 10px;
+    /* border-radius: 999px; */
+    font-size: 8px;
+    font-weight: 600;
+    /* display: inline-block; */
+}
 .panels-page {
   height: 100%;
   /* background-color: red; */
 }
 
-.panel-table-1 tbody{
- margin-top: 5px;
 
+@media (max-width: 425px) {
+
+.event-container1 {
+    width: 100%;
 }
 
 
+}
