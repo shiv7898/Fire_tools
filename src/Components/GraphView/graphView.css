@@ -1,0 +1,96 @@
+
+  .graph-main {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(222, 222, 222, 0.1);
+    margin-top: 20px;
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 0;            /* allow flex children to shrink */
+    flex: 1 1 auto;         /* grow/shrink inside parent flex container */
+    min-height: 0;          /* allow parent flex to control height */
+    max-height: calc(100vh - 240px); /* desktop-friendly cap */
+    align-self: stretch;
+  }
+  .graph-main::-webkit-scrollbar{
+    display: none;
+  }
+  .graph-main h3 {
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    background: #2355f9;
+    padding: 8px;
+  }
+
+
+  @media (max-width: 425px) {
+    .graph-main {
+      padding: 12px;
+      margin-top: 12px;
+      height: auto;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  
+    .graph-main .recharts-yAxis {
+        /* margin-right: -30px; */
+      max-width: 120px;
+    }
+    /* Ensure graph fills available width inside parent flex container */
+    .sub-maincontainer1 .graph-main {
+      flex-basis: 100%;
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* Allow the Recharts inner wrapper to size to its intrinsic width so
+       wide charts become horizontally scrollable instead of clipped */
+    .graph-main .recharts-wrapper,
+    .graph-main .recharts-responsive-container {
+      min-width: max-content;
+      width: auto !important;
+    }
+
+    /* Make SVGs fill their container and prevent extra spacing */
+    .graph-main svg {
+      display: block;
+      height: auto !important;
+      max-width: none !important;
+    }
+  }
+
+  /* Desktop / laptop: let graph grow but cap height relative to viewport
+     so the chart remains usable and inner scrolling works */
+  @media (min-width: 768px) {
+    .graph-main {
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+              min-height: 75vh;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .graph-main {
+      max-height: calc(100vh - 220px);
+    }
+
+    .graph-main .recharts-wrapper,
+    .graph-main .recharts-responsive-container {
+      min-width: max-content;
+      width: auto !important;
+    }
+
+    .graph-main svg {
+      display: block;
+      height: auto !important;
+      max-width: none !important;
+    }
+  }
