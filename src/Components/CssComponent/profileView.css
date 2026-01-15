@@ -66,6 +66,8 @@
   display: flex;
   align-items: center;
   gap: 16px;
+      background: #4b4bff;
+    color: white;
 }
 .key {
   font-weight: 600;
@@ -100,7 +102,7 @@
 }
 .info p {
   font-size: 10px;
-  color: #555;
+  color: #ffffff;
   display: flex;
   gap: 6px;
   align-items: center;
@@ -113,7 +115,7 @@
   font-size: 13px;
 }
 .status.active {
-  color: #198754;
+  color: #43f6a3;
   animation: pulse 1.5s infinite;
 }
 

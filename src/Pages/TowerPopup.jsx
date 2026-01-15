@@ -379,7 +379,7 @@ const TowerPopup = ({
                       zoom={16}
                       scrollWheelZoom={true}
                       className="mapContainer"
-                      style={{height: "clamp(260px, 100vh, 600px)", width: "100%" }}
+                      style={{ width: "100%" }}
                     >
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

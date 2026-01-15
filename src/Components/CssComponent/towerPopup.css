@@ -56,7 +56,7 @@
 .aboutpanel {
   display: flex;
   flex: 1;
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 100%;
   height: 93%;
   margin: 0;
@@ -441,6 +441,15 @@
   background-color: #1677ff;
   color: #ffffff;
 }
+
+.mapContainer {
+  border-radius: 4px;
+  margin-top: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+        height: clamp(260px, 80vh, 600px); /* Desktop & tablet */
+  width: 100%;
+  
+}
 .pulse-container {
   position: relative;
   width: 30px;
@@ -568,9 +577,7 @@
   overflow-wrap: anywhere;
   white-space: normal;
 }
-.MapContainer {
-  margin-top: 5px;
-}
+
 .led-info {
   background-image: url("../../../public/img/bg13b.png");
   background-size: cover;
@@ -945,7 +952,9 @@
     width: 100%;
   }
   .mapContainer{
-    height: 40vh
+    height: 200px;
+      height: clamp(260px, 80vh,200px); /* Desktop & tablet */
+  width: 100%;
 
   }
 }

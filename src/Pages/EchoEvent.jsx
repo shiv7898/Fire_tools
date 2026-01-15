@@ -208,7 +208,8 @@ const EchoEvent = ({ panel, onClose }) => {
               center={[28.6139, 77.209]}
               zoom={8}
               scrollWheelZoom={true}
-              style={{ height: "100vh", width: "100%" }}
+                className="mapContainer"
+                      style={{height: "clamp(260px, 80vh, 600px)", width: "100%" }}
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

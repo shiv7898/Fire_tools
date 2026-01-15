@@ -307,7 +307,8 @@ const RegalEvent = ({
                 center={[latitude, longitude]}
                 zoom={13}
                 scrollWheelZoom={true}
-                style={{ height: "100vh", width: "100%" }}
+                className="mapContainer"
+                      style={{height: "clamp(260px, 80vh, 600px)", width: "100%" }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import "./graphView.css"
+import "./graphView.css";
 import {
   BarChart,
   Bar,
@@ -14,7 +13,6 @@ import {
 } from "recharts";
 
 export default function PanelBarGraph({ panels }) {
-    const [activePanel, setActivePanel] = useState(null);
   const chartData = panels.map((panel) => ({
     panel: panel.name,
     fire: panel.fireCount,
@@ -22,27 +20,22 @@ export default function PanelBarGraph({ panels }) {
     sysFault: panel.sysfaultCount,
     type: panel.type,
   }));
-const MIN_HEIGHT = 150;           // minimum chart height
-const ROW_HEIGHT = 38;            // space per panel
-const chartHeight = Math.max(
-  MIN_HEIGHT,
-  panels.length * ROW_HEIGHT
-);
-  // const chartHeight = 100 + panels.length * 40;
 
+  const MIN_HEIGHT = 150;
+  const ROW_HEIGHT = 38;
+  const chartHeight = Math.max(MIN_HEIGHT, panels.length * ROW_HEIGHT);
+
+  // 🔥 Dynamic width (important for scroll)
+  const chartWidth = Math.max(800, panels.length * 50);
 
   return (
-    <div className="graph-main"
-      
-    >
-      <h3
-       
-      >
-        Panel Status Overview
-      </h3>
-      <ResponsiveContainer width="100%" height={chartHeight}>
+    <div className="graph-main">
+      <h3>Panel Status Overview</h3>
+
+      {/* 👇 Horizontal scroll wrapper */}
+      <div className="graph-scroll-x">
         <BarChart
-          width={800} // 👈 LOCK GRAPH WIDTH
+          width={chartWidth}
           height={chartHeight}
           data={chartData}
           layout="vertical"
@@ -50,40 +43,28 @@ const chartHeight = Math.max(
         >
           <CartesianGrid strokeDasharray="3 3" />
 
-          <XAxis
-            type="number"
-            domain={[0, 60]}
-            tickCount={7}
-            stroke="#2355f9"
-          />
-          <YAxis type="category" dataKey="panel" width={120} stroke="#2355f9" />
+          <XAxis type="number" domain={[0, 60]} tickCount={7} />
+          <YAxis type="category" dataKey="panel" width={120}  tick={{ fill: "#295bfd", }}/>
 
           <Tooltip />
           <Legend />
 
-          {/* 🔥 Fire (main bar with label at end) */}
-          <Bar dataKey="fire" stackId="a" fill="#ff4d4f" barSize={25}>
-            
+          <Bar dataKey="fire" stackId="a" fill="#ff4848" barSize={100}>
             <LabelList
               dataKey="type"
               position="right"
-              offset={90}
+              offset={100}
               style={{
-                fill: activePanel ? "#ff9b9b" : "#2f70cbff",
                 fontSize: 13,
                 fontWeight: 600,
-                // fill={activePanel ? "#ff9b9b" : "#ff4d4f"},
               }}
             />
           </Bar>
 
-          {/* ⚠ Fault */}
           <Bar dataKey="fault" stackId="a" fill="#faad14" barSize={25} />
-
-          {/* 🛠 System Fault */}
           <Bar dataKey="sysFault" stackId="a" fill="#1890ff" barSize={25} />
         </BarChart>
-      </ResponsiveContainer>
+      </div>
     </div>
   );
 }

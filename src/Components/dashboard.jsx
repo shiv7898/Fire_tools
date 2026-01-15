@@ -67,6 +67,7 @@ export default function Dashboard({ userData }) {
   const [events, setEvents] = useState([]);
 
   const [selectedPanel, setSelectedPanel] = useState();
+  console.log("SeleDashboard....", selectedPanel);
   const [selectedPanelEvent, setSelectedPanelEvent] = useState([]);
   console.log("Selected Panel Events in Dashboard....", selectedPanelEvent);
   const [popupPanel, setPopupPanel] = useState(null);
@@ -1393,7 +1394,7 @@ export default function Dashboard({ userData }) {
 
       setSubscriptionInfo(result);
 
-      if (result.daysLeft <= 300 && result.daysLeft > 0) {
+      if (result.daysLeft <= 30 && result.daysLeft > 0) {
         setShowExpiryPopup(true);
       }
     }
@@ -1785,7 +1786,7 @@ export default function Dashboard({ userData }) {
 
           {location === true && (
             <div className="event-container1">
-              <PanelLocations dataResponse={dataResponse} />
+              <PanelLocations dataResponse={dataResponse} selectedPanel={selectedPanel} />
             </div>
           )}
 

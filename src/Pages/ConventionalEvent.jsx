@@ -38,7 +38,7 @@ function ConventionalEvent({
 
 
 
-let latitude = null;
+let latitude =null;
 let longitude = null;
 
 if (
@@ -245,34 +245,29 @@ const panels =
       <p>Panel Location</p>
     </div>
 
-    {latitude && longitude ? (
-      <MapContainer
-        center={[latitude, longitude]}
-        zoom={16}
-        scrollWheelZoom={true}
-        className="C-mapContainer"
-        style={{ height: "89%", width: "100%" }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+   {latitude && longitude ? (
+                  <MapContainer
+                      center={[latitude, longitude]}
+                      zoom={16}
+                      scrollWheelZoom={true}
+                      className="mapContainer"
+                      style={{height: "clamp(260px, 80vh, 600px)", width: "100%" }}
+                    >
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-        {panels.map((panel, index) => (
-          <Marker
-            key={index}
-            position={panel.position}
-            icon={panelIcon}
-          >
-            <Popup>{panel.name}</Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    ) : (
-      <div className="no-location">
-        📍 Location not available
-      </div>
-    )}
+                    {panels.map((panel, index) => (
+                      <Marker
+                        key={index}
+                        position={panel.position}
+                        icon={panelIcon}
+                      >
+                        <Popup>{panel.name}</Popup>
+                      </Marker>
+                    ))}
+                  </MapContainer>
+                ) : (
+                  <div className="no-location">📍 Location not available</div>
+                )}
   </div>
 </div>
 

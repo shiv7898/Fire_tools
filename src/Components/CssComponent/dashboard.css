@@ -126,6 +126,7 @@
 }
 .graph-wrapper{
   overflow: scroll;
+  /* width: 100%; */
 }
 .graph-wrapper::-webkit-scrollbar{
   display: none;
@@ -1420,6 +1421,10 @@ background-color: white;
     min-height: 180px;
     max-height: calc(100vh - 260px);
     border-radius: 8px;
+  }
+  .table-card{
+    /* border: 1px solid black; */
+    height: 30vh;
   }
 
 
