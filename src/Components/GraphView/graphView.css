@@ -1,108 +1,117 @@
+.graph-main {
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(222, 222, 222, 0.1);
+  margin-top: 20px;
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  /* allow flex children to shrink */
+  flex: 1 1 auto;
+  /* grow/shrink inside parent flex container */
+  min-height: 0;
+  /* allow parent flex to control height */
+  max-height: calc(100vh - 100px);
+  /* desktop-friendly cap */
+  align-self: stretch;
+}
 
+.graph-main::-webkit-scrollbar {
+  display: none;
+}
+
+.graph-main h3 {
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  background: #2355f9;
+  padding: 8px;
+}
+
+.graph-scroll-x {
+  overflow-x: auto;
+}
+
+.graph-scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+
+@media (max-width: 425px) {
   .graph-main {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(222, 222, 222, 0.1);
-    margin-top: 20px;
-    overflow-x: auto;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    box-sizing: border-box;
-    min-width: 0;            /* allow flex children to shrink */
-    flex: 1 1 auto;         /* grow/shrink inside parent flex container */
-    min-height: 0;          /* allow parent flex to control height */
-    max-height: calc(100vh - 100px); /* desktop-friendly cap */
-    align-self: stretch;
-  }
-  .graph-main::-webkit-scrollbar{
-    display: none;
-  }
-  .graph-main h3 {
-    margin-bottom: 14px;
-    font-size: 14px;
-    font-weight: 600;
-    color: white;
-    text-align: center;
-    background: #2355f9;
-    padding: 8px;
-  }
-  
-  .graph-scroll-x {
-    overflow-x: auto;
-  }
-   .graph-scroll-x::-webkit-scrollbar {
-    display: none;
-  }
-
-
-  @media (max-width: 425px) {
-    .graph-main {
-      padding: 12px;
-      margin-top: 12px;
+    padding: 12px;
+    margin-top: 12px;
     height: 30vh;
-      /* width: 100vw; */
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-  
-    .graph-main .recharts-yAxis {
-        /* margin-right: -30px; */
-      max-width: 120px;
-    }
-    /* Ensure graph fills available width inside parent flex container */
-    .sub-maincontainer1 .graph-main {
-      flex-basis: 100%;
-      width: 100%;
-      min-width: 0;
-    }
+    /* width: 100vw; */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
-    /* Allow the Recharts inner wrapper to size to its intrinsic width so
+  .graph-main .recharts-yAxis {
+    /* margin-right: -30px; */
+    max-width: 120px;
+  }
+
+  /* Ensure graph fills available width inside parent flex container */
+  .sub-maincontainer1 .graph-main {
+    flex-basis: 100%;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Allow the Recharts inner wrapper to size to its intrinsic width so
        wide charts become horizontally scrollable instead of clipped */
-    .graph-main .recharts-wrapper,
-    .graph-main .recharts-responsive-container {
-      min-width: max-content;
-      width: auto !important;
-    }
+  .graph-main .recharts-wrapper,
+  .graph-main .recharts-responsive-container {
+    min-width: max-content;
+    width: auto !important;
+  }
 
-    /* Make SVGs fill their container and prevent extra spacing */
-    .graph-main svg {
-      display: block;
-      height: auto !important;
-      max-width: none !important;
-    }
-     .graph-scroll-x {
-   
+  /* Make SVGs fill their container and prevent extra spacing */
+  .graph-main svg {
+    display: block;
+    height: auto !important;
+    max-width: none !important;
+  }
+
+  .graph-scroll-x {
+
     overflow-x: auto;
   }
-  }
+}
 
-  /* Desktop / laptop: let graph grow but cap height relative to viewport
+/* Desktop / laptop: let graph grow but cap height relative to viewport
      so the chart remains usable and inner scrolling works */
-  @media (min-width: 768px) {
-    .graph-main {
-      /* max-height: calc(100vh - 100px); */
-      overflow-y: auto;
-              height: 100vh;
-    }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .graph-main {
+    /* max-height: calc(100vh - 100px); */
+    overflow-y: auto;
+    height: 100vh;
+    width: 652px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .graph-main {
+    height: 75vh;
+    max-height: calc(100vh - 160px);
   }
 
-  @media (min-width: 1024px) {
-    .graph-main {
-      height: 75vh;
-      max-height: calc(100vh - 160px);
-    }
-
-    .graph-main .recharts-wrapper,
-    .graph-main .recharts-responsive-container {
-      min-width: max-content;
-      width: auto !important;
-    }
-
-    .graph-main svg {
-      display: block;
-      height: auto !important;
-      max-width: none !important;
-    }
+  .graph-main .recharts-wrapper,
+  .graph-main .recharts-responsive-container {
+    min-width: max-content;
+    width: auto !important;
   }
+
+  .graph-main svg {
+    display: block;
+    height: auto !important;
+    max-width: none !important;
+  }
+}

@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import "../CssComponent/PanelTypePopup/AddressablePopup.css";
+import { logActivity } from "../Log/activityLogger";
 
 export default function AddressablePopup({
   data: {
@@ -39,32 +40,41 @@ export default function AddressablePopup({
   const [isOpen, setIsOpen] = useState(false);
   const [clicked, setClicked] = useState(null);
   const dropdownRef = useRef(null);
+  console.log("selectedPanel", selectedPanel);
+  const { name } = selectedPanel;
+  console.log("name....", name);
 
   const options = [
     {
       label: "RESET",
       action: "RESET",
       icon: <RiResetLeftFill className="icon_color" />,
+      onClick: () => logActivity(`RESET PRESSED (${name})`),
     },
     {
       label: "SIL BUZZ",
       action: "SILENCE",
       icon: <GiRingingBell className="icon_color" />,
+      onClick: () => logActivity(`SIL BUZZ PRESSED (${name})`),
     },
     {
       label: "SIL ALARM",
       action: "SILENCE_ALARM",
       icon: <GiRingingAlarm className="icon_color" />,
+      onClick: () => logActivity(`SIL ALARM PRESSED (${name})`),
     },
     {
       label: "EVACUATE",
       action: "EVACUATE",
       icon: <FaPersonRunning className="icon_color" />,
+      onClick: () => logActivity(`EVACUATE PRESSED (${name})`),
+
     },
     {
       label: "RESOUND",
       action: "RESOUND",
       icon: <FaVolumeUp className="icon_color" />,
+      onClick: () => logActivity(`RESOUND PRESSED (${name})`),
     },
   ];
 
@@ -157,7 +167,7 @@ export default function AddressablePopup({
           onClick={handleOpenPopup}
         >
           <div className="input-with-icon">
-            <span>{selectedPanel?.name || ""} </span>
+            <span className="title-text">{selectedPanel?.name || ""} </span>
             <FaEdit className="input-icon" />
           </div>
         </div>
@@ -191,7 +201,10 @@ export default function AddressablePopup({
                     key={index}
                     className="addressable-dropdown-item slide-in"
                     style={{ animationDelay: `${index * 70}ms` }}
-                    onClick={() => handleActionClick(index + 1)}
+                    onClick={() => {
+                      handleActionClick(index + 1);
+                      if (opt.onClick) opt.onClick();
+                    }}
                   >
                     <span className="addressable-icon">{opt.icon}</span>
                     <span className="addressable-label">{opt.label}</span>

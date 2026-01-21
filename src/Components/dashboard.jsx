@@ -7,6 +7,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { HiHome } from "react-icons/hi2";
 import { FiLogOut } from "react-icons/fi";
 import { LuAlignJustify } from "react-icons/lu";
+import { TbActivityHeartbeat } from "react-icons/tb";
 
 import { ImProfile } from "react-icons/im";
 import { IoEyeOutline } from "react-icons/io5";
@@ -921,9 +922,9 @@ export default function Dashboard({ userData }) {
 
     const fetchEvents = async (token) => {
       try {
-        console.log("🔹 Making API call to fetch events...");
+        console.log("🔹 Making API call to fetch events...", token);
         const response = await axios.get(
-          `https://api.m2rtechnomations.com/v2/events/temps/history`,
+          `https://api.m2rtechnomations.com/v2/events/temps/history?page=1&limit=500`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -972,7 +973,7 @@ export default function Dashboard({ userData }) {
     console.log("🔹 Computing combined panels data...");
 
     if (!dataResponse?.panels) return [];
-    if (events.length === 0) return [];
+    // if (events.length === 0) return [];
 
     const panelsData = dataResponse.panels.map((panel) => {
       const matchedEventPanel = events.panels?.find((ev) => ev.id === panel.id);
@@ -1126,7 +1127,7 @@ export default function Dashboard({ userData }) {
       panelUseRef.current.find((p) => p.id === panel.id) || panel;
     // const selecLED = panelLedStatuses ? panelLedStatuses[panel.topic] : null;
     setSelectPanelLedStatuses(livePanel.led_status || null);
-    const selectedPanelEvent = panelUseRef.events.filter(
+    const selectedPanelEvent = panelUseRef?.events?.filter(
       (ev) => ev.panelId === livePanel.id
     );
 
@@ -1229,12 +1230,28 @@ export default function Dashboard({ userData }) {
         onClick: toggleLocationSidebar,
       },
       {
+        key: "activity-record",
+        to: "/activity-record",
+        icon: <TbActivityHeartbeat className="home_icon" id="activity_record" />,
+        label: "Logs",
+        onClick: null,
+      },
+      {
         key: "logout",
         to: "/",
         icon: <FiLogOut className="home_icon" />,
         label: "Logout",
         onClick: null,
       },
+
+
+      // {
+      //   key: "activity-record",
+      //   to: "/activity-record",
+      //   icon: <TbActivityHeartbeat className="home_icon" />,
+      //   label: "Logs",
+      //   onClick: null,
+      // },
 
     ],
     [handleDashboardClick, handleProfileOpen, toggleLocationSidebar]

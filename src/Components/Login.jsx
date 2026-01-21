@@ -74,7 +74,7 @@ function Login(props) {
           <div className="login-field">
             <label htmlFor="username">User ID</label>
             <div className="input-icon-wrapper">
-              <span className="input-icon user-icon" aria-hidden>
+              <span className="input-icon-login user-icon" aria-hidden>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M20.59 21C20.2 17.59 16.97 15 12 15C7.03 15 3.8 17.59 3.41 21" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </span>
               <input
@@ -92,7 +92,7 @@ function Login(props) {
             <label htmlFor="password">Password</label>
 
             <div className="input-icon-wrapper password-input">
-              <span className="input-icon pass-icon" aria-hidden>
+              <span className="input-icon-login pass-icon" aria-hidden>
                 <svg width="16" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="11" width="18" height="10" rx="2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M7 11V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </span>
 

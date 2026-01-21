@@ -25,6 +25,7 @@ const ConfermPassword = () => {
     const [loading, setLoading] = useState(false);
     const [strength, setStrength] = useState("");
     const [userId, setUserId] = useState("");
+    const [timer, setTimer] = useState(600); // 10 minutes timer
 
     useEffect(() => {
         if (location.state && location.state.userId) {
@@ -35,6 +36,21 @@ const ConfermPassword = () => {
         }
     }, [location, navigate]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimer((prevTimer) => {
+                if (prevTimer <= 1) {
+                    clearInterval(interval);
+                    navigate("/reset-password");
+                    return 0;
+                }
+                return prevTimer - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [navigate]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -43,6 +59,12 @@ const ConfermPassword = () => {
         if (name === "newPassword") {
             checkStrength(value);
         }
+    };
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
     };
 
     const checkStrength = (password) => {
@@ -129,6 +151,9 @@ const ConfermPassword = () => {
                 <div className="reset-header">
                     <h2>Reset Password</h2>
                     <p>Enter the OTP sent to your email and set a new password.</p>
+                    <p className="timer-display" style={{ marginTop: "10px", fontWeight: "bold", color: timer < 60 ? "#d9534f" : "inherit" }}>
+                        OTP Expires in: {formatTime(timer)}
+                    </p>
                 </div>
 
                 <form className="reset-form" onSubmit={handleSubmit}>

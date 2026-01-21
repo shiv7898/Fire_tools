@@ -1,0 +1,168 @@
+.activity-page {
+    /* padding: 40px 20px 10px 20px; */
+    background-color: #f8f9fa;
+    /* Light gray background for the whole area */
+    height: 100vh;
+
+    font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 0px 50px 0px 50px;
+}
+
+
+
+.table-container-log {
+    width: 100%;
+    /* max-width: 1000px; */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    /* Soft, modern shadow */
+    overflow: hidden;
+    /* Ensures child elements don't spill out of rounded corners */
+    border: 1px solid #e2e8f0;
+    height: 98vh;
+    overflow: scroll;
+}
+
+.table-container-log::-webkit-scrollbar {
+    display: none;
+}
+
+.table-header {
+    background-color: #2563eb;
+    /* Strong Blue Header */
+    padding: 20px 30px;
+    border-bottom: 1px solid #1d4ed8;
+}
+
+.table-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.responsive-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 80vh;
+    /* Horizontal scroll for mobile */
+}
+
+.activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    /* Prevents text wrapping on small screens */
+}
+
+.activity-table th,
+.activity-table td {
+    padding: 16px 24px;
+    text-align: left;
+}
+
+.activity-table th {
+    background-color: #eff6ff;
+    /* Very light blue for column headers */
+    color: #ffffff;
+    /* Dark blue text */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #dbeafe;
+}
+
+.activity-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.2s ease;
+}
+
+.activity-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.activity-table tbody tr:hover {
+    background-color: #f0f9ff;
+    /* Light blue highlight on hover */
+}
+
+.activity-table td {
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+.sn-cell {
+    font-weight: 600;
+    color: #cbd5e1;
+    /* Lighter color for serial number */
+    width: 60px;
+    text-align: center;
+}
+
+.activity-table th:first-child,
+.activity-table td:first-child {
+    text-align: center;
+}
+
+/* Scrollbar styling for webkit browsers */
+.responsive-table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.responsive-table-wrapper::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.responsive-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 4px;
+}
+
+.responsive-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.demo-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.demo-btn:hover {
+    background-color: white;
+    color: #2563eb;
+    transform: translateY(-1px);
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-3px);
+}
