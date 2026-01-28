@@ -128,7 +128,7 @@
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px 85px;
+  gap: 14px 48px;
   /* max-width: 391px; */
   /* margin: 10px 60px; */
   font-family: Arial, sans-serif;
@@ -846,5 +846,12 @@
   .conventional-status-item span {
     font-size: 10px;
     white-space: nowrap;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .conventional-popup-overlay {
+
+    width: 40%;
   }
 }

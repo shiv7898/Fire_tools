@@ -3,27 +3,31 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .event-container1 {
-     width: 39%;
-    /* max-width: 380px; */
-    /* margin: auto; */
-    background-color: #f8fbff;
-    padding: 9px;
-    border-radius: 12px;
-    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
-    text-align: center;
-    box-sizing: border-box;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
+  width: 39%;
+  /* max-width: 380px; */
+  /* margin: auto; */
+  background-color: #f8fbff;
+  padding: 9px;
+  border-radius: 12px;
+  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
+  text-align: center;
+  box-sizing: border-box;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
-.event-container1::-webkit-scrollbar{
+
+.event-container1::-webkit-scrollbar {
   display: none;
 }
+
 .table-container {
   overflow: scroll;
 }
+
 /* General Page Styling */
 /* .panels-page {
     padding: 20px;
@@ -44,12 +48,14 @@
 .panel-section {
   margin-bottom: 32px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px; /* Rounded corners */
+  border-radius: 8px;
+  /* Rounded corners */
   background-color: white;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content horizontally */
+  align-items: center;
+  /* Center content horizontally */
 }
 
 /* Panel Sub-title */
@@ -64,7 +70,7 @@
 
 /* Padding for the table inside the card */
 .table-container {
-  padding: 0 20px 20px;
+  padding: 0 4px 4px;
   width: 100%;
   max-width: 700px;
   flex: 1 1 auto;
@@ -81,17 +87,19 @@
   background-color: white;
   /* border: 1px solid black; */
 }
-.panel-table-1 td{
-      padding: 5px 10px;
-    /* border-radius: 999px; */
-    font-size: 12px;
-    font-weight: 600;
-    /* display: inline-block; */
+
+.panel-table-1 td {
+  padding: 5px 10px;
+  /* border-radius: 999px; */
+  font-size: 12px;
+  font-weight: 600;
+  /* display: inline-block; */
 }
 
 /* Table Header Row */
 .panel-table-1 thead tr {
-  background-color: #f1f8ff; /* Header background color */
+  background-color: #f1f8ff;
+  /* Header background color */
   position: sticky;
   top: 0;
   z-index: 1;
@@ -105,7 +113,7 @@
   padding: 4px 15px;
   text-align: left;
   font-weight: 500;
-      color: white;
+  color: white;
   border-bottom: 1px solid #ddd;
 }
 
@@ -113,21 +121,24 @@
 .panel-table-1 thead th:first-child {
   border-top-left-radius: 0px;
 }
+
 .panel-table thead th:last-child {
   border-top-right-radius: 0px;
 }
 
 /* Table Data Cells */
 .panel-table-1 td {
- padding: 11px 15px;
+  padding: 11px 15px;
   text-align: left;
   border-bottom: 1px solid #eee;
   color: #323232;
   /* font-size: 0.8em; */
 }
-.inactive th{
-padding: 4px 15px;
+
+.inactive th {
+  padding: 4px 15px;
 }
+
 /* Remove the border from the last row's cells */
 .panel-table-1 tbody tr:last-child td {
   border-bottom: none;
@@ -138,7 +149,8 @@ padding: 4px 15px;
   margin-bottom: 32px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content horizontally */
+  align-items: center;
+  /* Center content horizontally */
   margin: 5px;
   height: 48%;
 }
@@ -146,39 +158,44 @@ padding: 4px 15px;
 .table-container {
   width: 100%;
   max-width: 700px;
-  position: relative; /* needed so absolute-centered no-data can align within this box */
+  position: relative;
+  /* needed so absolute-centered no-data can align within this box */
 }
+
 .table-container::-webkit-scrollbar {
   display: none;
 }
 
 
-.panel-table td{
-       padding: 12px 4px;
-    /* border-radius: 999px; */
-    font-size: 11px;
-    font-weight: 600;
+.panel-table td {
+  padding: 12px 4px;
+  /* border-radius: 999px; */
+  font-size: 11px;
+  font-weight: 600;
 }
+
 .panels-page {
   height: 100%;
   /* background-color: red; */
 }
-.no-data{
+
+.no-data {
   width: 100%;
 }
 
 /* Center the "no data" message inside the scrollable table area. This keeps HTML unchanged. */
 .panel-table-1 tbody tr.no-data td,
 .panel-table.inactive tbody tr.no-data td {
-  display: block; /* allow width/positioning */
+  display: block;
+  /* allow width/positioning */
   width: 100%;
   text-align: center;
   justify-content: center;
   /* padding: 16px 12px; */
   color: #666;
   font-weight: 600;
-  position: absolute; 
-  
+  position: absolute;
+
 
   border-bottom: none;
   background: transparent;
@@ -189,9 +206,26 @@ padding: 4px 15px;
 
 @media (max-width: 425px) {
 
-.event-container1 {
+  .event-container1 {
     width: 100%;
+  }
+
+  .table-container {
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    height: 35vh;
+  }
+
 }
 
+@media (min-width: 768px) and (max-width: 1100px) {
+  .panel-section {
+    margin: 0px 0px 20px 0px;
+  }
 
+  .event-container1 {
+
+    padding: 0px;
+  }
 }

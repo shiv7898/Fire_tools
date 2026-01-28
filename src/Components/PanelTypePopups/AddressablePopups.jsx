@@ -168,7 +168,7 @@ export default function AddressablePopup({
         >
           <div className="input-with-icon">
             <span className="title-text">{selectedPanel?.name || ""} </span>
-            <FaEdit className="input-icon" />
+            <span> <FaEdit className="input-icon" /></span>
           </div>
         </div>
       </div>
@@ -191,8 +191,8 @@ export default function AddressablePopup({
             >
               Actions
               {/* <span className="addressable-arrow-drop"> */}
-              {isOpen ? <RiArrowDropUpLine className="drop" /> : <RiArrowDropDownLine className="drop" />}
               {/* </span> */}
+              {isOpen ? <span><RiArrowDropUpLine className="drop" /></span> : <span><RiArrowDropDownLine className="drop" /></span>}
             </button>
             {isOpen && (
               <div className="addressable-dropdown-menu">

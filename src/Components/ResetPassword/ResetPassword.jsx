@@ -27,7 +27,7 @@ const ResetPassword = () => {
         try {
             // DUMMY API: Post to jsonplaceholder to simulate sending OTP
             // In real scenario this would return success if user exists and OTP is sent
-            const response = await axios.post("/v2/auth/forgot-password", {
+            const response = await axios.post("https://api.m2rtechnomations.com/v2/auth/forgot-password", {
                 user_id: userId,
 
             });
@@ -62,8 +62,8 @@ const ResetPassword = () => {
                 <form className="reset-form" onSubmit={handleSubmit}>
                     <div className="reset-field">
                         <label htmlFor="userId">User ID</label>
-                        <div className="input-wrapper">
-                            <span className="input-icon">
+                        <div className="input-wrapper-forgot">
+                            <span className="input-icon-reset">
                                 <IoPersonOutline />
                             </span>
                             <input

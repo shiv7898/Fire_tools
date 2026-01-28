@@ -40,7 +40,7 @@ function Login(props) {
           props.getData(response.data);
         }
 
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (err) {
       setError("Login failed. Please try again.");

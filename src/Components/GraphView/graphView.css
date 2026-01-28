@@ -84,6 +84,14 @@
 
     overflow-x: auto;
   }
+
+  .yaxis-wrap {
+    white-space: pre-line;
+    /* \n ko line break banata hai */
+    font-size: 11px;
+    fill: #295bfd;
+  }
+
 }
 
 /* Desktop / laptop: let graph grow but cap height relative to viewport

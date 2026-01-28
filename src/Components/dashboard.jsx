@@ -38,9 +38,14 @@ import mqtt from "mqtt";
 import ProfileView from "./profileView.jsx";
 import PanelBarGraph from "./GraphView/graphView.jsx";
 
-export default function Dashboard({ userData }) {
+export default function Dashboard({ userData, handleLogout }) {
   console.log("🔹 Dashboard loaded with userData:", userData);
 
+  const width = window.innerWidth;
+  console.log("All Screen Width", width);
+  window.addEventListener("resize", () => {
+    console.log("Resize Screen Width", window.innerWidth);
+  });
   // MQTT States
   const [mqttClient, setMqttClient] = useState(null);
 
@@ -303,28 +308,32 @@ export default function Dashboard({ userData }) {
 
         if (_selectedPanel) {
           const ePayload = msg.data.toString();
-          if (ePayload.startsWith("55550202") || ePayload.startsWith("55550203") || ePayload.startsWith("55550205")) {
-            let fEvents = panelUseRef.events.filter((ev) => ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
-            console.log("Filtered Events:", ePayload.substr(36, 2));
-            if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
-              panelUseRef.events = [payloaddata, ...panelUseRef.events];
-              setEvents((events) => [payloaddata, ...events]);
-            } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
-              panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
-              setEvents((events) => [payloaddata, ...events]);
+          if (ePayload.startsWith("55550201")) {
+            panelUseRef.events = panelUseRef.events.filter((ev) => ev.panelId != _selectedPanel.id);
+            setEvents((events) => [...events]);
+          } else
+            if (ePayload.startsWith("55550202") || ePayload.startsWith("55550203") || ePayload.startsWith("55550205")) {
+              let fEvents = panelUseRef.events.filter((ev) => ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
+              console.log("Filtered Events:", ePayload.substr(36, 2));
+              if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
+                panelUseRef.events = [payloaddata, ...panelUseRef.events];
+                setEvents((events) => [payloaddata, ...events]);
+              } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
+                panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
+                setEvents((events) => [payloaddata, ...events]);
 
-            };
-          } else if (msg.data.toString().startsWith("55550204")) {
-            let fEvents = panelUseRef.events.filter((ev) => ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
-            if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
-              panelUseRef.events = [payloaddata, ...panelUseRef.events];
-              setEvents((events) => [payloaddata, ...events]);
-            } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
-              panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
-              setEvents((events) => [payloaddata, ...events]);
+              };
+            } else if (msg.data.toString().startsWith("55550204")) {
+              let fEvents = panelUseRef.events.filter((ev) => ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
+              if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
+                panelUseRef.events = [payloaddata, ...panelUseRef.events];
+                setEvents((events) => [payloaddata, ...events]);
+              } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
+                panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
+                setEvents((events) => [payloaddata, ...events]);
 
-            };
-          }
+              };
+            }
         }
 
 
@@ -1024,7 +1033,7 @@ export default function Dashboard({ userData }) {
     console.log("panelsData", panelsData);
     panelsRef.current = panelsData;
     return panelsData;
-  }, [dataResponse, events, eventsResponseAPI]); // 🔥 यही update करना था
+  }, [dataResponse, events, eventsResponseAPI]);
 
   useEffect(() => {
     console.log("🔹 Setting combined panels...", combinedPanelsData);
@@ -1210,7 +1219,7 @@ export default function Dashboard({ userData }) {
     () => [
       {
         key: "home",
-        to: "/dashboard",
+        to: "/",
         icon: <HiHome className="home_icon" />,
         label: "Home",
         onClick: handleDashboardClick,
@@ -1241,7 +1250,7 @@ export default function Dashboard({ userData }) {
         to: "/",
         icon: <FiLogOut className="home_icon" />,
         label: "Logout",
-        onClick: null,
+        onClick: handleLogout,
       },
 
 
@@ -1662,7 +1671,7 @@ export default function Dashboard({ userData }) {
             <div className="togleButton">
               <span>Panel Overview</span>
               <button onClick={() => setIsBarView(!isBarView)}>
-                {isBarView ? "Table View" : "BarGraph View"}
+                {isBarView ? "Table View" : "Graph View"}
               </button>
             </div>
             <div

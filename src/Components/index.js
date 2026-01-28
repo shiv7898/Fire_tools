@@ -8,7 +8,7 @@ export default function Profile() {
     console.log("Sending data:", responseData);
   }
 
-  console.log("Response Data in Profile:", responseData);
+
 
   return (
     <div>

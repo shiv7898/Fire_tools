@@ -93,6 +93,11 @@
   }
 }
 
+@media (min-width: 768px) and (max-width: 1100px) {
+  .leaflet-map {
+    height: 100vh;
+  }
+}
 
 
 

@@ -111,7 +111,7 @@ const ConfermPassword = () => {
 
         try {
             // DUMMY API: Post to jsonplaceholder to simulate password reset
-            const response = await axios.post("/v2/auth/reset-password", {
+            const response = await axios.post("https://api.m2rtechnomations.com/v2/auth/reset-password", {
                 user_id: userId,
                 otp: otp,
                 new_password: newPassword
@@ -161,7 +161,7 @@ const ConfermPassword = () => {
                     <div className="reset-field">
                         <label htmlFor="otp">OTP Code</label>
                         <div className="input-wrapper">
-                            <span className="input-icon">
+                            <span className="input-icon-confirm">
                                 <IoKeypadOutline />
                             </span>
                             <input
@@ -180,7 +180,7 @@ const ConfermPassword = () => {
                     <div className="reset-field">
                         <label htmlFor="newPassword">New Password</label>
                         <div className="input-wrapper">
-                            <span className="input-icon">
+                            <span className="input-icon-reset">
                                 <IoLockClosedOutline />
                             </span>
                             <input
@@ -211,7 +211,7 @@ const ConfermPassword = () => {
                     <div className="reset-field">
                         <label htmlFor="confirmPassword">Confirm Password</label>
                         <div className="input-wrapper">
-                            <span className="input-icon">
+                            <span className="input-icon-reset">
                                 <IoLockClosedOutline />
                             </span>
                             <input

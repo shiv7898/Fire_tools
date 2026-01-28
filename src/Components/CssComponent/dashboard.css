@@ -1020,6 +1020,11 @@ tbody tr:hover {
   .tower-container {
     width: 60%;
     /* margin-left: 6%; */
+    /* border: 1px solid black; */
+  }
+
+  .addressable-event-container {
+    width: 40%;
   }
 
   .event-container {
@@ -1033,6 +1038,24 @@ tbody tr:hover {
 
   .addressable-tab {
     padding: 6px 6px;
+  }
+
+  .stat-info h4 {
+
+    font-size: 10px;
+
+
+  }
+
+  .stat-icon {
+    width: 36px;
+    height: 36px;
+
+  }
+
+  .stat-card {
+
+    padding: 6px 5px;
   }
 }
 
@@ -1547,19 +1570,20 @@ tbody tr:hover {
 }
 
 /* Tablet: 768px — 1023px adjustments (portrait & small landscape tablets) */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1100px) {
 
   .main-container {
-    height: auto;
-    width: 100vw;
+    /* height: auto; */
+    width: 100%;
+    /* Fix: 100% prevents overflow caused by 100vw + scrollbar */
     display: flex;
     padding: 8px 12px;
-    /* background: #f4f6f9; */
+    box-sizing: border-box;
+    /* Ensure padding accounts for width */
   }
 
   /* Slightly wider collapsed sidebar to aid touch targets */
   .sidebar-container {
-    /* flex: 0 0 8%; */
     transition: flex-basis 0.22s ease;
   }
 
@@ -1569,33 +1593,41 @@ tbody tr:hover {
 
   .sub-maincontainer1 {
     display: flex;
+    flex-wrap: wrap;
+    /* Fix: Allow wrapping if content exceeds width */
     gap: 10px;
     padding: 8px;
-    /* height: calc(100vh - 24px); */
     box-sizing: border-box;
-    width: 100vw;
-    border: 1px solid black;
+    width: 100%;
+    /* Fix: 100% aligns with parent, avoiding overflow */
+    /* border: 1px solid black; */
+    overflow: hidden;
+    /* Fix: Contain internal overflows */
   }
 
-  /* .tower-container {
-    flex-direction: column;
+  /* Fix: Restore tower container flex layout */
+  .tower-container {
+    flex: 1 1;
+    width: auto;
+    min-width: 0;
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    width: 100%;
-    min-height: 0;
-  } */
+    height: 95vh;
+  }
 
   /* Stats stack into two columns on tablet */
   .stats-container {
     display: flex;
-    /* flex-wrap: wrap; */
     gap: 8px;
     align-items: stretch;
   }
 
   .stat-card {
-    flex: 0 0 24%;
+    flex: 1 1 0;
+    /* Fix: Distribute cards evenly */
     min-height: 68px;
+    min-width: 0;
   }
 
   /* Make view area use available horizontal space while keeping an event column */
@@ -1607,17 +1639,17 @@ tbody tr:hover {
 
   .table-main-container,
   .graph-main-container {
-    flex: 1 1 62%;
+    flex: 1 1 60%;
     min-width: 0;
   }
 
   /* Side event/list column on the right */
   .event-container1 {
-    flex: 0 0 34%;
+    flex: 0 0 35%;
     width: auto;
-    min-width: 260px;
-    max-width: 420px;
-    max-height: calc(100vh - 160px);
+    min-width: 250px;
+    max-width: 400px;
+    max-height: calc(100vh - 40px);
     overflow: auto;
   }
 
@@ -1663,6 +1695,10 @@ tbody tr:hover {
     width: auto;
     height: 100%;
   }
+
+  .stat-info h4 {
+    font-size: 12px;
+  }
 }
 
 /* =========================================================
@@ -1684,7 +1720,7 @@ tbody tr:hover {
   /* Reduce padding so rows fit into the compact viewport */
   .table-wrapper th,
   .table-wrapper td {
-    padding: 15px 10px;
+    padding: 12px 1px;
     font-size: 12px !important;
     line-height: 1.1 !important;
     white-space: nowrap;

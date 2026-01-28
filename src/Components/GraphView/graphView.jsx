@@ -44,7 +44,16 @@ export default function PanelBarGraph({ panels }) {
           <CartesianGrid strokeDasharray="3 3" />
 
           <XAxis type="number" domain={[0, 60]} tickCount={7} />
-          <YAxis type="category" dataKey="panel" width={120}  tick={{ fill: "#295bfd", }}/>
+          {/* <YAxis type="category" dataKey="panel" width={160} tick={{ fill: "#295bfd", className: "yaxis-wrap" }} tickFormatter={(value) => value.replace(/ /g, "\n")} /> */}
+          <YAxis
+            type="category"
+            dataKey="panel"
+            width={window.innerWidth > 425 ? 160 : 132}
+            tick={{
+              fill: "#295bfd",
+
+            }}
+          />
 
           <Tooltip />
           <Legend />

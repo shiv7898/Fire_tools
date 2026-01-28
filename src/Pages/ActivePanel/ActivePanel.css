@@ -25,6 +25,7 @@
   border-radius: 8px;
   border: 1px solid #e5e5e5;
 }
+
 .table-wrapper-active-panel::-webkit-scrollbar {
   display: none;
 }
@@ -32,9 +33,9 @@
 .panel-table-active {
   width: 100%;
   border-collapse: collapse;
-      border-spacing: 0;
-    text-align: center;
-    font-size: 13px;
+  border-spacing: 0;
+  text-align: center;
+  font-size: 13px;
 }
 
 .panel-table-active th,
@@ -43,7 +44,8 @@
   text-align: left;
   border-bottom: 1px solid #e5e5e5;
   font-size: 12px;
-    font-weight: 600;
+  font-weight: 600;
+  white-space: pre-wrap;
 }
 
 .panel-table-active th {
@@ -52,15 +54,15 @@
   /* background: #f1f8ff; */
   font-weight: 600;
   z-index: 1;
-      /* padding: 11px 26px; */
+  /* padding: 11px 26px; */
 
 }
 
 @media (max-width: 425px) {
 
 
-   .table-wrapper-active-panel {
-    min-height: 160px;
+  .table-wrapper-active-panel {
+    min-height: 200px;
     max-height: calc(100vh - 240px);
   }
 }

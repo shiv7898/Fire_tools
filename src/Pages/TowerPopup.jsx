@@ -33,7 +33,7 @@ const TowerPopup = ({
   processLEDStatus,
 }) => {
   console.log("Panel prop in TowerPopup....", panel);
-  
+
   let latitude = null;
   let longitude = null;
 
@@ -84,14 +84,12 @@ const TowerPopup = ({
                 <div className="panel-status-grid">
                   <div className="status-item">
                     <div
-                      className={`add-icon-back ${
-                        led_status.main == 1 ? "mains-active" : ""
-                      }`}
+                      className={`add-icon-back ${led_status.main == 1 ? "mains-active" : ""
+                        }`}
                     >
                       <span
-                        className={`status-icon ${
-                          led_status.main == 1 ? "green" : "gray"
-                        }`}
+                        className={`status-icon ${led_status.main == 1 ? "green" : "gray"
+                          }`}
                       >
                         <ImSwitch className="address-icon" />
                       </span>
@@ -101,9 +99,8 @@ const TowerPopup = ({
                   <div className="status-item">
                     <div className={`add-icon-back ${led_status.fire == 1 ? "fire-active" : ""}`}>
                       <span
-                        className={`status-icon ${
-                          led_status.fire == 1 ? "red" : "gray"
-                        }`}
+                        className={`status-icon ${led_status.fire == 1 ? "red" : "gray"
+                          }`}
                         fire
                       >
                         <FaFire />
@@ -113,12 +110,11 @@ const TowerPopup = ({
                     <span className="status-label">FIRE</span>
                   </div>
                   <div className="status-item">
-                    <div className={ `add-icon-back ${led_status.fault == 1 ? "fault-active" : "gray"}`}>
+                    <div className={`add-icon-back ${led_status.fault == 1 ? "fault-active" : "gray"}`}>
                       {" "}
                       <span
-                        className={`status-icon ${
-                          led_status.fault == 1 ? "yellow" : "gray"
-                        }`}
+                        className={`status-icon ${led_status.fault == 1 ? "yellow" : "gray"
+                          }`}
                         fault
                       >
                         <FaExclamationCircle />
@@ -131,9 +127,8 @@ const TowerPopup = ({
                     <div className={`add-icon-back ${led_status.sysfault == 1 ? "sys-active" : "gray"}`}>
                       {" "}
                       <span
-                        className={`status-icon sil-alarm ${
-                          led_status.sysfault == 1 ? "blue" : "gray"
-                        }`}
+                        className={`status-icon sil-alarm ${led_status.sysfault == 1 ? "blue" : "gray"
+                          }`}
                       >
                         <TbSettingsExclamation />
                       </span>
@@ -156,9 +151,8 @@ const TowerPopup = ({
                     <div className={`add-icon-back ${led_status.sil == 1 ? "sil-active" : "gray"}`}>
                       {" "}
                       <span
-                        className={`status-icon sil-alarm ${
-                          led_status.sil == 1 ? "yellow" : "gray"
-                        }`}
+                        className={`status-icon sil-alarm ${led_status.sil == 1 ? "yellow" : "gray"
+                          }`}
                       >
                         <FaVolumeUp />
                       </span>
@@ -167,12 +161,11 @@ const TowerPopup = ({
                     <span className="status-label">SIL ALARM</span>
                   </div>
                   <div className="status-item">
-                    <div className={`add-icon-back ${ led_status.pre == 1 ? "pre-active" : "gray"}`}>
+                    <div className={`add-icon-back ${led_status.pre == 1 ? "pre-active" : "gray"}`}>
                       {" "}
                       <span
-                        className={`status-icon pre-alarm ${
-                          led_status.pre == 1 ? "yellow" : "gray"
-                        }`}
+                        className={`status-icon pre-alarm ${led_status.pre == 1 ? "yellow" : "gray"
+                          }`}
                       >
                         <FaBell />
                       </span>
@@ -199,9 +192,8 @@ const TowerPopup = ({
                             <div className="event-content-popup">
                               <div className="event-header-popup">
                                 <span className="event-title-popup">
-                                  {`${event.eventDescription}(${
-                                    event.deviceTypeText || ""
-                                  })`}
+                                  {`${event.eventDescription}(${event.deviceTypeText || ""
+                                    })`}
                                 </span>
                                 <span className="event-time-popup">
                                   {event.formattedDateTime}
@@ -245,9 +237,8 @@ const TowerPopup = ({
                             <div className="event-content-popup">
                               <div className="event-header-popup">
                                 <span className="event-title-popup">
-                                  {`${event.faultDescription}(${
-                                    event.deviceTypeText || ""
-                                  })`}
+                                  {`${event.faultDescription}(${event.deviceTypeText || ""
+                                    })`}
                                 </span>
                                 <span className="event-time-popup">
                                   {event.formattedDateTime}
@@ -293,9 +284,8 @@ const TowerPopup = ({
                             <div className="event-content-popup">
                               <div className="event-header-popup">
                                 <span className="event-title-popup">
-                                  {`${event.eventDescription}(${
-                                    event.deviceTypeText || ""
-                                  })`}
+                                  {`${event.eventDescription}(${event.deviceTypeText || ""
+                                    })`}
                                 </span>
                                 <span className="event-time-popup">
                                   {event.formattedDateTime}
@@ -375,12 +365,12 @@ const TowerPopup = ({
 
                 {latitude && longitude ? (
                   <MapContainer
-                      center={[latitude, longitude]}
-                      zoom={16}
-                      scrollWheelZoom={true}
-                      className="mapContainer"
-                      style={{height: "clamp(260px, 80vh, 600px)", width: "100%" }}
-                    >
+                    center={[latitude, longitude]}
+                    zoom={16}
+                    scrollWheelZoom={true}
+                    className="mapContainer"
+                  // style={{ height: "clamp(260px, 80vh, 600px)", width: "100%" }}
+                  >
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
                     {panels.map((panel, index) => (

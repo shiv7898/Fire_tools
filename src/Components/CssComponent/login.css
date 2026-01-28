@@ -441,25 +441,25 @@
   }
 }
 
-@media (width: 768px) {
+@media (min-width: 768px) and (max-width: 1100px) {
   .login-container {
     padding: 24px;
   }
 
   .login-bg {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
     padding: 24px;
     flex-direction: row;
-    gap: 20px;
+    /* gap: 20px; */
   }
 
   .login-logo-ui {
     width: 100%;
     min-width: unset;
     max-width: 100%;
-    height: auto;
-    padding: 24px 16px;
+    /* height: auto; */
+    padding: 99px 16px;
     background-position: center;
     background-size: cover;
   }
@@ -483,10 +483,15 @@
   }
 
   .login-form {
-    width: 100%;
+    width: 94%;
     max-width: 100%;
     height: auto;
-    padding: 24px;
+    padding: 52px;
+    height: 90vh;
+  }
+
+  .signin-text-for-mobile {
+    display: none;
   }
 
   .login-title {
@@ -499,7 +504,7 @@
 
   .login-field input {
     font-size: 0.95rem;
-    padding: 10px 12px;
+    padding: 12px 40px;
   }
 
   .login-btn {
@@ -512,6 +517,10 @@
     display: flex;
     gap: 10px;
     /* align-items: center; */
+  }
+
+  .login-logo-ui {
+    background-position: 0px -270px;
   }
 }
 

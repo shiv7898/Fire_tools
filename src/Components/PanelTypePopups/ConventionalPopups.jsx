@@ -10,6 +10,7 @@ import { TbBulbFilled } from "react-icons/tb";
 import "../CssComponent/PanelTypePopup/ConventionalPopup.css";
 import { FaFire, FaExclamationCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
+import { logActivity } from "../Log/activityLogger";
 
 export default function ConventionalPopup({
   data: {
@@ -22,7 +23,7 @@ export default function ConventionalPopup({
     sendMqttCommand,
   },
 }) {
-
+  const { name } = selectedPanel;
 
   const handleActionClick = (action) => {
     sendMqttCommand(selectedPanel.topic, action);
@@ -186,28 +187,40 @@ export default function ConventionalPopup({
       <div className="conventional-button-container">
         <button
           className="conventional-btn-main"
-          onClick={() => handleActionClick(1)}
+          onClick={() => {
+            handleActionClick(1);
+            logActivity(`RESET PRESSED (${name})`);
+          }}
         >
           <RiResetLeftFill className="conventional-btn-icon" />
           <span className="conventional-btn-label">RESET</span>
         </button>
         <button
           className="conventional-btn-main"
-          onClick={() => handleActionClick(2)}
+          onClick={() => {
+            handleActionClick(2);
+            logActivity(`SIL BUZZ PRESSED (${name})`);
+          }}
         >
           <GiRingingBell className="conventional-btn-icon" />
           <span className="conventional-btn-label">SIL BUZZ</span>
         </button>
         <button
           className="conventional-btn-main"
-          onClick={() => handleActionClick(3)}
+          onClick={() => {
+            handleActionClick(3);
+            logActivity(`SIL ALARM PRESSED (${name})`);
+          }}
         >
           <GiRingingAlarm className="conventional-btn-icon" />
           <span className="conventional-btn-label">SIL ALARM</span>
         </button>
         <button
           className="conventional-btn-main"
-          onClick={() => handleActionClick(6)}
+          onClick={() => {
+            handleActionClick(6);
+            logActivity(`L TEST PRESSED (${name})`);
+          }}
         >
           <TbBulbFilled className="conventional-btn-icon" />
           <span className="conventional-btn-label">L TEST</span>

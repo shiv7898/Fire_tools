@@ -11,6 +11,8 @@ import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import ConfermPassword from "./Components/ResetPassword/ConfermPassword";
 import ActivityRecord from "./Components/Log/activityRecord";
 
+import ProtectedRoute from "./Components/ProtectedRoute";
+
 function App() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,6 +20,12 @@ function App() {
   function getData(responseData) {
     setUserData(responseData);
   }
+
+  const handleLogout = () => {
+    setUserData(null);
+    localStorage.removeItem("userData");
+    localStorage.removeItem("access_token");
+  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("userData");
@@ -40,24 +48,35 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login getData={getData} />} />
+
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/reset-password-confirm" element={<ConfermPassword />} />
-        <Route path="/activity-record" element={<ActivityRecord />} />
         <Route
-          path="/dashboard"
+          path="/login"
           element={
-            userData ? (
-              <Dashboard userData={userData} />
-            ) : (
-              <Navigate to="/" replace />
-            )
+            userData ? <Navigate to="/" replace /> : <Login getData={getData} />
+          }
+        />
+        <Route
+          path="/activity-record"
+          element={
+            <ProtectedRoute userData={userData}>
+              <ActivityRecord />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute userData={userData}>
+              <Dashboard userData={userData} handleLogout={handleLogout} />
+            </ProtectedRoute>
           }
         />
       </Routes>
     </Router>
   );
 }
-// ??
+
 
 export default App;

@@ -166,3 +166,18 @@
 .back-btn:hover {
     transform: translateX(-3px);
 }
+
+
+@media (max-width: 425px) {
+    .activity-page {
+
+
+        padding: 0px;
+        overflow: scroll;
+    }
+
+    .table-container-log {
+        border-radius: 4px;
+        border: none;
+    }
+}
