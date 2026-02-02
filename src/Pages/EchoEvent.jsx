@@ -32,7 +32,7 @@ const EchoEvent = ({ panel, onClose }) => {
       <div className="towerheading">
         <button className="close-btn" onClick={onClose}>
           {/* ⬅ */}
-          <IoArrowBackSharp size={25} color="white" />
+          <IoArrowBackSharp size={25} color="#5e5b5b" />
         </button>
         <p>{`${panel.name}`} (Echo)</p>
       </div>

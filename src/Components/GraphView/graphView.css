@@ -13,9 +13,9 @@
   /* allow flex children to shrink */
   flex: 1 1 auto;
   /* grow/shrink inside parent flex container */
-  min-height: 0;
+  min-height: 60vh;
   /* allow parent flex to control height */
-  max-height: calc(100vh - 100px);
+  /* max-height: calc(100vh - 100px); */
   /* desktop-friendly cap */
   align-self: stretch;
 }
@@ -36,14 +36,40 @@
 
 .graph-scroll-x {
   overflow-x: auto;
+
 }
 
 .graph-scroll-x::-webkit-scrollbar {
   display: none;
 }
 
+.recharts-legend-item-text {
+  fill: #232323 !important;
+  color: #232323 !important;
+}
 
-@media (max-width: 425px) {
+/* ❌ Text / SVG selection disable */
+.graph-main,
+.graph-main * {
+  user-select: none;
+}
+
+/* ❌ Focus outline remove (SVG / chart) */
+.graph-main svg:focus {
+  outline: none;
+}
+
+/* ❌ Recharts bar focus border remove */
+.recharts-bar-rectangle:focus {
+  outline: none;
+}
+
+
+
+
+
+
+@media (max-width: 767px) {
   .graph-main {
     padding: 12px;
     margin-top: 12px;
@@ -107,7 +133,7 @@
 
 @media (min-width: 1024px) {
   .graph-main {
-    height: 75vh;
+    min-height: 66vh;
     max-height: calc(100vh - 160px);
   }
 
@@ -117,9 +143,9 @@
     width: auto !important;
   }
 
-  .graph-main svg {
+  /* .graph-main svg {
     display: block;
     height: auto !important;
     max-width: none !important;
-  }
+  } */
 }

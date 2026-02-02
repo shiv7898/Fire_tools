@@ -38,26 +38,26 @@ function ConventionalEvent({
 
 
 
-let latitude =null;
-let longitude = null;
+  let latitude = null;
+  let longitude = null;
 
-if (
-  panel?.location &&
-  typeof panel.location === "string" &&
-  panel.location.includes(",")
-) {
-  const parts = panel.location.split(",").map((item) => item.trim());
+  if (
+    panel?.location &&
+    typeof panel.location === "string" &&
+    panel.location.includes(",")
+  ) {
+    const parts = panel.location.split(",").map((item) => item.trim());
 
-  if (parts.length === 2) {
-    latitude = Number(parts[0]);
-    longitude = Number(parts[1]);
+    if (parts.length === 2) {
+      latitude = Number(parts[0]);
+      longitude = Number(parts[1]);
+    }
   }
-}
 
-const panels =
-  latitude !== null && longitude !== null
-    ? [{ name: panel.name, position: [latitude, longitude] }]
-    : [];
+  const panels =
+    latitude !== null && longitude !== null
+      ? [{ name: panel.name, position: [latitude, longitude] }]
+      : [];
 
 
 
@@ -76,7 +76,7 @@ const panels =
       <div className="towerheading">
         <button className="close-btn" onClick={onClose}>
           {/* ⬅ */}
-          <IoArrowBackSharp size={25} color="white" />
+          <IoArrowBackSharp size={25} color="#5e5b5b" />
         </button>
         <p>{`${panel.name}`} (Conventional)</p>
       </div>
@@ -85,14 +85,12 @@ const panels =
           <div className="led-info">
             <div className="panel-status-grid">
               <div className={`status-item `}>
-                <div  className={`add-icon-back ${
-                        led_status.main == 1 ? "mains-active" : ""
-                      }`}>
+                <div className={`add-icon-back ${led_status.main == 1 ? "mains-active" : ""
+                  }`}>
                   {" "}
                   <span
-                    className={`status-icon mains ${
-                      led_status.main == 1 ? "green" : "gray"
-                    }`}
+                    className={`status-icon mains ${led_status.main == 1 ? "green" : "gray"
+                      }`}
                   >
                     <ImSwitch />
                   </span>
@@ -101,11 +99,10 @@ const panels =
                 <span className="status-label">MAINS</span>
               </div>
               <div className={`status-item `}>
-                <div className={ `add-icon-back ${led_status.fault == 1 ? "fire-active" : ""}`}>
+                <div className={`add-icon-back ${led_status.fault == 1 ? "fire-active" : ""}`}>
                   <span
-                    className={`status-icon fire ${
-                      led_status.fire == 1 ? "red" : "gray"
-                    }`}
+                    className={`status-icon fire ${led_status.fire == 1 ? "red" : "gray"
+                      }`}
                   >
                     <FaFire />
                   </span>
@@ -114,12 +111,11 @@ const panels =
                 <span className="status-label">FIRE</span>
               </div>
               <div className={`status-item `}>
-                <div className={ `add-icon-back ${led_status.fault == 1 ? "fault-active" : ""}`}>
+                <div className={`add-icon-back ${led_status.fault == 1 ? "fault-active" : ""}`}>
                   {" "}
                   <span
-                    className={`status-icon fault ${
-                      led_status.fault == 1 ? "yellow" : "gray"
-                    }`}
+                    className={`status-icon fault ${led_status.fault == 1 ? "yellow" : "gray"
+                      }`}
                   >
                     <FaCogs />
                   </span>
@@ -128,12 +124,11 @@ const panels =
                 <span className="status-label">FAULT</span>
               </div>
               <div className={`status-item `}>
-                <div className={ `add-icon-back ${led_status.batt == 1 ? "batt-active" : ""}`}>
+                <div className={`add-icon-back ${led_status.batt == 1 ? "batt-active" : ""}`}>
                   {" "}
                   <span
-                    className={`status-icon battery ${
-                      led_status.batt == 1 ? "yellow" : "gray"
-                    }`}
+                    className={`status-icon battery ${led_status.batt == 1 ? "yellow" : "gray"
+                      }`}
                   >
                     <IoMdBatteryCharging />
                   </span>
@@ -143,12 +138,11 @@ const panels =
               </div>
 
               <div className={`status-item `}>
-                <div className={ `add-icon-back ${led_status.fault == 1 ? "hooter-active" : ""}`}>
+                <div className={`add-icon-back ${led_status.fault == 1 ? "hooter-active" : ""}`}>
                   {" "}
                   <span
-                    className={`status-icon sil-alarm ${
-                      led_status.hooter == 1 ? "yellow" : "gray"
-                    }`}
+                    className={`status-icon sil-alarm ${led_status.hooter == 1 ? "yellow" : "gray"
+                      }`}
                   >
                     <FaVolumeUp />
                   </span>
@@ -236,40 +230,40 @@ const panels =
                 </ul>
               </div>
             </div> */}
-            
+
           </div>
         </div>
-       <div className="tower-map-container">
-  <div className="map-card">
-    <div className="map-heading">
-      <p>Panel Location</p>
-    </div>
+        <div className="tower-map-container">
+          <div className="map-card">
+            <div className="map-heading">
+              <p>Panel Location</p>
+            </div>
 
-   {latitude && longitude ? (
-                  <MapContainer
-                      center={[latitude, longitude]}
-                      zoom={16}
-                      scrollWheelZoom={true}
-                      className="mapContainer"
-                      style={{height: "clamp(260px, 80vh, 600px)", width: "100%" }}
-                    >
-                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {latitude && longitude ? (
+              <MapContainer
+                center={[latitude, longitude]}
+                zoom={16}
+                scrollWheelZoom={true}
+                className="mapContainer"
+                style={{ height: "clamp(260px, 80vh, 600px)", width: "100%" }}
+              >
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-                    {panels.map((panel, index) => (
-                      <Marker
-                        key={index}
-                        position={panel.position}
-                        icon={panelIcon}
-                      >
-                        <Popup>{panel.name}</Popup>
-                      </Marker>
-                    ))}
-                  </MapContainer>
-                ) : (
-                  <div className="no-location">📍 Location not available</div>
-                )}
-  </div>
-</div>
+                {panels.map((panel, index) => (
+                  <Marker
+                    key={index}
+                    position={panel.position}
+                    icon={panelIcon}
+                  >
+                    <Popup>{panel.name}</Popup>
+                  </Marker>
+                ))}
+              </MapContainer>
+            ) : (
+              <div className="no-location">📍 Location not available</div>
+            )}
+          </div>
+        </div>
 
       </div>
     </div>

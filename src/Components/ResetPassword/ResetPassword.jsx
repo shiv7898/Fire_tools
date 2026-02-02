@@ -9,6 +9,8 @@ const ResetPassword = () => {
     const [userId, setUserId] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [successMessage, setSuccessMessage] = useState("");
 
     const handleChange = (e) => {
         setUserId(e.target.value);
@@ -25,17 +27,18 @@ const ResetPassword = () => {
         setLoading(true);
 
         try {
-            // DUMMY API: Post to jsonplaceholder to simulate sending OTP
-            // In real scenario this would return success if user exists and OTP is sent
             const response = await axios.post("https://api.m2rtechnomations.com/v2/auth/forgot-password", {
                 user_id: userId,
-
             });
             if (response.data.status === true) {
-                console.log("OTP Sent Response:", response.data);
+                const msg = response.data.message || "OTP has been sent to your registered email.";
+                setSuccessMessage(msg);
+                setShowSuccessPopup(true);
 
-                // Navigate to confirm page with userId in state
-                navigate("/reset-password-confirm", { state: { userId: userId } });
+                // Auto-navigate after 3 seconds
+                setTimeout(() => {
+                    navigate("/reset-password-confirm", { state: { userId: userId } });
+                }, 3000);
             } else {
                 setError(response.data.message);
             }
@@ -89,6 +92,21 @@ const ResetPassword = () => {
                     &larr; Back to Login
                 </Link>
             </div>
+
+            {/* Modern Success Popup */}
+            {showSuccessPopup && (
+                <div className="success-popup-overlay">
+                    <div className="success-popup-card">
+                        <div className="success-popup-icon">
+                            <IoArrowForwardCircleOutline size={50} />
+                        </div>
+                        <h3>Check Your Email</h3>
+                        <p className="success-popup-text">
+                            {successMessage}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -28,7 +28,7 @@
   z-index: 5000;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   background-color: white;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.3s ease-out;
@@ -52,7 +52,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1677ff;
+  /* background-color: #1677ff; */
+  box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);
   border-radius: 2.5px;
   margin: 4px;
   padding: 4px;
@@ -113,7 +114,7 @@
   margin: 2px;
   border-radius: 2px;
   background-color: white;
-  padding: 10px;
+  padding: 4px;
   display: flex;
   flex-direction: column;
   justify-content: first baseline;
@@ -217,39 +218,44 @@
 }
 
 .event-content-popup {
-  padding: 3px 4px;
+  padding: 3px 7px;
   /* flex: 1 1; */
   color: #ffffff;
   font-family: "Inter", sans-serif;
+  width: 100%;
 }
 
 .event-header-popup {
   display: flex;
-  gap: 1px;
-  /* justify-content: space-between; */
+  /* gap: 1px; */
+  justify-content: space-between;
   align-items: center;
 }
 
 .event-device-popup {
   margin-top: 4px;
-  font-size: 9px;
-  font-weight: 600;
-  color: #374151;
+  font-size: 8px;
+  font-weight: 800;
+  color: #636972;
   text-align: left;
+  /* text-wrap: auto; */
+  line-break: anywhere;
 }
 
 .event-meta-popup {
   margin-top: 6px;
   display: flex;
-  gap: 12px;
+  justify-content: space-between;
+  /* gap: 12px; */
   font-size: 8px;
   color: #374151;
 }
 
 .event-title-popup {
-  font-size: 9px;
-  font-weight: 700;
+  font-size: 8px;
+  font-weight: 800;
   color: #374151;
+  text-align: left;
 }
 
 .event-time-popup {
@@ -320,7 +326,7 @@
   line-height: 1.05;
   letter-spacing: -0.6px;
   background: linear-gradient(90deg, #0d6efd 0%, #00b4ff 100%);
-  -webkit-background-clip: text;
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
   text-transform: none;
   padding: 2px 6px;
@@ -442,7 +448,7 @@
 .towerheading p {
   font-weight: 600;
   font-size: 1.2rem;
-  color: rgb(255 255 255);
+  color: rgb(89 89 89);
 }
 
 .map-card {
@@ -478,8 +484,10 @@
   font-size: 16px;
   font-weight: 550;
 
-  background-color: #1677ff;
-  color: #ffffff;
+  /* background-color: #1677ff; */
+  box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);
+  color: #5e5b5b;
+  cursor: default;
 }
 
 .mapContainer {
@@ -719,13 +727,40 @@
   height: auto;
   /* justify-items: stretch; */
   box-sizing: border-box;
-  /* border: 1px solid green;*/
+  /* border: 1px solid green; */
+  animation: ledGlow 1.6s ease-in-out infinite;
+
 }
 
 /* Highlight add-icon-back when mains is active */
 .add-icon-back.mains-active {
   box-shadow: 0 0 2px 1px #a7c7a7;
   border-radius: 6px;
+  animation: ledGlow 1.6s ease-in-out infinite;
+
+}
+
+.add-icon-back.mains-active {
+  --icon-color: #008000;
+  --glow-soft: #789378;
+  --glow-strong: #40b040;
+}
+
+@keyframes ledGlow {
+  0% {
+    box-shadow: 0 0 2px 1px var(--glow-soft);
+    opacity: 0.7;
+  }
+
+  50% {
+    box-shadow: 0 0 5px 2px var(--glow-strong);
+    opacity: 1;
+  }
+
+  100% {
+    box-shadow: 0 0 2px 1px var(--glow-soft);
+    opacity: 0.7;
+  }
 }
 
 .add-icon-back.fire-active {
@@ -733,14 +768,38 @@
   border-radius: 6px;
 }
 
+.add-icon-back.fire-active {
+  --icon-color: #feb1b1;
+  --glow-soft: #ffd5d5;
+  --glow-strong: #feb1b1;
+}
+
+
+
+
+
+
 .add-icon-back.sil-active {
   box-shadow: 0 0 2px 1px #f7e7a7;
   border-radius: 6px;
 }
 
+.add-icon-back.sil-active {
+  --icon-color: #f7e7a7;
+  --glow-soft: #f7eed4;
+  --glow-strong: #f7e7a7;
+}
+
+
 .add-icon-back.fault-active {
   box-shadow: 0 0 2px 1px #f7e7a7;
   border-radius: 6px;
+}
+
+.add-icon-back.fault-active {
+  --icon-color: #f7e7a7;
+  --glow-soft: #f7eed4;
+  --glow-strong: #f7e7a7;
 }
 
 .add-icon-back.sys-active {
@@ -748,9 +807,21 @@
   border-radius: 6px;
 }
 
+.add-icon-back.sys-active {
+  --icon-color: #694ce7;
+  --glow-soft: #c6d8f7;
+  --glow-strong: #694ce7;
+}
+
 .add-icon-back.pre-active {
   box-shadow: 0 0 2px 1px #f7e7a7;
   border-radius: 6px;
+}
+
+.add-icon-back.pre-active {
+  --icon-color: #f7e7a7;
+  --glow-soft: #f7eed4;
+  --glow-strong: #f7e7a7;
 }
 
 .add-icon-back.batt-active {
@@ -758,9 +829,21 @@
   border-radius: 6px;
 }
 
+.add-icon-back.batt-active {
+  --icon-color: #f7e7a7;
+  --glow-soft: #f7eed4;
+  --glow-strong: #f7e7a7;
+}
+
 .add-icon-back.hooter-active {
   box-shadow: 0 0 2px 1px #f7e7a7;
   border-radius: 6px;
+}
+
+.add-icon-back.hooter-active {
+  --icon-color: #f7e7a7;
+  --glow-soft: #f7eed4;
+  --glow-strong: #f7e7a7;
 }
 
 .status-icon svg {
@@ -815,7 +898,7 @@
 }
 
 .tower-map-container {
-  max-width: 650px;
+  /* max-width: 650px; */
   /* margin: 2px auto; */
   /* padding: 9px; */
   background: #f8fbff;
@@ -825,7 +908,8 @@
 
 .mapContainer {
   width: 100%;
-  height: clamp(260px, 80vh, 600px);
+  height: clamp(260px, 80vh, 900px);
+  max-height: 100vh;
 }
 
 .C-mapContainer {
@@ -881,7 +965,8 @@
   }
 
   .led-info {
-    padding-top: 8px;
+    /* padding-top: 8px; */
+    padding: 12px 10px 12px 10px;
   }
 }
 
@@ -921,7 +1006,7 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 767px) {
   .tower-popup-overlay {
     height: 100vh;
     position: fixed;

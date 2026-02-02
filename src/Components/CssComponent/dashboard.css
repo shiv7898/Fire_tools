@@ -4,6 +4,23 @@
   font-family: "Roboto", Arial, sans-serif;
 }
 
+/* Main Layout */
+.main-container {
+  /* min-height: 100vh; */
+  /* width: 100%; */
+  display: flex;
+  /* overflow: hidden; */
+  /* background: #f4f6f9; */
+}
+
+.outer-toggle-container {
+  display: flex;
+  flex: 1 1 auto;
+  /* allow this area to shrink/grow when sidebar changes */
+  width: auto;
+  /* height: 100%; */
+}
+
 /* Location Sidebar (Tower List) */
 .location-sidebar {
   position: absolute;
@@ -184,21 +201,7 @@
   /* shadow on right side */
 }
 
-/* Main Layout */
-.main-container {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  /* background: #f4f6f9; */
-}
 
-.outer-toggle-container {
-  display: flex;
-  flex: 1 1 auto;
-  /* allow this area to shrink/grow when sidebar changes */
-  width: auto;
-  height: 100%;
-}
 
 /* Sidebar */
 .sidebar-container {
@@ -300,9 +303,48 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-
   text-align: left;
-  /* padding: 10px */
+}
+
+.sidebar-branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 20px 4px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(13, 110, 253, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  width: 100%;
+  display: none;
+}
+
+.sidebar-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.branding-text {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0057db;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.22s ease;
+}
+
+.sidebar-menu.collapsed .branding-text {
+  opacity: 0;
+}
+
+.sidebar-menu.collapsed .sidebar-branding {
+  justify-content: center;
+  margin-left: -10px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* Sidebar collapsed/expanded behavior */
@@ -431,13 +473,14 @@
   position: fixed;
   /* right: 0; */
   top: 0;
-  width: 375px;
+  width: 39%;
   /* height: 100vh; */
   background: #f8fbff;
   box-shadow: -8px 0 25px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.35s ease forwards;
   overflow-y: auto;
   padding: 20px;
+  min-height: 100vh;
 }
 
 /* Close button */
@@ -632,23 +675,47 @@
   margin-bottom: -10px;
 }
 
-.togleButton span {
-  font-size: 18px;
-  font-weight: 600;
-  color: #0057db;
-  display: flex;
-  align-items: center;
-  margin-left: 17px;
+.panel-overview-text {
+  color: #0659d4;
+  margin-left: 19px;
+  font-size: 18px !important;
 }
 
-.togleButton button {
+.togleButton span {
+  font-size: 12px;
+  font-weight: 600;
+  /* color: #ffffff; */
+  display: flex;
+  align-items: center;
+
+}
+
+.togleButton button.toggle-view-btn {
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
   background-color: #1677ff;
   color: #fff;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(22, 119, 255, 0.2);
+
+}
+
+
+
+.togleButton button.toggle-view-btn:hover {
+  background-color: #4096ff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(22, 119, 255, 0.3);
+}
+
+.togleButton button.toggle-view-btn:active {
+  transform: translateY(0);
 }
 
 /* ================= TABLE CONTAINER ================= */
@@ -669,7 +736,7 @@
   padding: 12px;
   box-shadow: 0 8px 24px rgba(13, 110, 253, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  min-height: 80vh;
+  /* min-height: 80vh; */
 }
 
 /* ================= TABLE WRAPPER ================= */
@@ -1109,7 +1176,7 @@ tbody tr:hover {
   /* Ensure table doesn't force the page width; allow horizontal scroll inside wrapper */
   .table-wrapper table {
     width: 100%;
-    min-width: 700px;
+    /* min-width: 700px; */
     /* let table be wider than container when needed */
     table-layout: auto;
   }
@@ -1127,7 +1194,8 @@ tbody tr:hover {
 
   .tower-container,
   .event-container {
-    min-height: 80vh;
+    min-height: 96vh;
+    height: auto;
   }
 
   /* Larger screens: increase available height for wrappers */
@@ -1164,7 +1232,8 @@ tbody tr:hover {
 
   .tower-container,
   .event-container {
-    min-height: 85vh;
+    min-height: 96vh;
+    height: auto;
   }
 
   .card1-text,
@@ -1190,7 +1259,7 @@ tbody tr:hover {
 /* =========================================================
    🔹 EXTRA SMALL DEVICES (≤480px)
 ========================================================= */
-@media (max-width: 425px) {
+@media (max-width: 767px) {
   * {
     font-size: 13px;
     padding: 0;
@@ -1206,7 +1275,8 @@ tbody tr:hover {
   /* Mobile topbar: fixed at top, full-width with small inset */
   .mobile-topbar {
     /* width: 100%; */
-    background-color: #0d6efd;
+    /* background-color: #0d6efd; */
+    box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.7);
     display: flex;
     position: fixed;
     top: 3px;
@@ -1217,7 +1287,8 @@ tbody tr:hover {
     justify-content: start;
     gap: 8px;
     padding: 6px;
-    /* background: transparent; */
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
   }
 
   .mobile-drawer-btn {
@@ -1546,27 +1617,36 @@ tbody tr:hover {
   }
 
   .mobile-topbar-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     width: 100%;
-    color: white;
-    text-align: center;
-    letter-spacing: 5px;
+    color: #0057db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    letter-spacing: 2px;
     font-weight: 800;
+  }
+
+  .mobile-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
   }
 
   .table-wrapper {
     /* mobile-specific responsive sizing */
     min-height: 180px;
-    max-height: calc(100vh - 260px);
+    max-height: calc(100vh - 480px);
     border-radius: 8px;
   }
 
   .table-card {
-    /* border: 1px solid black; */
-    height: 30vh;
+    width: 100%;
+    padding: 5px 0 0 5px;
+    box-sizing: border-box;
+    min-height: 40vh;
   }
-
-
 }
 
 /* Tablet: 768px — 1023px adjustments (portrait & small landscape tablets) */
@@ -1613,7 +1693,7 @@ tbody tr:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 95vh;
+    /* height: 95vh; */
   }
 
   /* Stats stack into two columns on tablet */
@@ -1740,4 +1820,54 @@ tbody tr:hover {
     min-width: 50px !important;
     font-size: 11px !important;
   }
+}
+
+/* Activity Log Sidebar - Left Side 50% */
+.activity_log_overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 2000;
+  /* Increased to be above mobile topbar (1200) */
+}
+
+.activity_log_sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100vh;
+  background: #f8fbff;
+  box-shadow: 8px 0 25px rgba(0, 0, 0, 0.15);
+  z-index: 2001;
+  /* Above overlay */
+  overflow-y: auto;
+  animation: slideInLeft 0.35s ease forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 767px) {
+  .activity_log_sidebar {
+    width: 100%;
+    /* Full width on mobile */
+    z-index: 9999;
+    /* Highest priority */
+  }
+}
+
+/* Highlight selected card */
+.stat-card.selected-card {
+  transform: translateY(-4px) scale(1.02);
+  /* Use a consistent highlight style, e.g., a blue border or stronger shadow */
+  box-shadow: 0 0px 27px #dde6ff, inset 0 -3px 0 #0d6efd;
+  /* border: 1px solid #0d6efd; */
 }

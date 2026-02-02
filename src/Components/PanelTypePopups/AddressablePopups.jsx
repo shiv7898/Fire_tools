@@ -10,6 +10,7 @@ import { RiResetLeftFill } from "react-icons/ri";
 import { GiRingingBell, GiRingingAlarm } from "react-icons/gi";
 import { FaPersonRunning } from "react-icons/fa6";
 import { TbSettingsExclamation } from "react-icons/tb";
+import { IoIosSettings } from "react-icons/io";
 import {
   FaBell,
   FaFire,
@@ -116,6 +117,7 @@ export default function AddressablePopup({
     selectedPanelEvent?.filter((ev) => ev.eventType === 4) || [];
   const activatedEvents =
     selectedPanelEvent?.filter((ev) => ev.eventType === 5) || [];
+  console.log("fireEventsIN AddressablePopup.....", sysFaultEvents);
 
 
   const uniqueFireEvents = Array.from(
@@ -366,11 +368,11 @@ export default function AddressablePopup({
                   (fireEvents.length > 0 ? (
                     fireEvents.map((event, index) => (
                       <div key={index} className="event-card fire">
-                        <div className="event-icon">🔥</div>
+                        <div className="event-icon-fire">🔥</div>
                         <div className="event-content">
                           <div className="event-header">
                             <span className="event-title">
-                              {`${event.eventDescription}(${event.deviceTypeText || ""
+                              {`${index + 1}. `}{`${event.eventDescription}(${event.deviceTypeText || ""
                                 })`}
                             </span>
                             <span className="event-time">
@@ -381,7 +383,7 @@ export default function AddressablePopup({
                           <div className="event-meta">
                             <span>Loop: {event.loopNo || "-"}</span>
                             <span>Device: {event.deviceNo || "-"}</span>
-                            <span>PanelNo:: {event.panelNo || "-"}</span>
+                            <span>Panel No: {event.panelNo || "-"}</span>
                           </div>
                         </div>
                       </div>
@@ -395,10 +397,10 @@ export default function AddressablePopup({
                   (faultEvents.length > 0 ? (
                     faultEvents.map((event, index) => (
                       <div key={index} className="event-card fault">
-                        <div className="event-icon">⚠️</div>
+                        <div className="event-icon-fault">⚠️</div>
                         <div className="event-content">
                           <div className="event-header">
-                            <span className="event-title">
+                            <span className="event-title"> {`${index + 1}. `}
                               {`${event.faultDescription}(${event.deviceTypeText || ""
                                 })`}
                             </span>
@@ -410,7 +412,7 @@ export default function AddressablePopup({
                           <div className="event-meta">
                             <span>Loop: {event.loopNo || "-"}</span>
                             <span>Device: {event.deviceNo || "-"}</span>
-                            <span>PanelNo: {event.panelNo || "-"}</span>
+                            <span>Panel No: {event.panelNo || "-"}</span>
                           </div>
                         </div>
                       </div>
@@ -424,10 +426,10 @@ export default function AddressablePopup({
                   (activatedEvents.length > 0 ? (
                     activatedEvents.map((event, index) => (
                       <div key={index} className="event-card activated">
-                        <div className="event-icon">🚨</div>
+                        <div className="event-icon-activated">🚨</div>
                         <div className="event-content">
                           <div className="event-header">
-                            <span className="event-title">
+                            <span className="event-title"> {`${index + 1}. `}
                               {`${event.eventDescription}(${event.deviceTypeText || ""
                                 })`}
                             </span>
@@ -439,7 +441,7 @@ export default function AddressablePopup({
                           <div className="event-meta">
                             <span>Loop: {event.loopNo || "-"}</span>
                             <span>Device: {event.deviceNo || "-"}</span>
-                            <span>PanelNo: {event.panelNo || "-"}</span>
+                            <span>Panel No: {event.panelNo || "-"}</span>
                           </div>
                         </div>
                       </div>
@@ -453,24 +455,27 @@ export default function AddressablePopup({
                   (sysFaultEvents.length > 0 ? (
                     sysFaultEvents.map((event, index) => (
                       <div key={index} className="event-card sysfault">
-                        <div className="event-icon">🧰</div>
+                        <div className="event-icon-sysfault"><span className="sys-icon"><IoIosSettings /></span></div>
                         <div className="event-content">
                           <div className="event-header">
-                            <span className="event-time">
-                              {event.formattedDateTime}
-                            </span>
-                            <span className="event-title">
+
+
+                            {/* <span className="event-title">
                               {event.deviceTypeText}
-                            </span>
+                            </span> */}
 
                           </div>
-                          <div className="event-device">
+                          <div className="event-device"> {`${index + 1}. `}
                             {event.faultDescription
                             }
                           </div>
                           <div className="event-meta">
                             <span>Loop: {event.loopNo}</span>
-                            <span>PanelNo: {event.panelNo}</span>
+                            <span className="event-time">
+
+                              {event.formattedDateTime}
+                            </span>
+                            <span>Panel No: {event.panelNo}</span>
 
                           </div>
                         </div>

@@ -65,7 +65,7 @@ const TowerPopup = ({
     selectedPanelEvent?.filter((ev) => ev.eventType === 4) || [];
   const activatedEvents =
     selectedPanelEvent?.filter((ev) => ev.eventType === 5) || [];
-  console.log("fireEventsIN TowerPopup.....", fireEvents);
+  console.log("fireEventsIN TowerPopup.....", faultEvents);
 
   return (
     <>
@@ -74,7 +74,7 @@ const TowerPopup = ({
           <div className="towerheading">
             <button className="close-btn" onClick={onClose}>
               {/* ⬅ */}
-              <IoArrowBackSharp size={25} color="white" />
+              <IoArrowBackSharp size={25} color="#5e5b5b" />
             </button>
             <p>{`${panel.name}`} (Addressable)</p>
           </div>
@@ -191,7 +191,7 @@ const TowerPopup = ({
                             {/* <div className="event-icon-popup">🔥</div> */}
                             <div className="event-content-popup">
                               <div className="event-header-popup">
-                                <span className="event-title-popup">
+                                <span className="event-title-popup">{`${index + 1}. `}
                                   {`${event.eventDescription}(${event.deviceTypeText || ""
                                     })`}
                                 </span>
@@ -236,7 +236,7 @@ const TowerPopup = ({
                             {/* <div className="event-icon-popup">⚠️</div> */}
                             <div className="event-content-popup">
                               <div className="event-header-popup">
-                                <span className="event-title-popup">
+                                <span className="event-title-popup">{`${index + 1}. `}
                                   {`${event.faultDescription}(${event.deviceTypeText || ""
                                     })`}
                                 </span>
@@ -283,7 +283,7 @@ const TowerPopup = ({
                             {/* <div className="event-icon-popup">🚨</div> */}
                             <div className="event-content-popup">
                               <div className="event-header-popup">
-                                <span className="event-title-popup">
+                                <span className="event-title-popup">{`${index + 1}. `}
                                   {`${event.eventDescription}(${event.deviceTypeText || ""
                                     })`}
                                 </span>
@@ -337,7 +337,7 @@ const TowerPopup = ({
                                   {event.deviceTypeText}
                                 </span>
                               </div>
-                              <div className="event-device-popup">
+                              <div className="event-device-popup">{`${index + 1}. `}
                                 {event.faultDescription}
                               </div>
                               <div className="event-meta-popup">

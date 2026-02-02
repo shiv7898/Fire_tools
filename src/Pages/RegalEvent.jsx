@@ -78,7 +78,7 @@ const RegalEvent = ({
       <div className="towerheading">
         <button className="close-btn" onClick={onClose}>
           {/* ⬅ */}
-          <IoArrowBackSharp size={25} color="white" />
+          <IoArrowBackSharp size={25} color="#5e5b5b" />
         </button>
         <p>{`${panel.name}`} (Regal)</p>
       </div>
@@ -87,14 +87,12 @@ const RegalEvent = ({
           <div className="led-info">
             <div className="panel-status-grid-two">
               <div className="status-item">
-                <div className={`add-icon-back ${
-                      led_status.MAIN == 1 ? "mains-active" : "gray"
-                    }`}>
+                <div className={`add-icon-back ${led_status.MAIN == 1 ? "mains-active" : "gray"
+                  }`}>
                   {" "}
                   <span
-                    className={`status-icon mains ${
-                      led_status.MAIN == 1 ? "green" : "gray"
-                    }`}
+                    className={`status-icon mains ${led_status.MAIN == 1 ? "green" : "gray"
+                      }`}
                   >
                     <ImSwitch />
                   </span>
@@ -103,14 +101,12 @@ const RegalEvent = ({
                 <span className="status-label">MAINS</span>
               </div>
               <div className="status-item">
-                <div className={`add-icon-back ${
-                      led_status.FIRE == 1 ? "fire-active" : "gray"
-                    }`}>
+                <div className={`add-icon-back ${led_status.FIRE == 1 ? "fire-active" : "gray"
+                  }`}>
                   {" "}
                   <span
-                    className={`status-icon fire ${
-                      led_status.FIRE === 1 ? "red" : "gray"
-                    }`}
+                    className={`status-icon fire ${led_status.FIRE === 1 ? "red" : "gray"
+                      }`}
                   >
                     <FaFire />
                   </span>
@@ -119,13 +115,11 @@ const RegalEvent = ({
                 <span className="status-label">FIRE</span>
               </div>
               <div className="status-item">
-                <div className={`add-icon-back ${
-                      led_status.FAULT == 1 ? "fault-active" : "gray"
-                    }`}>
+                <div className={`add-icon-back ${led_status.FAULT == 1 ? "fault-active" : "gray"
+                  }`}>
                   <span
-                    className={`status-icon fault ${
-                      led_status.FAULT === 1 ? "yellow" : "gray"
-                    }`}
+                    className={`status-icon fault ${led_status.FAULT === 1 ? "yellow" : "gray"
+                      }`}
                   >
                     <FaCogs />
                   </span>
@@ -134,14 +128,12 @@ const RegalEvent = ({
                 <span className="status-label">FAULT</span>
               </div>
               <div className="status-item">
-                <div className={`add-icon-back ${
-                      led_status.SYSFAULT == 1 ? "sys-active" : "gray"
-                    }`}>
+                <div className={`add-icon-back ${led_status.SYSFAULT == 1 ? "sys-active" : "gray"
+                  }`}>
                   {" "}
                   <span
-                    className={`status-icon sil-alarm ${
-                      led_status.SYSFAULT === 1 ? "blue" : "gray"
-                    }`}
+                    className={`status-icon sil-alarm ${led_status.SYSFAULT === 1 ? "blue" : "gray"
+                      }`}
                   >
                     <TbSettingsExclamation />
                   </span>
@@ -150,14 +142,12 @@ const RegalEvent = ({
                 <span className="status-label">SYS FAULT</span>
               </div>
               <div className="status-item">
-                <div className={`add-icon-back ${
-                      led_status.BATTMODE == 1 ? "batt-active" : "gray"
-                    }`}>
+                <div className={`add-icon-back ${led_status.BATTMODE == 1 ? "batt-active" : "gray"
+                  }`}>
                   {" "}
                   <span
-                    className={`status-icon battery ${
-                      led_status.BATTMODE === 1 ? "yellow" : "gray"
-                    }`}
+                    className={`status-icon battery ${led_status.BATTMODE === 1 ? "yellow" : "gray"
+                      }`}
                   >
                     <IoMdBatteryCharging />
                   </span>
@@ -167,14 +157,12 @@ const RegalEvent = ({
               </div>
 
               <div className="status-item">
-                <div className={`add-icon-back ${
-                      led_status.ZONEISO == 1 ? "fault-active" : "gray"
-                    }`}>
+                <div className={`add-icon-back ${led_status.ZONEISO == 1 ? "fault-active" : "gray"
+                  }`}>
                   {" "}
                   <span
-                    className={`status-icon sil-alarm ${
-                      led_status.ZONEISO == 1 ? "yellow" : "gray"
-                    }`}
+                    className={`status-icon sil-alarm ${led_status.ZONEISO == 1 ? "yellow" : "gray"
+                      }`}
                   >
                     <GiFireZone />
                   </span>
@@ -183,14 +171,12 @@ const RegalEvent = ({
                 <span className="status-label">ZONE ISO</span>
               </div>
               <div className="status-item">
-                <div className={`add-icon-back ${
-                      led_status.SILENCE == 1 ? "fault-active" : "gray"
-                    }`}>
+                <div className={`add-icon-back ${led_status.SILENCE == 1 ? "fault-active" : "gray"
+                  }`}>
                   {" "}
                   <span
-                    className={`status-icon sil-alarm ${
-                      led_status.SILENCE === 1 ? "yellow" : "gray"
-                    }`}
+                    className={`status-icon sil-alarm ${led_status.SILENCE === 1 ? "yellow" : "gray"
+                      }`}
                   >
                     <FaVolumeUp />
                   </span>
@@ -199,14 +185,12 @@ const RegalEvent = ({
                 <span className="status-label">SIL ALARM</span>
               </div>
               <div className="status-item">
-                <div className={`add-icon-back ${
-                      led_status.EVACUATE == 1 ? "fault-active" : "gray"
-                    }`}>
+                <div className={`add-icon-back ${led_status.EVACUATE == 1 ? "fault-active" : "gray"
+                  }`}>
                   {" "}
                   <span
-                    className={`status-icon sil-alarm ${
-                      led_status.EVACUATE === 1 ? "yellow" : "gray"
-                    }`}
+                    className={`status-icon sil-alarm ${led_status.EVACUATE === 1 ? "yellow" : "gray"
+                      }`}
                   >
                     <MdDirectionsRun />
                   </span>

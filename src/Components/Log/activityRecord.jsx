@@ -4,7 +4,7 @@ import { getLogs, subscribeToLogs, logActivity } from "./activityLogger";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function ActivityRecord() {
+export default function ActivityRecord({ onClose }) {
     const [activities, setActivities] = useState([]);
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export default function ActivityRecord() {
                         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
                             <button
                                 className="back-btn"
-                                onClick={() => navigate(-1)}
+                                onClick={() => onClose ? onClose() : navigate(-1)}
                                 aria-label="Go Back"
                             >
                                 <IoArrowBack />

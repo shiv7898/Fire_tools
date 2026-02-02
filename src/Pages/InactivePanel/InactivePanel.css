@@ -1,5 +1,5 @@
 .inactive-panel-container {
-  max-width: 600px;
+  /* max-width: 600px; */
   /* margin: 2px auto; */
   padding: 4px;
   /* background: #f9fcff;
@@ -19,7 +19,7 @@
   /* Responsive wrapper for inactive panels table */
   flex: 1 1 auto;
   min-height: 0;
-  max-height: calc(100vh - 160px);
+  max-height: calc(100vh - 50px);
   overflow-y: auto;
   border-radius: 8px;
   border: 1px solid #e5e5e5;
@@ -55,7 +55,7 @@
 }
 
 /* Responsive - allow horizontal scroll */
-@media (max-width: 425px) {
+@media (max-width: 767px) {
   .inactive-table-wrapper {
     overflow-x: auto;
   }

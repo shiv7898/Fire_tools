@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
 import "./CssComponent/profileView.css";
-import { FaCheckCircle, FaTimesCircle, FaEdit } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { FaRegUser } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaTimesCircle,
+  FaEdit,
+  FaRegUser,
+  FaCalendarAlt,
+  FaWifi,
+  FaCrown,
+  FaFingerprint,
+  FaClock,
+  FaHourglassHalf,
+  FaCalendarTimes,
+} from "react-icons/fa";
+import { MdEmail, MdOutlineCardMembership } from "react-icons/md";
 
 export default function ProfileView({ dataResponse }) {
   console.log("Profile Data Response.....:", dataResponse);
-  
+
   const [user, setUser] = useState(null);
-  
+
   const [subscriptionInfo, setSubscriptionInfo] = useState(null);
   const [showExpiryPopup, setShowExpiryPopup] = useState(false);
 
@@ -56,12 +67,12 @@ export default function ProfileView({ dataResponse }) {
       subscription: dataResponse?.subscription,
       ProductId: dataResponse?.subscription.product_id,
       totalDays: dataResponse?.subscription.time_period,
-      wifiModule: dataResponse?.subscription.wifiMode?"Active":"Inactive",
+      wifiModule: dataResponse?.subscription.wifiMode ? "Active" : "Inactive",
     });
 
     if (dataResponse?.subscription?.generated_at) {
       const result = calculateSubscription(
-        dataResponse.subscription.generated_at,dataResponse.subscription.time_period
+        dataResponse.subscription.generated_at, dataResponse.subscription.time_period
       );
 
       setSubscriptionInfo(result);
@@ -80,10 +91,10 @@ export default function ProfileView({ dataResponse }) {
       <main className="content">
         {/* 🔹 Profile Header */}
         <div className="card header">
-         <div className="avatar">
-  {/* <img src="/img/app_icon.png" alt="App Icon" /> */}
-  <FaRegUser/>
-</div>
+          <div className="avatar">
+            {/* <img src="/img/app_icon.png" alt="App Icon" /> */}
+            <FaRegUser />
+          </div>
 
           <div className="info">
             <h3>{user.name}</h3>
@@ -95,13 +106,13 @@ export default function ProfileView({ dataResponse }) {
             </span>
           </div>
 
-          <button className="edit-btn">
+          {/* <button className="edit-btn">
             <FaEdit size={14} />
-          </button>
+          </button> */}
         </div>
 
         {/* 🔹 Account Details */}
-        <div className="card">
+        {/* <div className="card">
           <h4>Account Details</h4>
           <p className="item">
             <strong>User ID:</strong> {user.userId}
@@ -109,67 +120,129 @@ export default function ProfileView({ dataResponse }) {
           <p className="item">
             <strong>Email:</strong> {user.email}
           </p>
-        </div>
+        </div> */}
 
         {/* 🔹 Subscription Details */}
+        {/* 🔹 Subscription Details */}
         <div className="card subscription-details">
-          <h4>Subscription Details</h4>
+          <div className="section-header">
+            <MdOutlineCardMembership className="header-icon" />
+            <h4>Subscription Details</h4>
+          </div>
 
-          <div className="grid">
-            <p className="item">
-              <span className="key">Subscription:</span>
-              <span className="value">
-                {user.subscription?.status ? "Active" : "Inactive"}
-              </span>
-            </p>
+          <div className="details-grid">
+            {/* Status */}
+            <div
+              className={`detail-item ${user.subscription?.status ? "status-active" : "status-inactive"
+                }`}
+            >
+              <div className="item-icon-box">
+                {user.subscription?.status ? (
+                  <FaCheckCircle />
+                ) : (
+                  <FaTimesCircle />
+                )}
+              </div>
+              <div className="item-info">
+                <span className="item-label">Subscription Status</span>
+                <span className="item-value">
+                  {user.subscription?.status ? "Active" : "Inactive"}
+                </span>
+              </div>
+            </div>
 
-            <p className="item">
-              <span className="key">Plan Type: </span>
-              <span className="value">Premium</span>
-            </p>
+            {/* Plan Type */}
+            <div className="detail-item">
+              <div className="item-icon-box">
+                <FaCrown />
+              </div>
+              <div className="item-info">
+                <span className="item-label">Plan Type</span>
+                <span className="item-value">Premium</span>
+              </div>
+            </div>
 
-            <p className="item">
-              <span className="key">Product ID: </span>
-              <span className="value">{user.subscription?.product_id}</span>
-            </p>
+            {/* Product ID */}
+            <div className="detail-item">
+              <div className="item-icon-box">
+                <FaFingerprint />
+              </div>
+              <div className="item-info">
+                <span className="item-label">Product ID</span>
+                <span className="item-value">
+                  {user.subscription?.product_id}
+                </span>
+              </div>
+            </div>
 
-            <p className="item wifi">
-              <span className="key">WiFi Module:</span>
-              <span className="value">{user.wifiModule}</span>
-            </p>
+            {/* WiFi Module */}
+            <div className="detail-item">
+              <div className="item-icon-box">
+                <FaWifi />
+              </div>
+              <div className="item-info">
+                <span className="item-label">WiFi Module</span>
+                <span className="item-value">{user.wifiModule}</span>
+              </div>
+            </div>
 
-            <p className="item">
-              <span className="key">Generated:</span>
-              <span className="value">
-                {subscriptionInfo.startDate.toLocaleDateString("en-IN", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </span>
-            </p>
-            <p className="item">
-              <span className="key">Duration:</span>
-              <span className="value">
-                {user.subscription?.time_period} Days
-              </span>
-            </p>
+            {/* Generated Date */}
+            <div className="detail-item">
+              <div className="item-icon-box">
+                <FaCalendarAlt />
+              </div>
+              <div className="item-info">
+                <span className="item-label">Generated Date</span>
+                <span className="item-value">
+                  {subscriptionInfo.startDate.toLocaleDateString("en-IN", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
+            </div>
 
-            <p className="item">
-              <span className="key">Days Left:</span>
-              <span className="value">{subscriptionInfo.daysLeft} Days</span>
-            </p>
+            {/* Duration */}
+            <div className="detail-item">
+              <div className="item-icon-box">
+                <FaClock />
+              </div>
+              <div className="item-info">
+                <span className="item-label">Duration</span>
+                <span className="item-value">
+                  {user.subscription?.time_period} Days
+                </span>
+              </div>
+            </div>
 
-            <p className="item">
-              <span className="key">Expires In:</span>
-              <span className="value">
-                {subscriptionInfo.monthsLeft} Months
-              </span>
-            </p>
+            {/* Days Left */}
+            <div className="detail-item">
+              <div className="item-icon-box">
+                <FaHourglassHalf />
+              </div>
+              <div className="item-info">
+                <span className="item-label">Days Left</span>
+                <span className="item-value">{subscriptionInfo.daysLeft} Days</span>
+              </div>
+            </div>
+
+            {/* Expiry */}
+            <div className="detail-item">
+              <div className="item-icon-box">
+                <FaCalendarTimes />
+              </div>
+              <div className="item-info">
+                <span className="item-label">Expires In</span>
+                <span className="item-value">
+                  {subscriptionInfo.monthsLeft} Months
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         {/* 🔔 Expiry Warning Popup */}
-        {showExpiryPopup && (
+        {/* {showExpiryPopup && (
           <div className="expiry-popup-overlay">
             <div className="expiry-popup">
               <h3>⚠️ Subscription Expiring Soon</h3>
@@ -189,7 +262,7 @@ export default function ProfileView({ dataResponse }) {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </main>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./CssComponent/dashboard.css";
 import { GrCalculator } from "react-icons/gr";
-import { AiOutlineThunderbolt } from "react-icons/ai";
+import { AiOutlineThunderbolt, AiOutlineTable, AiOutlineBarChart } from "react-icons/ai";
 import { PiProhibitFill } from "react-icons/pi";
 import { FaLocationDot } from "react-icons/fa6";
 import { HiHome } from "react-icons/hi2";
@@ -37,15 +37,16 @@ import ConventionalEvent from "../Pages/ConventionalEvent";
 import mqtt from "mqtt";
 import ProfileView from "./profileView.jsx";
 import PanelBarGraph from "./GraphView/graphView.jsx";
+import ActivityRecord from "./Log/activityRecord.jsx";
 
 export default function Dashboard({ userData, handleLogout }) {
   console.log("🔹 Dashboard loaded with userData:", userData);
 
-  const width = window.innerWidth;
-  console.log("All Screen Width", width);
-  window.addEventListener("resize", () => {
-    console.log("Resize Screen Width", window.innerWidth);
-  });
+  // const width = window.innerWidth;
+  // console.log("All Screen Width", width);
+  // window.addEventListener("resize", () => {
+  //   console.log("Resize Screen Width", window.innerWidth);
+  // });
   // MQTT States
   const [mqttClient, setMqttClient] = useState(null);
 
@@ -62,6 +63,8 @@ export default function Dashboard({ userData, handleLogout }) {
   const [selectedTower, setSelectedTower] = useState("");
 
 
+  // Card selection state (defaults to 'panels')
+  const [selectedCard, setSelectedCard] = useState("panels");
   const [allPanel, setAllPanel] = useState(false);
   const [activePanel, setActivePanel] = useState(false);
   const [inactivePanel, setInctivePanel] = useState(false);
@@ -74,6 +77,8 @@ export default function Dashboard({ userData, handleLogout }) {
   const [selectedPanel, setSelectedPanel] = useState();
   const [selectedPanelEvent, setSelectedPanelEvent] = useState([]);
 
+  const [selectedPanel2, setSelectedPanel2] = useState();
+
   const [popupPanel, setPopupPanel] = useState(null);
   const [popupType, setPopupType] = useState("");
 
@@ -81,11 +86,14 @@ export default function Dashboard({ userData, handleLogout }) {
 
 
   const [panelLedStatuses, setPanelLedStatuses] = useState({});
+  const [panelLiveStatus, setPanelLiveStatus] = useState({}); // { [topic]: { last_update, is_active } }
   const [profileOpen, setProfileOpen] = useState(false);
+  const [isActivityLogOpen, setIsActivityLogOpen] = useState(false);
   const [isBarView, setIsBarView] = useState(false);
 
   const panelLedStatusesRef = useRef({});
   const panelUseRef = useRef([]);
+  console.log("aaaaaa panelUseRef", panelUseRef);
   const panelPopupRef = useRef({});
   const subscribedTopicsRef = useRef(new Set());
   useEffect(() => {
@@ -246,9 +254,112 @@ export default function Dashboard({ userData, handleLogout }) {
     });
   };
 
+  // const handleMQTTMessage = (msg) => {
+
+
+  //   try {
+  //     let updated = false;
+
+  //     if (msg.topic.endsWith("/led_status")) {
+  //       const baseTopic = msg.topic.replace("/led_status", "");
+
+  //       const updatedStatus = {
+  //         ...panelLedStatusesRef.current, // ⭐ Fresh latest
+  //         [baseTopic]: msg.data.toString(),
+  //       };
+
+  //       const allFilteredPanel = panelUseRef.current.map((value) => {
+  //         if (value.topic === baseTopic) {
+  //           let selectedPanel3 = value;
+  //           selectedPanel3.led_status = msg.data.toString();
+  //           selectedPanel3.last_update = new Date().toISOString();
+  //           selectedPanel3.is_active = true;
+  //           updated = true;
+  //           return selectedPanel3;
+  //         }
+  //         return value;
+  //       });
+
+  //       panelUseRef.current = allFilteredPanel;
+  //       panelLedStatusesRef.current = updatedStatus; // ⭐ update ref
+  //       const selectedPanel = allFilteredPanel.find(
+  //         (f) => f.topic === baseTopic
+  //       );
+  //       if (updated) {
+  //         setSelectedPanel(selectedPanel);
+  //         console.log("🎯 Updated selected panel:", panelPopupRef.current);
+
+  //         // 🔁 If popup is open for this panel, update popupPanel too
+  //         // if (panelPopupRef.current && panelPopupRef.current.id === selectedPanel.id) {
+  //         setPopupPanel(selectedPanel);
+  //         panelPopupRef.current = selectedPanel;
+  //         // handlePanelClick(selectedPanel);
+
+  //         console.log("🧩 Popup panel updated with live data:", selectedPanel);
+  //         // }
+  //       }
+  //       setPanelLedStatuses(updatedStatus); // ⭐ update React state
+
+  //       updated = true;
+  //     } else if (msg.topic.endsWith("/events")) {
+  //       const baseTopic = msg.topic.replace("/events", "");
+  //       // extractPanelPayloadData(response.data || []) || []
+  //       const _selectedPanel = panelUseRef.current.find(
+  //         (p) => p.topic === baseTopic
+  //       );
+  //       console.log("🔹 Selected Panel for Event:", _selectedPanel);
+  //       const payloaddata = extractMqttlPayloadData(
+  //         _selectedPanel,
+  //         msg.data.toString()
+  //       );
+
+
+  //       if (_selectedPanel) {
+  //         const ePayload = msg.data.toString();
+  //         if (ePayload.startsWith("55550201")) {
+  //           panelUseRef.events = panelUseRef.events.filter((ev) => ev.panelId != _selectedPanel.id);
+  //           setEvents((events) => [...events]);
+  //         } else
+  //           if (ePayload.startsWith("55550202") || ePayload.startsWith("55550203") || ePayload.startsWith("55550205")) {
+  //             let fEvents = panelUseRef.events.filter((ev) => ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
+  //             console.log("Filtered Events:", ePayload.substr(36, 2));
+  //             if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
+  //               panelUseRef.events = [payloaddata, ...panelUseRef.events];
+  //               setEvents((events) => [payloaddata, ...events]);
+  //             } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
+  //               panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
+  //               setEvents((events) => [payloaddata, ...events]);
+
+  //             };
+  //           } else if (msg.data.toString().startsWith("55550204")) {
+  //             let fEvents = panelUseRef.events.filter((ev) => ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
+  //             if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
+  //               panelUseRef.events = [payloaddata, ...panelUseRef.events];
+  //               setEvents((events) => [payloaddata, ...events]);
+  //               console.log("BBBBB Filtered Events:", fEvents);
+  //             } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
+  //               panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
+  //               setEvents((events) => [payloaddata, ...events]);
+
+  //             };
+  //           }
+  //       }
+
+
+
+  //       // handlePanelClick(true);
+  //     }
+
+  //     if (updated) {
+  //       console.log("🔄 LED Updated:", panelLedStatusesRef.current);
+  //     } else {
+  //       console.log("ℹ️ No panel matched topic:", msg.topic);
+  //     }
+  //   } catch (error) {
+  //     console.error("❌ Error processing MQTT message:", error);
+  //   }
+  // };
   const handleMQTTMessage = (msg) => {
-
-
     try {
       let updated = false;
 
@@ -259,15 +370,25 @@ export default function Dashboard({ userData, handleLogout }) {
           ...panelLedStatusesRef.current, // ⭐ Fresh latest
           [baseTopic]: msg.data.toString(),
         };
-
         const allFilteredPanel = panelUseRef.current.map((value) => {
           if (value.topic === baseTopic) {
-            let selectedPanel3 = value;
-            selectedPanel3.led_status = msg.data.toString();
-            selectedPanel3.last_update = new Date().toISOString();
-            selectedPanel3.is_active = true;
+            const now = new Date().toISOString();
             updated = true;
-            return selectedPanel3;
+            // Update live status state
+            setPanelLiveStatus(prev => ({
+              ...prev,
+              [baseTopic]: {
+                last_update: now,
+                is_active: true
+              }
+            }));
+
+            return {
+              ...value,
+              led_status: msg.data.toString(),
+              last_update: now,
+              is_active: true
+            };
           }
           return value;
         });
@@ -278,24 +399,24 @@ export default function Dashboard({ userData, handleLogout }) {
           (f) => f.topic === baseTopic
         );
         if (updated) {
-          setSelectedPanel(selectedPanel);
+          // setSelectedPanel(selectedPanel);
           console.log("🎯 Updated selected panel:", panelPopupRef.current);
 
           // 🔁 If popup is open for this panel, update popupPanel too
-          // if (panelPopupRef.current && panelPopupRef.current.id === selectedPanel.id) {
-          setPopupPanel(selectedPanel);
-          panelPopupRef.current = selectedPanel;
-          // handlePanelClick(selectedPanel);
-
-          console.log("🧩 Popup panel updated with live data:", selectedPanel);
-          // }
+          if (selectedPanel2 && selectedPanel2.id === selectedPanel.id) {
+            setPopupPanel(selectedPanel);
+            setSelectedPanel2(selectedPanel);
+            panelPopupRef.current = selectedPanel;
+            handlePanelClick(selectedPanel);
+            console.log("🧩 Popup panel updated with live data:", selectedPanel);
+          }
         }
         setPanelLedStatuses(updatedStatus); // ⭐ update React state
 
         updated = true;
+        // ... existing code for led_status ...
       } else if (msg.topic.endsWith("/events")) {
         const baseTopic = msg.topic.replace("/events", "");
-        // extractPanelPayloadData(response.data || []) || []
         const _selectedPanel = panelUseRef.current.find(
           (p) => p.topic === baseTopic
         );
@@ -309,36 +430,48 @@ export default function Dashboard({ userData, handleLogout }) {
         if (_selectedPanel) {
           const ePayload = msg.data.toString();
           if (ePayload.startsWith("55550201")) {
+            // Clear all events for this panel
             panelUseRef.events = panelUseRef.events.filter((ev) => ev.panelId != _selectedPanel.id);
-            setEvents((events) => [...events]);
-          } else
-            if (ePayload.startsWith("55550202") || ePayload.startsWith("55550203") || ePayload.startsWith("55550205")) {
-              let fEvents = panelUseRef.events.filter((ev) => ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
-              console.log("Filtered Events:", ePayload.substr(36, 2));
-              if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
-                panelUseRef.events = [payloaddata, ...panelUseRef.events];
-                setEvents((events) => [payloaddata, ...events]);
-              } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
-                panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
-                setEvents((events) => [payloaddata, ...events]);
-
-              };
-            } else if (msg.data.toString().startsWith("55550204")) {
-              let fEvents = panelUseRef.events.filter((ev) => ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
-              if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
-                panelUseRef.events = [payloaddata, ...panelUseRef.events];
-                setEvents((events) => [payloaddata, ...events]);
-              } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
-                panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
-                setEvents((events) => [payloaddata, ...events]);
-
-              };
+            setEvents(panelUseRef.events);
+          } else if (ePayload.startsWith("55550202") || ePayload.startsWith("55550203") || ePayload.startsWith("55550205")) {
+            let fEvents = panelUseRef.events.filter((ev) => ev.topic == payloaddata.topic && ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
+            console.log("Filtered Events:", ePayload.substr(36, 2));
+            if (ePayload.substr(36, 2) == "01" && fEvents.length == 0) {
+              // Add event if it doesn't exist
+              panelUseRef.events = [payloaddata, ...panelUseRef.events];
+              setEvents(panelUseRef.events);
+            } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
+              // Remove event if it exists
+              panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.topic == payloaddata.topic && ev.panelNo == payloaddata.panelNo && ev.deviceNo == payloaddata.deviceNo && ev.loopNo == payloaddata.loopNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
+              setEvents(panelUseRef.events);
             }
+          } else if (msg.data.toString().startsWith("55550204")) {
+            let fEvents = panelUseRef.events.filter((ev) => ev.topic == payloaddata.topic && ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType);
+            console.log("GGGGG Data: ", (ePayload.substr(36, 2)));
+
+            if (ePayload.substr(36, 2) != "00" && fEvents.length == 0) {
+              panelUseRef.events = [payloaddata, ...panelUseRef.events];
+              setEvents(panelUseRef.events);
+              console.log("BBBBB Filtered Events:", panelUseRef.events);
+            } else if (ePayload.substr(36, 2) == "00" && fEvents.length > 0) {
+              panelUseRef.events = panelUseRef.events.filter((ev) => !(ev.topic == payloaddata.topic && ev.panelNo == payloaddata.panelNo && ev.eventType == payloaddata.eventType && ev.subEventType == payloaddata.subEventType));
+              setEvents(panelUseRef.events);
+            }
+          }
+
+          // Update live status for events too
+          setPanelLiveStatus(prev => ({
+            ...prev,
+            [baseTopic]: {
+              last_update: new Date().toISOString(),
+              is_active: true
+            }
+          }));
+          console.log("FFFFF Selected Panel for Event:", _selectedPanel);
+          setSelectedPanel(_selectedPanel);
+          handlePanelClick(_selectedPanel);
+
         }
-
-
-
-        // handlePanelClick(true);
       }
 
       if (updated) {
@@ -350,7 +483,6 @@ export default function Dashboard({ userData, handleLogout }) {
       console.error("❌ Error processing MQTT message:", error);
     }
   };
-
   const processLEDStatus = (panel, msg) => {
 
 
@@ -417,6 +549,8 @@ export default function Dashboard({ userData, handleLogout }) {
   const processAddressableLED = (panel, msg) => {
     const data = msg;
     console.log("🔹 Addressable LED Data:", data.length);
+    console.log("🔹 Addressable LED Data:", data);
+
 
     try {
       // Add validation for data length
@@ -449,7 +583,7 @@ export default function Dashboard({ userData, handleLogout }) {
         date: `${day}/${month}/${year}`,
       };
 
-      console.log("✅ Addressable panel updated:", updatedPanel.name);
+      // console.log("✅ Addressable panel updated:", updatedPanel.name);
       return updatedPanel;
     } catch (error) {
       console.error("❌ Error processing Addressable LED:", error);
@@ -918,6 +1052,16 @@ export default function Dashboard({ userData, handleLogout }) {
           panelLedStatusesRef.current = updatedStatus; // ⭐ update ref
           panelUseRef.current = updatedPaneldata; // ⭐ update ref
           setPanelLedStatuses(updatedStatus);
+
+          const initialLiveStatus = {};
+          response.data.panels.forEach((p) => {
+            initialLiveStatus[p.panel_topic] = {
+              last_update: p.last_update || null,
+              is_active: false, // Initially false, will be updated by checkPanelActivity or MQTT
+            };
+          });
+          setPanelLiveStatus(initialLiveStatus);
+
           console.log("🔹 Set panels data, count:", updatedPaneldata);
 
           if (response.data.id) {
@@ -1008,6 +1152,8 @@ export default function Dashboard({ userData, handleLogout }) {
         (ev) => ev.eventType === 5 && ev.panelId === panel.id
       );
 
+      const live = panelLiveStatus[panel.panel_topic] || {};
+
       return {
         id: panel.id || panel.serial_number || panel.panel_topic,
         name: panel.panel_name || "N/A",
@@ -1020,10 +1166,13 @@ export default function Dashboard({ userData, handleLogout }) {
         activatedCount: activatedEvents.length,
         location: panel.location || "N/A",
 
-        led_status: panel.led_status || null,
+        // Use the latest LED status from MQTT if available, otherwise fallback to API data
+        led_status: panelLedStatuses[panel.panel_topic] || panel.led_status || null,
         fires: matchedEventPanel?.fires || [],
         faults: matchedEventPanel?.faults || [],
         sysfaults: matchedEventPanel?.sysfaults || [],
+        is_active: live.is_active || false,
+        last_update: live.last_update || null,
         status: 0,
         time: "",
         date: "",
@@ -1033,7 +1182,7 @@ export default function Dashboard({ userData, handleLogout }) {
     console.log("panelsData", panelsData);
     panelsRef.current = panelsData;
     return panelsData;
-  }, [dataResponse, events, eventsResponseAPI]);
+  }, [dataResponse, events, eventsResponseAPI, panelLedStatuses, panelLiveStatus]);
 
   useEffect(() => {
     console.log("🔹 Setting combined panels...", combinedPanelsData);
@@ -1043,9 +1192,29 @@ export default function Dashboard({ userData, handleLogout }) {
   useEffect(() => {
     if (combinedPanels.length > 0 && !selectedPanel) {
       console.log("🔹 Setting default selected panel");
-      setSelectedPanel(combinedPanels[0]);
+      // setSelectedPanel(combinedPanels[0]);
     }
   }, [combinedPanels, selectedPanel]);
+
+  useEffect(() => {
+    // If we're showing all panels (or init state), ensure 'panels' card is selected
+    if (allPanel) setSelectedCard("panels");
+    else if (activePanel) setSelectedCard("active");
+    else if (inactivePanel) setSelectedCard("inactive");
+    else if (location) setSelectedCard("location");
+    // Else if none of the specific "views" are active (maybe just detail view), default to 'panels' context or leave as is.
+    // However, on mount, 'allPanel' is false, but we want 'panels' card active if we are in dashboard.
+    // If 'activePanel', 'inactivePanel', 'location' are all false, effectively implies we are in default state (which is often 'panels' context but maybe showing a specific panel detail).
+  }, [allPanel, activePanel, inactivePanel, location]);
+
+  // Set default panel view on mount if nothing else set
+  useEffect(() => {
+    if (!activePanel && !inactivePanel && !location) {
+      setSelectedCard("panels");
+    }
+  }, []); // Run once on mount
+
+  // Watch for changes (handled above)
 
   // Rest of your existing handlers remain the same...
 
@@ -1062,7 +1231,9 @@ export default function Dashboard({ userData, handleLogout }) {
   };
 
   function handleAllPanelClick() {
-    // setActiveButton(false);
+    setSelectedCard("panels");
+    setSelectedPanel(null); // Deselect table row
+    setSelectedPanel2(null);
     setAllPanel(true);
     setActivePanel(false);
     setInctivePanel(false);
@@ -1071,7 +1242,9 @@ export default function Dashboard({ userData, handleLogout }) {
   }
 
   function handleActivePanelClick() {
-    // setActiveButton(false);
+    setSelectedCard("active");
+    setSelectedPanel(null); // Deselect table row
+    setSelectedPanel2(null);
     setAllPanel(false);
     setActivePanel(true);
     setInctivePanel(false);
@@ -1080,7 +1253,9 @@ export default function Dashboard({ userData, handleLogout }) {
   }
 
   function handleInactivePanelClick() {
-    // setActiveButton(false);
+    setSelectedCard("inactive");
+    setSelectedPanel2(null);
+    setSelectedPanel(null); // Deselect table row
     setAllPanel(false);
     setActivePanel(false);
     setInctivePanel(true);
@@ -1089,7 +1264,9 @@ export default function Dashboard({ userData, handleLogout }) {
   }
 
   function handleLocationClick() {
-    // setActiveButton(false);
+    setSelectedCard("location");
+    setSelectedPanel2(null);
+    setSelectedPanel(null); // Deselect table row
     setAllPanel(false);
     setActivePanel(false);
     setInctivePanel(false);
@@ -1099,6 +1276,8 @@ export default function Dashboard({ userData, handleLogout }) {
 
   function handleDashboardClick() {
     // Show main table and select first panel
+    setSelectedCard(null);
+    // setSelectedPanel(null); // Reset to default 'panels'
     setAllPanel(false);
     setActivePanel(false);
     setInctivePanel(false);
@@ -1142,7 +1321,15 @@ export default function Dashboard({ userData, handleLogout }) {
 
     setSelectedPanelEvent(selectedPanelEvent);
     setSelectedPanel(livePanel);
+    setSelectedPanel2(livePanel);
     setPopupPanel(livePanel);
+
+    // active/inactive logic handled by table rendering logic in dashboard,
+    // but specific panel click usually keeps us on main 'panel context' but clears full page views
+    setSelectedCard(null); // or keep as is, but request says "when a new card is clicked, previous deactivates".
+    // If clicking a row in the table, effectively we are in 'panels' or 'current view' context.
+    // For now, let's keep it simple: clicking a panel row doesn't necessarily change the top card selection unless implied.
+    // However, the user said "At same time, Active button inside table should be removed or updated".
 
     // setActiveButton(false);
     setAllPanel(false);
@@ -1179,17 +1366,53 @@ export default function Dashboard({ userData, handleLogout }) {
     setPopupType("");
     setPopupPanel(null);
   };
-
+  const isDefaultSelected = useRef(false);
   useEffect(() => {
     if (combinedPanels && combinedPanels.length > 0) {
       const firePanel = combinedPanels.find((p) => p?.fire > 0);
       const defaultPanel = firePanel || combinedPanels[0];
       if (defaultPanel) {
-        setSelectedPanel(defaultPanel);
-        handlePanelClick(defaultPanel);
+        if (!isDefaultSelected.current) {
+          setSelectedPanel(defaultPanel);
+          console.log("FFFFF2 Selected Panel for Event:", defaultPanel);
+
+          setSelectedPanel2(defaultPanel);
+          handlePanelClick(defaultPanel);
+          isDefaultSelected.current = true;
+        } else {
+          setSelectedPanel(selectedPanel2);
+          handlePanelClick(selectedPanel2);
+        }
       }
     }
   }, [combinedPanels]);
+
+
+  // useEffect(() => {
+  //   if (!combinedPanels || combinedPanels.length === 0) return;
+
+
+  //   if (!isDefaultSelected.current) {
+  //     const firePanel = combinedPanels.find(p => p?.fire > 0);
+  //     const defaultPanel = firePanel || combinedPanels[0];
+
+  //     if (defaultPanel) {
+  //       console.log("Default Panel Selected:", defaultPanel);
+  //       setSelectedPanel(defaultPanel);
+  //       handlePanelClick(defaultPanel);
+
+
+  //       isDefaultSelected.current = true;
+  //     }
+  //   }
+
+  //   else {
+  //     setSelectedPanel(selectedPanel2);
+  //     handlePanelClick(selectedPanel2);
+  //   }
+
+  // }, [combinedPanels, selectedPanel2]);
+
 
   // Close sidebar on outside click
   useEffect(() => {
@@ -1240,10 +1463,10 @@ export default function Dashboard({ userData, handleLogout }) {
       },
       {
         key: "activity-record",
-        to: "/activity-record",
+        to: null,
         icon: <TbActivityHeartbeat className="home_icon" id="activity_record" />,
         label: "Logs",
-        onClick: null,
+        onClick: () => setIsActivityLogOpen(true),
       },
       {
         key: "logout",
@@ -1305,18 +1528,9 @@ export default function Dashboard({ userData, handleLogout }) {
   // active inactive panel logic
   const [activePanelss, setActivePanels] = useState([]);
   const [inactivePanelss, setInactivePanels] = useState([]);
-  const ActiveInactive = Array.isArray(panelUseRef.current)
-    ? panelUseRef.current
-    : [];
 
-  const activePanels = ActiveInactive.filter(p => p.is_active);
-  const inactivePanels = ActiveInactive.filter(p => !p.is_active);
 
-  const activeCount = activePanels.length;
-  const inactiveCount = inactivePanels.length;
 
-  console.log("Active Panels....:", activePanels);
-  console.log("Inactive Panels....:", inactivePanels);
 
 
   function getMinutesBetweenDates(date1, date2) {
@@ -1326,42 +1540,93 @@ export default function Dashboard({ userData, handleLogout }) {
     return (d2 - d1) / 60000;
   }
 
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     const now = new Date();
+  //     let hasChange = false;
+
+  //     const updatedPanels = panelUseRef.current.map(panel => {
+  //       const minutesDiff = panel?.last_update
+  //         ? getMinutesBetweenDates(panel.last_update, now)
+  //         : null;
+
+  //       const isActive = minutesDiff !== null && minutesDiff < 1;
+
+  //       if (panel.is_active !== isActive) {
+  //         hasChange = true; // 🔑 change detected
+  //       }
+  //       return {
+  //         ...panel,
+  //         is_active: isActive,
+  //       };
+  //     });
+  //     console.log("updated..", updatedPanels);
+
+  //     // ✅ Update ONLY if something changed
+  //     if (hasChange) {
+  //       panelUseRef.current = updatedPanels;
+
+  //       setActivePanels(updatedPanels.filter(p => p.is_active));
+  //       setInactivePanels(updatedPanels.filter(p => !p.is_active));
+  //     }
+
+  //   }, 4000); // ✅ 1 minute
+
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
+  // subscription expired popup
+  // समय अंतराल को 1 मिनट (60000ms) पर सेट करें
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const checkPanelActivity = () => {
       const now = new Date();
-      let hasChange = false;
+      setPanelLiveStatus(prev => {
+        const next = { ...prev };
+        let hasChange = false;
 
-      const updatedPanels = panelUseRef.current.map(panel => {
-        const minutesDiff = panel?.last_update
-          ? getMinutesBetweenDates(panel.last_update, now)
-          : null;
+        Object.keys(next).forEach(topic => {
+          const hb = next[topic];
+          if (!hb.last_update) {
+            if (hb.is_active !== false) {
+              next[topic] = { ...hb, is_active: false };
+              hasChange = true;
+            }
+            return;
+          }
 
-        const isActive = minutesDiff !== null && minutesDiff < 1;
+          const minutesDiff = getMinutesBetweenDates(hb.last_update, now);
+          const isActive = minutesDiff !== null && minutesDiff < 1;
 
-        if (panel.is_active !== isActive) {
-          hasChange = true; // 🔑 change detected
-        }
-        return {
-          ...panel,
-          is_active: isActive,
-        };
+          if (hb.is_active !== isActive) {
+            next[topic] = { ...hb, is_active: isActive };
+            hasChange = true;
+          }
+        });
+
+        return hasChange ? next : prev;
       });
-      console.log("updated..", updatedPanels);
+    };
 
-      // ✅ Update ONLY if something changed
-      if (hasChange) {
-        panelUseRef.current = updatedPanels;
+    // हर 30 सेकंड में चेक करें
+    const intervalId = setInterval(checkPanelActivity, 30000);
 
-        setActivePanels(updatedPanels.filter(p => p.is_active));
-        setInactivePanels(updatedPanels.filter(p => !p.is_active));
-      }
-
-    }, 60_000); // ✅ 1 minute
+    // पहली बार भी चेक करें
+    checkPanelActivity();
 
     return () => clearInterval(intervalId);
   }, []);
+  const ActiveInactive = Array.isArray(panelUseRef.current)
+    ? panelUseRef.current
+    : [];
 
-  // subscription expired popup
+  const activePanels = ActiveInactive.filter(p => p.is_active);
+  const inactivePanels = ActiveInactive.filter(p => !p.is_active);
+  console.log("Active Panels....:", activePanels);
+  console.log("Inactive Panels....:", inactivePanels);
+
+  const activeCount = activePanels.length;
+  const inactiveCount = inactivePanels.length;
+
 
   const [subscriptionInfo, setSubscriptionInfo] = useState(null);
   const [showExpiryPopup, setShowExpiryPopup] = useState(false);
@@ -1438,6 +1703,21 @@ export default function Dashboard({ userData, handleLogout }) {
           </div>
         </div>
       )}
+
+      {/* Activity Log Sidebar */}
+      {isActivityLogOpen && (
+        <div
+          className="activity_log_overlay"
+          onClick={() => setIsActivityLogOpen(false)}
+        >
+          <div className="activity_log_sidebar" onClick={(e) => e.stopPropagation()}>
+            {/* Pass close handler if needed, or just standard render */}
+            <ActivityRecord onClose={() => setIsActivityLogOpen(false)} />
+
+          </div>
+        </div>
+      )}
+
       {/* Mobile topbar: show compact menu button and dropdown on small screens */}
       <div className="mobile-topbar">
         <button
@@ -1450,7 +1730,10 @@ export default function Dashboard({ userData, handleLogout }) {
         >
           <LuAlignJustify className="home_icon" />
         </button>
-        <div className="mobile-topbar-title"> M2R Connect</div>
+        <div className="mobile-topbar-title">
+          <img src="/img/app_icon.png" alt="M2R Logo" className="mobile-logo" />
+          M2R Connect
+        </div>
 
         {mobileMenuOpen && (
           <div
@@ -1509,10 +1792,12 @@ export default function Dashboard({ userData, handleLogout }) {
           ref={sidebarRef}
           className={`sidebar-container ${isOpen ? "open" : ""}`}
         >
-          {/* Profile Sidebar moved to top-level so it isn't hidden by mobile layout */}
-
           {/* Sidebar menu: always rendered, CSS handles collapsed/expanded labels */}
           <div className={`sidebar-menu ${isOpen ? "expanded" : "collapsed"}`}>
+            <div className="sidebar-branding">
+              <img src="/img/app_icon.png" alt="M2R Logo" className="sidebar-logo" />
+              <span className="branding-text">M2R Connect</span>
+            </div>
             {sidebarMenuItems.map((item) => {
               const content = (
                 <>
@@ -1625,7 +1910,10 @@ export default function Dashboard({ userData, handleLogout }) {
             </div>
 
             <div className="stats-container">
-              <div className="stat-card img1" onClick={handleAllPanelClick}>
+              <div
+                className={`stat-card img1 ${selectedCard === "panels" ? "selected-card" : ""}`}
+                onClick={handleAllPanelClick}
+              >
                 <div className="stat-info">
                   <h4>Panel</h4>
                   <p>{String(combinedPanels.length).padStart(2, "0")}</p>
@@ -1635,7 +1923,10 @@ export default function Dashboard({ userData, handleLogout }) {
                 </div>
               </div>
 
-              <div className="stat-card img2" onClick={handleActivePanelClick}>
+              <div
+                className={`stat-card img2 ${selectedCard === "active" ? "selected-card" : ""}`}
+                onClick={handleActivePanelClick}
+              >
                 <div className="stat-info">
                   <h4>Active Panel</h4>
                   <p>{String(activeCount).padStart(2, "0")}</p>
@@ -1646,7 +1937,7 @@ export default function Dashboard({ userData, handleLogout }) {
               </div>
 
               <div
-                className="stat-card img3"
+                className={`stat-card img3 ${selectedCard === "inactive" ? "selected-card" : ""}`}
                 onClick={handleInactivePanelClick}
               >
                 <div className="stat-info">
@@ -1658,7 +1949,10 @@ export default function Dashboard({ userData, handleLogout }) {
                 </div>
               </div>
 
-              <div className="stat-card img4" onClick={handleLocationClick}>
+              <div
+                className={`stat-card img4 ${selectedCard === "location" ? "selected-card" : ""}`}
+                onClick={handleLocationClick}
+              >
                 <div className="stat-info">
                   <h4>Location</h4>
                   <p>&nbsp;</p>
@@ -1669,9 +1963,19 @@ export default function Dashboard({ userData, handleLogout }) {
               </div>
             </div>
             <div className="togleButton">
-              <span>Panel Overview</span>
-              <button onClick={() => setIsBarView(!isBarView)}>
-                {isBarView ? "Table View" : "Graph View"}
+              <span className="panel-overview-text">Panel Overview</span>
+              <button onClick={() => setIsBarView(!isBarView)} className="toggle-view-btn">
+                {isBarView ? (
+                  <>
+                    <AiOutlineTable size={18} />
+                    <span>Table View</span>
+                  </>
+                ) : (
+                  <>
+                    <AiOutlineBarChart size={18} />
+                    <span>Graph View</span>
+                  </>
+                )}
               </button>
             </div>
             <div
@@ -1755,6 +2059,7 @@ export default function Dashboard({ userData, handleLogout }) {
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       handleEyeClick(panel);
+                                      handlePanelClick(panel);
                                     }}
                                     onKeyDown={(e) => {
                                       if (e.key === "Enter" || e.key === " ") {

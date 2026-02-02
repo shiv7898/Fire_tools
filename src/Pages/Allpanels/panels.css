@@ -189,7 +189,7 @@
   display: block;
   /* allow width/positioning */
   width: 100%;
-  text-align: center;
+  /* text-align: center; */
   justify-content: center;
   /* padding: 16px 12px; */
   color: #666;
@@ -204,7 +204,7 @@
 /* Hide the empty table row flow so it doesn't affect sizing */
 
 
-@media (max-width: 425px) {
+@media (max-width: 767px) {
 
   .event-container1 {
     width: 100%;

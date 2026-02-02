@@ -76,7 +76,7 @@ function FitBounds({ locations }) {
 }
 
 export default function PanelLocations({ dataResponse, selectedPanel }) {
-  console.log("selectedTower in PanelLocations:", selectedPanel.id);
+  // console.log("selectedTower in PanelLocations:", selectedPanel.id);
 
   const panels = Array.isArray(dataResponse?.panels) ? dataResponse.panels : [];
 
@@ -106,7 +106,12 @@ export default function PanelLocations({ dataResponse, selectedPanel }) {
   if (panelLocations.length === 0) {
     return (
       <div className="map-container">
-        <h2 className="map-title">Location</h2>
+        <h2 className="map-title">
+          <div className="location-icon-wrapper">
+            <FaLocationDot />
+          </div>
+          <span>Location</span>
+        </h2>
         <div className="no-location">📍 No valid panel locations</div>
       </div>
     );
@@ -114,7 +119,12 @@ export default function PanelLocations({ dataResponse, selectedPanel }) {
 
   return (
     <div className="map-container">
-      <h2 className="map-title">Location</h2>
+      <h2 className="map-title">
+        <div className="location-icon-wrapper">
+          <FaLocationDot />
+        </div>
+        <span>Location</span>
+      </h2>
 
       <MapContainer zoom={5} className="leaflet-map">
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
