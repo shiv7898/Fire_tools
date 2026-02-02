@@ -24,8 +24,10 @@ import {
 import { LuSiren } from "react-icons/lu";
 import { FaF } from "react-icons/fa6";
 
-const EchoEvent = ({ panel, onClose }) => {
+const EchoEvent = ({ panel, onClose, processLEDStatus }) => {
   const navigate = useNavigate();
+
+  const led_status = processLEDStatus(panel, panel.led_status || "");
 
   return (
     <div className="tower-popup-overlay">
@@ -43,79 +45,79 @@ const EchoEvent = ({ panel, onClose }) => {
               <div className="status-item">
                 <div className="add-icon-back">
                   {" "}
-                  <span className="status-icon mains">
+                  <span className={`status-icon mains ${led_status.MAINSON == 1 ? "green" : "gray"}`}>
                     <ImSwitch />
                   </span>
                 </div>
 
-                <span className="status-label">MAINS</span>
+                <span className={`status-label ${led_status.MAINSON == 1 ? "green" : "gray"}`}>MAINS ON</span>
               </div>
 
               <div className="status-item">
                 <div className="add-icon-back">
-                  <span className="status-icon fire">
+                  <span className={`status-icon fire ${led_status.FIRE == 1 ? "red" : "gray"}`}>
                     <FaFire />
                   </span>
                 </div>
 
-                <span className="status-label">FIRE</span>
+                <span className={`status-label ${led_status.FIRE == 1 ? "red" : "gray"}`}>FIRE</span>
               </div>
               <div className="status-item">
                 <div className="add-icon-back">
-                  <span className="status-icon fault">
+                  <span className={`status-icon fault ${led_status.FAULT == 1 ? "yellow" : "gray"}`}>
                     <FaCogs />
                   </span>
                 </div>
 
-                <span className="status-label">FAULT</span>
+                <span className={`status-label ${led_status.FAULT == 1 ? "yellow" : "gray"}`}>FAULT</span>
               </div>
               <div className="status-item">
                 <div className="add-icon-back">
                   {" "}
-                  <span className="status-icon sil-alarm">
+                  <span className={`status-icon sil-alarm ${led_status.SYSFAULT == 1 ? "blue" : "gray"}`}>
                     <TbSettingsExclamation />
                   </span>
                 </div>
 
-                <span className="status-label">SYS FAULT</span>
+                <span className={`status-label ${led_status.SYSFAULT == 1 ? "blue" : "gray"}`}>SYS FAULT</span>
               </div>
               <div className="status-item">
                 <div className="add-icon-back">
-                  <span className="status-icon battery">
+                  <span className={`status-icon battery ${led_status.BATTMODE == 1 ? "yellow" : "gray"}`}>
                     <IoMdBatteryCharging />
                   </span>
                 </div>
 
-                <span className="status-label">BATTERY MODE</span>
+                <span className={`status-label ${led_status.BATTMODE == 1 ? "yellow" : "gray"}`}>BATTERY MODE</span>
               </div>
               <div className="status-item">
                 <div className="add-icon-back">
-                  <span className="status-icon sil-alarm">
+                  <span className={`status-icon sil-alarm ${led_status.BATTCHARGE == 1 ? "yellow" : "gray"}`}>
                     <IoBatteryChargingOutline />
                   </span>
                 </div>
 
-                <span className="status-label">B.CHARGE</span>
+                <span className={`status-label ${led_status.BATTCHARGE == 1 ? "yellow" : "gray"}`}>B.CHARGE</span>
               </div>
               <div className="status-item">
                 <div className="add-icon-back">
                   {" "}
-                  <span className="status-icon sil-alarm">
+                  <span className={`status-icon sil-alarm ${led_status.BATTLOW == 1 ? "yellow" : "gray"}`}>
                     <RiBatteryLowFill />
                   </span>
                 </div>
 
-                <span className="status-label">B.LOW</span>
+                <span className={`status-label ${led_status.BATTLOW == 1 ? "yellow" : "gray"}`}>B.LOW</span>
               </div>
               <div className="status-item">
                 <div className="add-icon-back">
                   {" "}
-                  <span className="status-icon sil-alarm">
+                  <span className={`status-icon sil-alarm ${led_status.SILENCE == 1 ? "yellow" : "gray"}`}>
                     <HiMiniSpeakerXMark />
                   </span>
                 </div>
 
-                <span className="status-label">SILENCE</span>
+                <span className={`status-label ${led_status.SILENCE == 1 ? "yellow" : "gray"}`}>SILENCE</span>
               </div>
             </div>
           </div>

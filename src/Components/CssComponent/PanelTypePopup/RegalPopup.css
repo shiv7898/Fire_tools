@@ -163,6 +163,22 @@
   /* gray */
 }
 
+.regal-status-item.green span {
+  color: #008000;
+}
+
+.regal-status-item.red span {
+  color: #ff0000;
+}
+
+.regal-status-item.yellow span {
+  color: #ffcc00;
+}
+
+.regal-status-item.blue span {
+  color: #787ae3;
+}
+
 .regal_icon_background {
   background: white;
   display: flex;

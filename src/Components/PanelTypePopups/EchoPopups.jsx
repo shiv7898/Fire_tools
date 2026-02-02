@@ -190,53 +190,53 @@ export default function EchoPopup({
       )}
 
       <div className="echo-status-grid">
-        <div className="echo-status-item green">
+        <div className={`echo-status-item ${led_status.MAINSON == 1 ? "green" : "gray"}`}>
           <div className="add_icon_background_echo">
             {" "}
             <ImSwitch className="echo-icon" />
           </div>
           <span>MAINS ON</span>
         </div>
-        <div className="echo-status-item red">
+        <div className={`echo-status-item ${led_status.FIRE == 1 ? "red" : "gray"}`}>
           <div className="add_icon_background_echo">
             <FaFire className="echo-icon" />
           </div>
           <span>FIRE</span>
         </div>
-        <div className="echo-status-item gray">
+        <div className={`echo-status-item ${led_status.BATTMODE == 1 ? "yellow" : "gray"}`}>
           <div className="add_icon_background_echo">
             <MdOutlineBatterySaver className="echo-icon" />
           </div>
 
           <span>B.MODE</span>
         </div>
-        <div className="echo-status-item gray">
+        <div className={`echo-status-item ${led_status.FAULT == 1 ? "yellow" : "gray"}`}>
           <div className="add_icon_background_echo">
             <FaExclamationCircle className="echo-icon" />
           </div>
 
           <span>FAULT</span>
         </div>
-        <div className="echo-status-item gray">
+        <div className={`echo-status-item ${led_status.EVACUATE == 1 ? "yellow" : "gray"}`}>
           <div className="add_icon_background_echo">
             <FaPersonRunning className="echo-icon" />
           </div>
           <span>EVACUATE</span>
         </div>
-        <div className="echo-status-item gray">
+        <div className={`echo-status-item ${led_status.SILENCE == 1 ? "yellow" : "gray"}`}>
           <div className="add_icon_background_echo">
             <FaVolumeUp className="echo-icon" />
           </div>
           <span>SILENCE</span>
         </div>
-        <div className="echo-status-item gray">
+        <div className={`echo-status-item ${led_status.BATTLOW == 1 ? "yellow" : "gray"}`}>
           <div className="add_icon_background_echo">
             {" "}
             <FaBatteryQuarter className="echo-icon" />
           </div>
           <span>B.LOW</span>
         </div>
-        <div className="echo-status-item gray">
+        <div className={`echo-status-item ${led_status.BATTCHARGE == 1 ? "yellow" : "gray"}`}>
           <div className="add_icon_background_echo">
             {" "}
             <IoMdBatteryCharging className="echo-icon" />

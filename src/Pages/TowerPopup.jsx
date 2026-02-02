@@ -94,7 +94,7 @@ const TowerPopup = ({
                         <ImSwitch className="address-icon" />
                       </span>
                     </div>
-                    <span className="status-label">MAINS</span>
+                    <span className={`status-label ${led_status.main == 1 ? "green" : "gray"}`}>MAINS</span>
                   </div>
                   <div className="status-item">
                     <div className={`add-icon-back ${led_status.fire == 1 ? "fire-active" : ""}`}>
@@ -107,7 +107,7 @@ const TowerPopup = ({
                       </span>
                     </div>
 
-                    <span className="status-label">FIRE</span>
+                    <span className={`status-label ${led_status.fire == 1 ? "red" : "gray"}`}>FIRE</span>
                   </div>
                   <div className="status-item">
                     <div className={`add-icon-back ${led_status.fault == 1 ? "fault-active" : "gray"}`}>
@@ -121,7 +121,7 @@ const TowerPopup = ({
                       </span>
                     </div>
 
-                    <span className="status-label">FAULT</span>
+                    <span className={`status-label ${led_status.fault == 1 ? "yellow" : "gray"}`}>FAULT</span>
                   </div>
                   <div className="status-item">
                     <div className={`add-icon-back ${led_status.sysfault == 1 ? "sys-active" : "gray"}`}>
@@ -134,17 +134,17 @@ const TowerPopup = ({
                       </span>
                     </div>
 
-                    <span className="status-label"> Sys_Fault</span>
+                    <span className={`status-label ${led_status.sysfault == 1 ? "blue" : "gray"}`}>SYS FAULT</span>
                   </div>
                   <div className="status-item">
                     <div className="add-icon-back">
                       {" "}
-                      <span className="status-icon battery">
+                      <span className={`status-icon battery ${led_status.batt == 1 ? "yellow" : "gray"}`}>
                         <IoMdBatteryCharging />
                       </span>
                     </div>
 
-                    <span className="status-label">BATTERY MODE</span>
+                    <span className={`status-label ${led_status.batt == 1 ? "yellow" : "gray"}`}>BATTERY</span>
                   </div>
 
                   <div className="status-item">
@@ -158,7 +158,7 @@ const TowerPopup = ({
                       </span>
                     </div>
 
-                    <span className="status-label">SIL ALARM</span>
+                    <span className={`status-label ${led_status.sil == 1 ? "yellow" : "gray"}`}>SIL ALARM</span>
                   </div>
                   <div className="status-item">
                     <div className={`add-icon-back ${led_status.pre == 1 ? "pre-active" : "gray"}`}>
@@ -171,7 +171,7 @@ const TowerPopup = ({
                       </span>
                     </div>
 
-                    <span className="status-label">PRE ALARM</span>
+                    <span className={`status-label ${led_status.pre == 1 ? "yellow" : "gray"}`}>PRE ALARM</span>
                   </div>
                 </div>
               </div>

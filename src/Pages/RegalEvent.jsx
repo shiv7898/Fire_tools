@@ -98,7 +98,7 @@ const RegalEvent = ({
                   </span>
                 </div>
 
-                <span className="status-label">MAINS</span>
+                <span className={`status-label ${led_status.MAIN == 1 ? "green" : "gray"}`}>MAINS</span>
               </div>
               <div className="status-item">
                 <div className={`add-icon-back ${led_status.FIRE == 1 ? "fire-active" : "gray"
@@ -112,7 +112,7 @@ const RegalEvent = ({
                   </span>
                 </div>
 
-                <span className="status-label">FIRE</span>
+                <span className={`status-label ${led_status.FIRE == 1 ? "red" : "gray"}`}>FIRE</span>
               </div>
               <div className="status-item">
                 <div className={`add-icon-back ${led_status.FAULT == 1 ? "fault-active" : "gray"
@@ -125,7 +125,7 @@ const RegalEvent = ({
                   </span>
                 </div>
 
-                <span className="status-label">FAULT</span>
+                <span className={`status-label ${led_status.FAULT == 1 ? "yellow" : "gray"}`}>FAULT</span>
               </div>
               <div className="status-item">
                 <div className={`add-icon-back ${led_status.SYSFAULT == 1 ? "sys-active" : "gray"
@@ -139,7 +139,7 @@ const RegalEvent = ({
                   </span>
                 </div>
 
-                <span className="status-label">SYS FAULT</span>
+                <span className={`status-label ${led_status.SYSFAULT == 1 ? "blue" : "gray"}`}>SYS FAULT</span>
               </div>
               <div className="status-item">
                 <div className={`add-icon-back ${led_status.BATTMODE == 1 ? "batt-active" : "gray"
@@ -153,7 +153,7 @@ const RegalEvent = ({
                   </span>
                 </div>
 
-                <span className="status-label">BATTERY MODE</span>
+                <span className={`status-label ${led_status.BATTMODE == 1 ? "yellow" : "gray"}`}>BATTERY MODE</span>
               </div>
 
               <div className="status-item">
@@ -168,7 +168,7 @@ const RegalEvent = ({
                   </span>
                 </div>
 
-                <span className="status-label">ZONE ISO</span>
+                <span className={`status-label ${led_status.ZONEISO == 1 ? "yellow" : "gray"}`}>ZONE ISO</span>
               </div>
               <div className="status-item">
                 <div className={`add-icon-back ${led_status.SILENCE == 1 ? "fault-active" : "gray"
@@ -182,7 +182,7 @@ const RegalEvent = ({
                   </span>
                 </div>
 
-                <span className="status-label">SIL ALARM</span>
+                <span className={`status-label ${led_status.SILENCE == 1 ? "yellow" : "gray"}`}>SIL ALARM</span>
               </div>
               <div className="status-item">
                 <div className={`add-icon-back ${led_status.EVACUATE == 1 ? "fault-active" : "gray"
@@ -196,7 +196,7 @@ const RegalEvent = ({
                   </span>
                 </div>
 
-                <span className="status-label">EVACUATE</span>
+                <span className={`status-label ${led_status.EVACUATE == 1 ? "yellow" : "gray"}`}>EVACUATE</span>
               </div>
             </div>
           </div>

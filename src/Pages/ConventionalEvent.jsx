@@ -96,7 +96,7 @@ function ConventionalEvent({
                   </span>
                 </div>
 
-                <span className="status-label">MAINS</span>
+                <span className={`status-label ${led_status.main == 1 ? "green" : "gray"}`}>MAINS</span>
               </div>
               <div className={`status-item `}>
                 <div className={`add-icon-back ${led_status.fault == 1 ? "fire-active" : ""}`}>
@@ -108,7 +108,7 @@ function ConventionalEvent({
                   </span>
                 </div>
 
-                <span className="status-label">FIRE</span>
+                <span className={`status-label ${led_status.fire == 1 ? "red" : "gray"}`}>FIRE</span>
               </div>
               <div className={`status-item `}>
                 <div className={`add-icon-back ${led_status.fault == 1 ? "fault-active" : ""}`}>
@@ -121,7 +121,7 @@ function ConventionalEvent({
                   </span>
                 </div>
 
-                <span className="status-label">FAULT</span>
+                <span className={`status-label ${led_status.fault == 1 ? "yellow" : "gray"}`}>FAULT</span>
               </div>
               <div className={`status-item `}>
                 <div className={`add-icon-back ${led_status.batt == 1 ? "batt-active" : ""}`}>
@@ -134,7 +134,7 @@ function ConventionalEvent({
                   </span>
                 </div>
 
-                <span className="status-label">BATTERY MODE</span>
+                <span className={`status-label ${led_status.batt == 1 ? "yellow" : "gray"}`}>BATTERY MODE</span>
               </div>
 
               <div className={`status-item `}>
@@ -148,7 +148,7 @@ function ConventionalEvent({
                   </span>
                 </div>
 
-                <span className="status-label">HOOTER</span>
+                <span className={`status-label ${led_status.hooter == 1 ? "yellow" : "gray"}`}>HOOTER</span>
               </div>
               {/* <div className={`status-item ${leds.preAlarm ? "active" : ""}`}>
                 <span className="status-icon pre-alarm">

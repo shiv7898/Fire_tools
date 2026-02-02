@@ -265,7 +265,10 @@ export default function AddressablePopup({
           <span>FIRE</span>
         </div>
 
-        <div className="addressable-status-item gray">
+        <div
+          className={`addressable-status-item ${led_status.batt == 1 ? "yellow" : "gray"
+            }`}
+        >
           <div className="add_icon_background">
             <FaBatteryHalf className="addressable-icon" />
           </div>

@@ -1156,3 +1156,48 @@
     height: 340px;
   }
 }
+
+.status-label.green {
+  color: #008000;
+}
+
+.status-label.red {
+  color: #ff0000;
+}
+
+.status-label.yellow {
+  color: #ffcc00;
+}
+
+.status-label.blue {
+  color: #787ae3;
+}
+
+.status-label.gray {
+  color: #6d6d6d;
+}
+
+.status-icon.green,
+.status-icon.green svg {
+  color: #008000;
+}
+
+.status-icon.red,
+.status-icon.red svg {
+  color: #ff0000;
+}
+
+.status-icon.yellow,
+.status-icon.yellow svg {
+  color: #ffcc00;
+}
+
+.status-icon.blue,
+.status-icon.blue svg {
+  color: #787ae3;
+}
+
+.status-icon.gray,
+.status-icon.gray svg {
+  color: #6d6d6d;
+}

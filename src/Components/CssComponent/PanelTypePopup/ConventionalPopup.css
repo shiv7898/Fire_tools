@@ -483,7 +483,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 35%;
+  width: 32%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.45);
   display: flex;
@@ -504,7 +504,7 @@
   border-radius: 14px;
   text-align: center;
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
-  margin-right: 50px;
+  margin-right: 25px;
 }
 
 .slide-in-right {
@@ -721,7 +721,6 @@
 
 .conventional-status-item.green span {
   color: #008000;
-
 }
 
 @keyframes ledGlow {

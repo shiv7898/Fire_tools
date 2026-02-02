@@ -151,7 +151,7 @@ export default function ConventionalPopup({
         </div>
 
         <div
-          className={`conventional-status-item gray ${led_status.batt == 1 ? "yellow" : "gray"
+          className={`conventional-status-item ${led_status.batt == 1 ? "yellow" : "gray"
             }`}
         >
           <div className="add_icon_background_conve">

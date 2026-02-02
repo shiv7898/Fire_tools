@@ -550,7 +550,7 @@ body {
   position: fixed;
   top: 0;
   right: 0;
-  width: 35%;
+  width: 32%;
   /* 👈 visible area from right */
   height: 100vh;
 
@@ -574,7 +574,7 @@ body {
   border-radius: 14px;
   text-align: center;
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
-  margin-right: 50px;
+  margin-right: 25px;
 }
 
 .addressable-popup-box h3 {
@@ -1125,7 +1125,7 @@ body {
   }
 
   .addressable-popup-box {
-    margin-right: 50px;
+    margin-right: 35px;
   }
 
   .addressable-tab {
