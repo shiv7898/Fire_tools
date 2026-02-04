@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { AiOutlineTable } from "react-icons/ai";
 import "./InactivePanel.css";
 
 export default function InactivePanel({ ActiveInactive = [] }) {
@@ -37,7 +38,12 @@ export default function InactivePanel({ ActiveInactive = [] }) {
   const inactivePanels = panelTableData.filter((p) => !p.is_active);
   return (
     <div className="inactive-panel-container">
-      <h2 className="inactive-title">INACTIVE PANELS</h2>
+      <div className="panel-header-title">
+        <div className="table-icon-wrapper">
+          <AiOutlineTable className="table-icon-modern" />
+        </div>
+        <h2 className="inactive-title">INACTIVE PANELS</h2>
+      </div>
       <div className="inactive-table-wrapper">
         <table className="inactive-table">
           <thead>
@@ -54,7 +60,7 @@ export default function InactivePanel({ ActiveInactive = [] }) {
             {inactivePanels.length > 0 ? (
               inactivePanels.map((row, index) => (
                 <tr key={row.id || index}>
-                  <td>{index+1}</td>
+                  <td>{index + 1}</td>
 
                   <td>{row.name}</td>
                   <td>{row.type}</td>

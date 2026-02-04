@@ -96,7 +96,7 @@
 /* Subscription Details Specifics */
 .section-header {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
@@ -116,6 +116,7 @@
 .header-icon {
   font-size: 22px;
   color: #2563eb;
+  margin-left: 24px;
 }
 
 .details-grid {
@@ -418,6 +419,8 @@
     top: -15px;
   }
 
+
+
 }
 
 @media (min-width: 768px) and (max-width: 1100px) {
@@ -426,6 +429,11 @@
     max-height: calc(100vh - 200px);
     min-height: 400px;
     position: relative;
+  }
+
+  .dashboard {
+    max-height: 100vh;
+    overflow-y: auto;
   }
 
   .profile_sidebar {

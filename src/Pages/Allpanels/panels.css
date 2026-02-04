@@ -58,12 +58,36 @@
   /* Center content horizontally */
 }
 
+.panel-header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 7px 0;
+  width: 100%;
+}
+
+.table-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: #e7f1ff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.table-icon-modern {
+  font-size: 16px;
+  color: #2355f9;
+}
+
 /* Panel Sub-title */
 .panel-title {
   font-size: 0.9em;
   font-weight: 600;
-  text-align: center;
-  padding: 7px 0;
   margin: 0;
   color: #555;
 }
@@ -72,7 +96,7 @@
 .table-container {
   padding: 0 4px 4px;
   width: 100%;
-  max-width: 700px;
+  /* max-width: 700px; */
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
@@ -112,8 +136,8 @@
   z-index: 2;
   padding: 4px 15px;
   text-align: left;
-  font-weight: 500;
-  color: white;
+  font-weight: 600;
+  color: #0d0d0d;
   border-bottom: 1px solid #ddd;
 }
 
@@ -157,7 +181,7 @@
 
 .table-container {
   width: 100%;
-  max-width: 700px;
+  /* max-width: 700px; */
   position: relative;
   /* needed so absolute-centered no-data can align within this box */
 }

@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { AiOutlineTable } from "react-icons/ai";
 import "./panels.css";
 
 export default function Panels({
@@ -52,7 +53,12 @@ export default function Panels({
 
       {/* ================= ACTIVE PANEL TABLE ================= */}
       <div className="panel-section">
-        <h3 className="panel-title">ACTIVE PANELS</h3>
+        <div className="panel-header-title">
+          <div className="table-icon-wrapper">
+            <AiOutlineTable className="table-icon-modern" />
+          </div>
+          <h3 className="panel-title">ACTIVE PANELS</h3>
+        </div>
         <div className="table-container">
           <table className="panel-table-1">
             <thead>
@@ -67,7 +73,7 @@ export default function Panels({
               {activePanels.length > 0 ? (
                 activePanels.map((row, index) => (
                   <tr key={row.id || index}>
-                    <td>{index+1}</td>
+                    <td>{index + 1}</td>
 
                     <td>{row.name}</td>
                     <td>{row.type}</td>
@@ -88,7 +94,12 @@ export default function Panels({
 
       {/* ================= INACTIVE PANEL TABLE ================= */}
       <div className="panel-section">
-        <h3 className="panel-title">INACTIVE PANELS</h3>
+        <div className="panel-header-title">
+          <div className="table-icon-wrapper">
+            <AiOutlineTable className="table-icon-modern" />
+          </div>
+          <h3 className="panel-title">INACTIVE PANELS</h3>
+        </div>
         <div className="table-container">
           <table className="panel-table inactive">
             <thead>
@@ -105,7 +116,7 @@ export default function Panels({
               {inactivePanels.length > 0 ? (
                 inactivePanels.map((row, index) => (
                   <tr key={row.id || index}>
-                    <td>{index+1}</td>
+                    <td>{index + 1}</td>
 
                     <td>{row.name}</td>
                     <td>{row.type}</td>

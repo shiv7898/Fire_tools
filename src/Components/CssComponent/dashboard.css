@@ -824,8 +824,9 @@ thead th {
   top: 0;
   z-index: 2;
 
-  background: linear-gradient(180deg, #0d6efd, #0b5ed7);
-  color: #ffffff;
+  /* background: linear-gradient(180deg, #0d6efd, #0b5ed7); */
+  background: #e7f1ff;
+  color: #0d0d0d;
 
   font-weight: 600;
   padding: 12px 10px;
@@ -849,7 +850,7 @@ tbody tr:nth-child(even) {
 
 /* Hover effect */
 tbody tr:hover {
-  background: #e7f1ff;
+  background: #f5f9ff;
   transform: translateY(-1px);
   box-shadow: 0 6px 14px rgba(76, 147, 255, 0.15);
   color: white;
@@ -1066,9 +1067,9 @@ tbody tr:hover {
 }
 
 .table-wrapper {
-  min-height: 65vh;
+  /* min-height: 65vh; */
   /* 🔒 minimum */
-  height: calc(100vh - 250px);
+  /* height: calc(100vh - 250px); */
   /* 📈 grows with screen */
   overflow-y: auto;
   overflow-x: auto;
@@ -1164,9 +1165,9 @@ tbody tr:hover {
   /* Desktop / Laptop: make table wrapper scroll responsively */
   .table-wrapper {
     /* Desktop: show a compact table area (100px) and enable internal scrolling */
-    min-height: 65vh;
+    /* min-height: 65vh; */
     /* 🔒 minimum */
-    height: calc(100vh - 250px);
+    /* height: calc(100vh - 250px); */
     overflow-y: auto;
     overflow-x: auto;
     /* allow horizontal scroll for wide tables */
@@ -1201,7 +1202,7 @@ tbody tr:hover {
   /* Larger screens: increase available height for wrappers */
   /* Force compact table height on larger desktops as requested */
   .table-wrapper {
-    min-height: 65vh;
+    /* min-height: 65vh; */
     /* 🔒 minimum */
     height: calc(100vh - 250px);
     /* 📈 grows with screen */
@@ -1637,7 +1638,7 @@ tbody tr:hover {
   .table-wrapper {
     /* mobile-specific responsive sizing */
     min-height: 180px;
-    max-height: calc(100vh - 480px);
+    max-height: calc(100vh - 414px);
     border-radius: 8px;
   }
 
@@ -1741,10 +1742,10 @@ tbody tr:hover {
     min-height: 160px;
   }
 
+
+
   /* Ensure tables become horizontally scrollable when needed */
-  .table-wrapper table {
-    min-width: 640px;
-  }
+
 
   /* Location sidebar on tablet: slightly wider when opened */
   .location-sidebar {
@@ -1758,7 +1759,7 @@ tbody tr:hover {
   /* Reduce padding for cards to better fit tablet screens */
   .table-card,
   .graph-card {
-    padding: 8px;
+    /* height: calc(100vh - 600px); */
   }
 
   /* Keep sticky headers visible and not overlapped */
@@ -1789,9 +1790,10 @@ tbody tr:hover {
 ========================================================= */
 @media (min-width: 1024px) {
   .table-wrapper {
-    max-height: 65vh !important;
-    min-height: 100px !important;
-    height: 100px !important;
+    /* max-height: 65vh !important; */
+    /* min-height: 100px !important; */
+    /* height: 100px !important; */
+    height: calc(100vh - 250px);
     overflow-y: auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;

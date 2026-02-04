@@ -83,7 +83,7 @@ export default function PanelBarGraph({ panels }) {
           height={chartHeight}
           data={chartData}
           layout="vertical"
-          margin={{ left: -30, right: 40 }}
+          margin={{ left: -28, right: 40 }}
           tabIndex={-1}
         >
           <CartesianGrid strokeDasharray="3 3" />

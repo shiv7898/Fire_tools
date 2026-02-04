@@ -11,6 +11,7 @@ import { IoMdBatteryCharging } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
 import { ImSwitch } from "react-icons/im";
 import { FaBell, FaFire, FaExclamationCircle } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 const panelIcon = new L.DivIcon({
   html: `
     <div class="pulse-container">
@@ -360,6 +361,9 @@ const TowerPopup = ({
             <div className="tower-map-container">
               <div className="map-card">
                 <div className="map-heading">
+                  <div className="location-icon-wrapper">
+                    <FaLocationDot className="loc-icon" />
+                  </div>
                   <p>Panel Location</p>
                 </div>
 

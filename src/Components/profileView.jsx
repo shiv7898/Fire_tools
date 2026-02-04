@@ -163,7 +163,7 @@ export default function ProfileView({ dataResponse }) {
             </div>
 
             {/* Product ID */}
-            <div className="detail-item">
+            {/* <div className="detail-item">
               <div className="item-icon-box">
                 <FaFingerprint />
               </div>
@@ -173,7 +173,7 @@ export default function ProfileView({ dataResponse }) {
                   {user.subscription?.product_id}
                 </span>
               </div>
-            </div>
+            </div> */}
 
             {/* WiFi Module */}
             <div className="detail-item">

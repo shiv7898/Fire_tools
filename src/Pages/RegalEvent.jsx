@@ -14,8 +14,8 @@ import { HiMiniSpeakerXMark } from "react-icons/hi2";
 import { GiFireZone } from "react-icons/gi";
 import { MdDirectionsRun } from "react-icons/md";
 import { ImSwitch } from "react-icons/im";
-import { FaFire, FaCogs } from "react-icons/fa";
-import { FaVolumeUp } from "react-icons/fa";
+import { FaFire, FaCogs, FaVolumeUp } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
 const panelIcon = new L.DivIcon({
   html: `
@@ -283,6 +283,9 @@ const RegalEvent = ({
         <div className="tower-map-container">
           <div className="map-card">
             <div className="map-heading">
+              <div className="location-icon-wrapper">
+                <FaLocationDot className="loc-icon" />
+              </div>
               <p>Panel Location</p>
             </div>
 
@@ -291,7 +294,7 @@ const RegalEvent = ({
                 center={[latitude, longitude]}
                 zoom={13}
                 scrollWheelZoom={true}
-                style={{ height: "80vh", width: "100%" }}
+                className="mapContainer"
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

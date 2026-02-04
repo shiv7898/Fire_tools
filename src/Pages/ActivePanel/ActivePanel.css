@@ -1,8 +1,34 @@
+.panel-header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 7px 0;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.table-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #e7f1ff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.table-icon-modern {
+  font-size: 15px;
+  color: #2355f9;
+}
+
 .title {
-  text-align: center;
   font-size: 17px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin: 0;
   color: #555;
 }
 

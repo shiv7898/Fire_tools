@@ -24,7 +24,7 @@
   border-radius: 6px;
   border: 1px solid rgba(13, 110, 253, 0.1);
   cursor: default;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
 }
 
 .location-icon-wrapper {
@@ -41,10 +41,7 @@
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
 }
 
-.map-title:hover {
-  box-shadow: 0 6px 20px rgba(176, 199, 255, 0.6);
-  transform: translateY(-1px);
-}
+
 
 .leaflet-map {
   height: 83vh;

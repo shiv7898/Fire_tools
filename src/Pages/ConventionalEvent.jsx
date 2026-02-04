@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { IoArrowBackSharp } from "react-icons/io5";
 
 import { IoMdBatteryCharging } from "react-icons/io";
-import { FaVolumeUp } from "react-icons/fa";
+import { FaBell, FaFire, FaExclamationCircle, FaCogs, FaVolumeUp } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 import { ImSwitch } from "react-icons/im";
-import { FaFire, FaCogs } from "react-icons/fa";
 
 const panelIcon = new L.DivIcon({
   html: `
@@ -236,6 +236,9 @@ function ConventionalEvent({
         <div className="tower-map-container">
           <div className="map-card">
             <div className="map-heading">
+              <div className="location-icon-wrapper">
+                <FaLocationDot className="loc-icon" />
+              </div>
               <p>Panel Location</p>
             </div>
 
@@ -245,7 +248,6 @@ function ConventionalEvent({
                 zoom={16}
                 scrollWheelZoom={true}
                 className="mapContainer"
-                style={{ height: "clamp(260px, 80vh, 600px)", width: "100%" }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

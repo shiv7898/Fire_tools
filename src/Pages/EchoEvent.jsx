@@ -22,7 +22,7 @@ import {
   FaInfinity,
 } from "react-icons/fa";
 import { LuSiren } from "react-icons/lu";
-import { FaF } from "react-icons/fa6";
+import { FaF, FaLocationDot } from "react-icons/fa6";
 
 const EchoEvent = ({ panel, onClose, processLEDStatus }) => {
   const navigate = useNavigate();
@@ -204,13 +204,16 @@ const EchoEvent = ({ panel, onClose, processLEDStatus }) => {
         <div className="tower-map-container">
           <div className="map-card">
             <div className="map-heading">
+              <div className="location-icon-wrapper">
+                <FaLocationDot className="loc-icon" />
+              </div>
               <p>Panel Location</p>
             </div>
             <MapContainer
               center={[28.6139, 77.209]}
               zoom={8}
               scrollWheelZoom={true}
-              style={{ height: "100vh", width: "100%" }}
+              className="mapContainer"
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

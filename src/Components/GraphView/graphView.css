@@ -28,10 +28,15 @@
   margin-bottom: 14px;
   font-size: 14px;
   font-weight: 600;
-  color: white;
+  color: #2f2f2f;
   text-align: center;
-  background: #2355f9;
+  /* background: #2355f9; */
   padding: 8px;
+  box-shadow: 0 4px 15px rgba(176, 199, 255, 0.4);
+  border: 1px solid rgba(13, 110, 253, 0.1);
+  background: white;
+  box-shadow: 0 4px 15px rgba(176, 199, 255, 0.4);
+  border-radius: 6px;
 }
 
 .graph-scroll-x {

@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { AiOutlineTable } from "react-icons/ai";
 import "./ActivePanel.css"; // we’ll create styles separately
 
 export default function ActivePanel({ dataResponse, eventsResponseAPI, ActiveInactive = [], }) {
@@ -47,7 +48,12 @@ export default function ActivePanel({ dataResponse, eventsResponseAPI, ActiveIna
 
   return (
     <div className="active-panel-container">
-      <h2 className="title">ACTIVE PANELS</h2>
+      <div className="panel-header-title">
+        <div className="table-icon-wrapper">
+          <AiOutlineTable className="table-icon-modern" />
+        </div>
+        <h2 className="title">ACTIVE PANELS</h2>
+      </div>
       <div className="table-wrapper-active-panel">
         <table className="panel-table-active">
           <thead>
@@ -71,7 +77,8 @@ export default function ActivePanel({ dataResponse, eventsResponseAPI, ActiveIna
               ))
             ) : (
               <tr>
-                <td >No Active Panels</td>
+                <td colSpan={4} >No Active Panels</td>
+
               </tr>
             )}
           </tbody>
