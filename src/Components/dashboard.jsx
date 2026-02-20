@@ -716,14 +716,21 @@ export default function Dashboard({ userData, handleLogout }) {
     // Determine fault category and description
     const faultDescription = getFaultDescription(eventType, subEventType);
     const faultCategory = "FAULT";
-    console.log(
-      "DDDDD: ",
-      faultCategory,
-      faultDescription,
-      eventType,
-      subEventType,
-      hexData
-    );
+
+    // 🔹 NEW: formatted date & time
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const h12 = hour % 12 || 12;
+    const ampm = hour >= 12 ? "PM" : "AM";
+
+    const formattedDateTime = `${DD} ${months[mm - 1]
+      } 20${yy} ${h12.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")} ${ampm}`;
+
 
     return {
       eventType,
@@ -744,14 +751,15 @@ export default function Dashboard({ userData, handleLogout }) {
         hour: hour.toString().padStart(2, "0"),
         minutes: minutes.toString().padStart(2, "0"),
       },
+      formattedDateTime,
       deviceText,
       faultCategory,
       faultDescription,
-      formattedDateTime: `${DD.toString().padStart(2, "0")}/${mm
-        .toString()
-        .padStart(2, "0")}/20${yy.toString().padStart(2, "0")} ${hour
-          .toString()
-          .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
+      // formattedDateTime: `${DD.toString().padStart(2, "0")}/${mm
+      //   .toString()
+      //   .padStart(2, "0")}/20${yy.toString().padStart(2, "0")} ${hour
+      //     .toString()
+      //     .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
     };
   };
   const getFaultDescription = (eventType, subEventType) => {
@@ -793,6 +801,18 @@ export default function Dashboard({ userData, handleLogout }) {
     const faultDescription =
       SYS_FAULT_EVENT[subEventType] || "Unknown System Fault";
     // const faultCategory = getSysFaultCategory(subEventType);
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const h12 = hour % 12 || 12;
+    const ampm = hour >= 12 ? "PM" : "AM";
+
+    const formattedDateTime = `${DD} ${months[mm - 1]
+      } 20${yy} ${h12.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")} ${ampm}`;
 
     return {
       eventType,
@@ -808,13 +828,14 @@ export default function Dashboard({ userData, handleLogout }) {
         hour: hour.toString().padStart(2, "0"), // "01"
         minutes: minutes.toString().padStart(2, "0"), // "32"
       },
+      formattedDateTime,
       faultDescription, // Will be SYS_FAULT_EVENT[6]
       // faultCategory,
-      formattedDateTime: `${DD.toString().padStart(2, "0")}/${mm
-        .toString()
-        .padStart(2, "0")}/20${yy.toString().padStart(2, "0")} ${hour
-          .toString()
-          .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
+      // formattedDateTime: `${DD.toString().padStart(2, "0")}/${mm
+      //   .toString()
+      //   .padStart(2, "0")}/20${yy.toString().padStart(2, "0")} ${hour
+      //     .toString()
+      //     .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
       // Result: "03/35/2080 01:32"
       displayText: `P.NO - 7 | L.NO - 0 | ${faultDescription}`,
     };
@@ -838,6 +859,59 @@ export default function Dashboard({ userData, handleLogout }) {
     return data;
   }
 
+  // const parseFireEvent = (hexData) => {
+  //   if (!hexData || hexData.length < 40) {
+  //     throw new Error("Invalid hex data");
+  //   }
+
+  //   const eventType = parseInt(hexData.substr(6, 2), 16);
+  //   const subEventType = parseInt(hexData.substr(8, 2), 16);
+  //   const panelNo = parseInt(hexData.substr(10, 2), 16);
+  //   const loopNo = parseInt(hexData.substr(12, 2), 16);
+  //   const deviceNo = parseInt(hexData.substr(14, 2), 16);
+  //   const deviceType = parseInt(hexData.substr(16, 2), 16);
+  //   const zoneX = parseInt(hexData.substr(18, 4), 16);
+  //   const zoneY = parseInt(hexData.substr(22, 4), 16);
+  //   const DD = parseInt(hexData.substr(26, 2), 10);
+  //   const mm = parseInt(hexData.substr(28, 2), 10);
+  //   const yy = parseInt(hexData.substr(30, 2), 10);
+  //   const hour = parseInt(hexData.substr(32, 2), 10);
+  //   const minutes = parseInt(hexData.substr(34, 2), 10);
+
+  //   // Extract device text and convert from hex to ASCII
+  //   const deviceTextHex = hexData.substr(38, 44);
+  //   const deviceText = hexToString(deviceTextHex).replace(/\0/g, "").trim();
+
+  //   return {
+  //     eventType,
+  //     subEventType,
+  //     panelNo,
+  //     loopNo,
+  //     deviceNo,
+  //     deviceType,
+  //     deviceTypeText: DEV_TYPE[deviceType] || "UNKNOWN",
+  //     zoneX,
+  //     zoneY,
+  //     date: {
+  //       DD: DD.toString().padStart(2, "0"),
+  //       mm: mm.toString().padStart(2, "0"),
+  //       yy: yy.toString().padStart(2, "0"),
+  //     },
+  //     time: {
+  //       hour: hour.toString().padStart(2, "0"),
+  //       minutes: minutes.toString().padStart(2, "0"),
+  //     },
+  //     deviceText,
+  //     eventDescription: FIRE_EVENT[eventType] || "Unknown Event",
+  //     // formattedDateTime: `${DD.toString().padStart(2, "0")}/${mm
+  //     //   .toString()
+  //     //   .padStart(2, "0")}/20${yy.toString().padStart(2, "0")} ${hour
+  //     //     .toString()
+  //     //     .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
+
+  //   };
+  // };
+
   const parseFireEvent = (hexData) => {
     if (!hexData || hexData.length < 40) {
       throw new Error("Invalid hex data");
@@ -857,9 +931,22 @@ export default function Dashboard({ userData, handleLogout }) {
     const hour = parseInt(hexData.substr(32, 2), 10);
     const minutes = parseInt(hexData.substr(34, 2), 10);
 
-    // Extract device text and convert from hex to ASCII
     const deviceTextHex = hexData.substr(38, 44);
     const deviceText = hexToString(deviceTextHex).replace(/\0/g, "").trim();
+
+    // 🔹 NEW: formatted date & time
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const h12 = hour % 12 || 12;
+    const ampm = hour >= 12 ? "PM" : "AM";
+
+    const formattedDateTime = `${DD} ${months[mm - 1]
+      } 20${yy} ${h12.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")} ${ampm}`;
 
     return {
       eventType,
@@ -871,6 +958,8 @@ export default function Dashboard({ userData, handleLogout }) {
       deviceTypeText: DEV_TYPE[deviceType] || "UNKNOWN",
       zoneX,
       zoneY,
+
+      // ⬇️ unchanged raw values
       date: {
         DD: DD.toString().padStart(2, "0"),
         mm: mm.toString().padStart(2, "0"),
@@ -880,15 +969,15 @@ export default function Dashboard({ userData, handleLogout }) {
         hour: hour.toString().padStart(2, "0"),
         minutes: minutes.toString().padStart(2, "0"),
       },
+
+      // ✅ new formatted output
+      formattedDateTime,
+
       deviceText,
       eventDescription: FIRE_EVENT[eventType] || "Unknown Event",
-      formattedDateTime: `${DD.toString().padStart(2, "0")}/${mm
-        .toString()
-        .padStart(2, "0")}/20${yy.toString().padStart(2, "0")} ${hour
-          .toString()
-          .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
     };
   };
+
   const parseActivatedEvent = (hexData) => {
     if (!hexData || hexData.length < 40) {
       throw new Error("Invalid hex data");
@@ -912,6 +1001,21 @@ export default function Dashboard({ userData, handleLogout }) {
     const deviceTextHex = hexData.substr(38, 44);
     const deviceText = hexToString(deviceTextHex).replace(/\0/g, "").trim();
 
+    // 🔹 NEW: formatted date & time
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const h12 = hour % 12 || 12;
+    const ampm = hour >= 12 ? "PM" : "AM";
+
+    const formattedDateTime = `${DD} ${months[mm - 1]
+      } 20${yy} ${h12.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")} ${ampm}`;
+
+
     return {
       eventType,
       subEventType,
@@ -931,13 +1035,14 @@ export default function Dashboard({ userData, handleLogout }) {
         hour: hour.toString().padStart(2, "0"),
         minutes: minutes.toString().padStart(2, "0"),
       },
+      formattedDateTime,
       deviceText,
       eventDescription: ACTIVATED[eventType] || "Unknown Event",
-      formattedDateTime: `${DD.toString().padStart(2, "0")}/${mm
-        .toString()
-        .padStart(2, "0")}/20${yy.toString().padStart(2, "0")} ${hour
-          .toString()
-          .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
+      // formattedDateTime: `${DD.toString().padStart(2, "0")}/${mm
+      //   .toString()
+      //   .padStart(2, "0")}/20${yy.toString().padStart(2, "0")} ${hour
+      //     .toString()
+      //     .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
     };
   };
 

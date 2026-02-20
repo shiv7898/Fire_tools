@@ -9,6 +9,7 @@ import { GiRingingAlarm } from "react-icons/gi";
 import { FaPersonRunning } from "react-icons/fa6";
 import { GiFireZone } from "react-icons/gi";
 import { FaEdit } from "react-icons/fa";
+import { RxUpdate } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import "../CssComponent/PanelTypePopup/RegalPopup.css";
 import {
@@ -179,7 +180,12 @@ export default function RegalPopup({
         {showPopup && (
           <div className="regal-popup-overlay">
             <div className="regal-popup-box slide-in-right-regal">
-              <h3>Update Panel Name</h3>
+              <div className="popup-title-container">
+                <div className="popup-title-icon">
+                  <RxUpdate />
+                </div>
+                <h3>Update Panel Name</h3>
+              </div>
               <input
                 type="text"
                 id="regal-popup-input"

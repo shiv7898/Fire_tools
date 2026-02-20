@@ -79,7 +79,7 @@
 }
 
 .panel-information {
-  width: 68%;
+  width: 72%;
   /* height: 97%;  */
   margin: 0;
   padding: 0;
@@ -134,9 +134,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ff4c4c;
+  background-color: #ffc4c4;
   border-radius: 4px;
-  color: white;
+  color: #111111;
   margin-bottom: 8px;
   font-size: 16px;
   flex-shrink: 0;
@@ -148,11 +148,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffc22f;
+  background-color: #fee7af;
   border-radius: 4px;
-  color: white;
+  /* color: white; */
   margin-bottom: 8px;
   flex-shrink: 0;
+  color: #111111;
 }
 
 .activated-heading {
@@ -161,11 +162,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #9b59b6;
+  background: #d1b1de;
   border-radius: 4px;
-  color: white;
+  /* color: white; */
   margin-bottom: 8px;
   flex-shrink: 0;
+  color: #111111;
 }
 
 .sysfault-heading {
@@ -174,12 +176,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #3f35ff;
-
+  background: #c9c6fe;
   border-radius: 4px;
-  color: white;
+  /* color: white; */
   margin-bottom: 8px;
   flex-shrink: 0;
+  color: #111111;
 }
 
 .event-card-popup {
@@ -659,7 +661,7 @@
   justify-content: center;
   align-items: center;
   place-items: center;
-  box-shadow: 0 0 10px 2px rgba(147, 178, 255, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .status-item {
@@ -718,6 +720,9 @@
 
 .gray {
   color: #6c757d;
+  animation: none !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 .status-icon {
@@ -742,16 +747,13 @@
   /* justify-items: stretch; */
   box-sizing: border-box;
   /* border: 1px solid green; */
-  animation: ledGlow 1.6s ease-in-out infinite;
-
 }
 
 /* Highlight add-icon-back when mains is active */
 .add-icon-back.mains-active {
-  box-shadow: 0 0 2px 1px #a7c7a7;
+  box-shadow: 0 0 2px 1px var(--glow-soft);
   border-radius: 6px;
-  animation: ledGlow 1.6s ease-in-out infinite;
-
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
 }
 
 .add-icon-back.mains-active {
@@ -761,31 +763,28 @@
 }
 
 @keyframes ledGlow {
-  0% {
-    box-shadow: 0 0 2px 1px var(--glow-soft);
-    opacity: 0.7;
+  from {
+    box-shadow: 0 0 4px var(--glow-soft);
+    opacity: 0.6;
+    transform: scale(0.96);
   }
 
-  50% {
-    box-shadow: 0 0 5px 2px var(--glow-strong);
+  to {
+    box-shadow: 0 0 8px var(--glow-soft), 0 0 18px var(--glow-strong);
     opacity: 1;
-  }
-
-  100% {
-    box-shadow: 0 0 2px 1px var(--glow-soft);
-    opacity: 0.7;
+    transform: scale(1.04);
   }
 }
 
 .add-icon-back.fire-active {
-  box-shadow: 0 0 2px 1px #feb1b1;
+  box-shadow: 0 0 2px 1px var(--glow-soft);
   border-radius: 6px;
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
 }
 
 .add-icon-back.fire-active {
-  --icon-color: #feb1b1;
-  --glow-soft: #ffd5d5;
-  --glow-strong: #feb1b1;
+  --glow-soft: #feb1b1;
+  --glow-strong: #ff4040;
 }
 
 
@@ -794,70 +793,71 @@
 
 
 .add-icon-back.sil-active {
-  box-shadow: 0 0 2px 1px #f7e7a7;
+  box-shadow: 0 0 2px 1px var(--glow-soft);
   border-radius: 6px;
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
 }
+
 
 .add-icon-back.sil-active {
-  --icon-color: #f7e7a7;
-  --glow-soft: #f7eed4;
-  --glow-strong: #f7e7a7;
+  --glow-soft: #fff7e7;
+  --glow-strong: #ffeb40;
 }
 
 
 .add-icon-back.fault-active {
-  box-shadow: 0 0 2px 1px #f7e7a7;
+  box-shadow: 0 0 2px 1px var(--glow-soft);
   border-radius: 6px;
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
 }
 
 .add-icon-back.fault-active {
-  --icon-color: #f7e7a7;
-  --glow-soft: #f7eed4;
-  --glow-strong: #f7e7a7;
+  --glow-soft: #fff7e7;
+  --glow-strong: #ffeb40;
 }
 
 .add-icon-back.sys-active {
-  box-shadow: 0 0 2px 1px #694ce7;
+  box-shadow: 0 0 2px 1px var(--glow-soft);
   border-radius: 6px;
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
 }
 
 .add-icon-back.sys-active {
-  --icon-color: #694ce7;
-  --glow-soft: #c6d8f7;
-  --glow-strong: #694ce7;
+  --glow-soft: #b1b1ff;
+  --glow-strong: #4040ff;
 }
 
 .add-icon-back.pre-active {
-  box-shadow: 0 0 2px 1px #f7e7a7;
+  box-shadow: 0 0 2px 1px var(--glow-soft);
   border-radius: 6px;
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
 }
 
 .add-icon-back.pre-active {
-  --icon-color: #f7e7a7;
-  --glow-soft: #f7eed4;
-  --glow-strong: #f7e7a7;
+  --glow-soft: #fff7e7;
+  --glow-strong: #ffeb40;
 }
 
 .add-icon-back.batt-active {
-  box-shadow: 0 0 2px 1px #f7e7a7;
+  box-shadow: 0 0 2px 1px var(--glow-soft);
   border-radius: 6px;
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
 }
 
 .add-icon-back.batt-active {
-  --icon-color: #f7e7a7;
-  --glow-soft: #f7eed4;
-  --glow-strong: #f7e7a7;
+  --glow-soft: #fff7e7;
+  --glow-strong: #ffeb40;
 }
 
 .add-icon-back.hooter-active {
-  box-shadow: 0 0 2px 1px #f7e7a7;
+  box-shadow: 0 0 2px 1px var(--glow-soft);
   border-radius: 6px;
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
 }
 
 .add-icon-back.hooter-active {
-  --icon-color: #f7e7a7;
-  --glow-soft: #f7eed4;
-  --glow-strong: #f7e7a7;
+  --glow-soft: #fff7e7;
+  --glow-strong: #ffeb40;
 }
 
 .status-icon svg {
@@ -882,34 +882,7 @@
   box-sizing: border-box;
 }
 
-/* .status-item.active .status-icon.mains {
-  color: #28a745; 
-} */
-.status-item.active .status-icon.battery {
-  color: #ffc107;
-  /* Yellow */
-}
 
-.status-item.active .status-icon.fire svg {
-  color: #dc3545;
-  /* Red */
-  animation: blink 1s infinite alternate;
-}
-
-.status-item.active .status-icon.fault {
-  color: #ff8c00;
-  /* Orange */
-}
-
-.status-item.active .status-icon.sil-alarm {
-  color: #007bff;
-  /* Blue */
-}
-
-.status-item.active .status-icon.pre-alarm {
-  color: #6f42c1;
-  /* Purple */
-}
 
 .tower-map-container {
   /* max-width: 650px; */
@@ -917,7 +890,7 @@
   /* padding: 9px; */
   background: #f8fbff;
   /* border-radius: 12px; */
-  width: 31%;
+  width: 28%;
 }
 
 .map-card {
@@ -1172,7 +1145,7 @@
   .event-header-popup {
     font-size: 10px;
 
-    gap: 85px;
+    /* gap: 85px; */
   }
 
   .event-title-popup,

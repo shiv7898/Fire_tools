@@ -12,20 +12,7 @@ import { FaVolumeUp } from "react-icons/fa";
 import { ImSwitch } from "react-icons/im";
 import { FaBell, FaFire, FaExclamationCircle } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-const panelIcon = new L.DivIcon({
-  html: `
-    <div class="pulse-container">
-      <div class="pulse-ring"></div>
-      <div class="pulse-ring"></div>
-      <div class="pulse-ring"></div>
-      <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" 
-           alt="marker" 
-           class="pulse-icon" />
-    </div>
-  `,
-  iconSize: [30, 30],
-  className: "icon-pulse",
-});
+
 const TowerPopup = ({
   panel,
   onClose,
@@ -68,6 +55,23 @@ const TowerPopup = ({
     selectedPanelEvent?.filter((ev) => ev.eventType === 5) || [];
   console.log("fireEventsIN TowerPopup.....", faultEvents);
 
+  const dynamicPanelIcon = new L.DivIcon({
+    html: `
+      <div class="pulse-container">
+        ${led_status.fire == 1 ? `
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+        ` : ""}
+        <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" 
+             alt="marker" 
+             class="pulse-icon" />
+      </div>
+    `,
+    iconSize: [30, 30],
+    className: "icon-pulse",
+  });
+
   return (
     <>
       {panel && (
@@ -85,8 +89,7 @@ const TowerPopup = ({
                 <div className="panel-status-grid">
                   <div className="status-item">
                     <div
-                      className={`add-icon-back ${led_status.main == 1 ? "mains-active" : ""
-                        }`}
+                      className={`add-icon-back ${led_status.main == 1 ? "mains-active" : "gray"}`}
                     >
                       <span
                         className={`status-icon ${led_status.main == 1 ? "green" : "gray"
@@ -98,11 +101,9 @@ const TowerPopup = ({
                     <span className={`status-label ${led_status.main == 1 ? "green" : "gray"}`}>MAINS</span>
                   </div>
                   <div className="status-item">
-                    <div className={`add-icon-back ${led_status.fire == 1 ? "fire-active" : ""}`}>
+                    <div className={`add-icon-back ${led_status.fire == 1 ? "fire-active" : "gray"}`}>
                       <span
-                        className={`status-icon ${led_status.fire == 1 ? "red" : "gray"
-                          }`}
-                        fire
+                        className={`status-icon ${led_status.fire == 1 ? "red" : "gray"}`}
                       >
                         <FaFire />
                       </span>
@@ -116,7 +117,6 @@ const TowerPopup = ({
                       <span
                         className={`status-icon ${led_status.fault == 1 ? "yellow" : "gray"
                           }`}
-                        fault
                       >
                         <FaExclamationCircle />
                       </span>
@@ -138,7 +138,7 @@ const TowerPopup = ({
                     <span className={`status-label ${led_status.sysfault == 1 ? "blue" : "gray"}`}>SYS FAULT</span>
                   </div>
                   <div className="status-item">
-                    <div className="add-icon-back">
+                    <div className={`add-icon-back ${led_status.batt == 1 ? "batt-active" : "gray"}`}>
                       {" "}
                       <span className={`status-icon battery ${led_status.batt == 1 ? "yellow" : "gray"}`}>
                         <IoMdBatteryCharging />
@@ -331,9 +331,7 @@ const TowerPopup = ({
                             {/* <div className="event-icon-popup">🧰</div> */}
                             <div className="event-content-popup">
                               <div className="event-header-popup">
-                                <span className="event-time-popup">
-                                  {event.formattedDateTime}
-                                </span>
+
                                 <span className="event-title-popup">
                                   {event.deviceTypeText}
                                 </span>
@@ -343,6 +341,9 @@ const TowerPopup = ({
                               </div>
                               <div className="event-meta-popup">
                                 <span>LoopNo: {event.loopNo}</span>
+                                <span className="event-time-popup">
+                                  {event.formattedDateTime}
+                                </span>
                                 <span>PanelNo: {event.panelNo}</span>
                               </div>
                             </div>
@@ -381,7 +382,7 @@ const TowerPopup = ({
                       <Marker
                         key={index}
                         position={panel.position}
-                        icon={panelIcon}
+                        icon={dynamicPanelIcon}
                       >
                         <Popup>{panel.name}</Popup>
                       </Marker>
@@ -393,7 +394,7 @@ const TowerPopup = ({
               </div>
             </div>
           </div>
-        </div>
+        </div >
       )}
     </>
   );

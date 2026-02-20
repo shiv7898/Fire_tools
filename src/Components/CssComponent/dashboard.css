@@ -1537,12 +1537,7 @@ tbody tr:hover {
     font-weight: 700;
   }
 
-  /* Profile sidebar adjustments */
-  .profile_sidebar {
-    width: 90%;
-    max-width: 340px;
-    padding: 15px;
-  }
+
 
   /* Hide some elements on mobile */
   .sidebar-menu .label {
@@ -1597,7 +1592,7 @@ tbody tr:hover {
   /* Prevent horizontal scrolling */
   /* Allow horizontal scrolling for containers (needed for sticky columns) */
   body {
-    overflow-x: auto;
+    overflow-x: hidden;
   }
 
   /* Ensure proper scrolling within containers */

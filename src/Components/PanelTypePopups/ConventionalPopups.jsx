@@ -10,6 +10,7 @@ import { TbBulbFilled } from "react-icons/tb";
 import "../CssComponent/PanelTypePopup/ConventionalPopup.css";
 import { FaFire, FaExclamationCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
+import { RxUpdate } from "react-icons/rx";
 import { logActivity } from "../Log/activityLogger";
 
 export default function ConventionalPopup({
@@ -101,7 +102,12 @@ export default function ConventionalPopup({
       {showPopup && (
         <div className="conventional-popup-overlay">
           <div className="conventional-popup-box slide-in-right">
-            <h3>Update Panel Name</h3>
+            <div className="popup-title-container">
+              <div className="popup-title-icon">
+                <RxUpdate />
+              </div>
+              <h3>Update Panel Name</h3>
+            </div>
 
             <input
               type="text"

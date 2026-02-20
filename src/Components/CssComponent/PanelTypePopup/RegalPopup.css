@@ -131,31 +131,63 @@
   /* margin-right: 8px; */
 }
 
+.regal-status-item.green {
+  --glow-soft: #789378;
+  --glow-strong: #40b040;
+}
+
+.regal-status-item.yellow {
+  --glow-soft: #fff7e7;
+  --glow-strong: #ffeb40;
+}
+
+.regal-status-item.red {
+  --glow-soft: #feb1b1;
+  --glow-strong: #ff4040;
+}
+
+.regal-status-item.blue {
+  --glow-soft: #b1b1ff;
+  --glow-strong: #4040ff;
+}
+
+.regal-status-item.green .regal-icon,
+.regal-status-item.yellow .regal-icon,
+.regal-status-item.red .regal-icon,
+.regal-status-item.blue .regal-icon {
+  box-shadow: 0 0 2px 1px var(--glow-soft);
+  border-radius: 6px;
+  animation: ledGlow 1.2s ease-in-out infinite alternate;
+}
+
 .regal-status-item.green .regal-icon {
   color: #008000;
-  /* green */
-  box-shadow: 0 0 2px 1px #a7c7a7;
-  border-radius: 6px;
 }
 
 .regal-status-item.yellow .regal-icon {
   color: #ffcc00;
-  box-shadow: 0 0 2px 1px #f7e7a7;
-  border-radius: 6px;
 }
 
 .regal-status-item.red .regal-icon {
   color: #ff0000;
-  /* red */
-  box-shadow: 0 0 2px 1px #feb1b1;
-  border-radius: 6px;
 }
 
 .regal-status-item.blue .regal-icon {
   color: #787ae3;
-  /* red */
-  box-shadow: 0 0 2px 1px #9680f9;
-  border-radius: 6px;
+}
+
+@keyframes ledGlow {
+  from {
+    box-shadow: 0 0 4px var(--glow-soft);
+    opacity: 0.6;
+    transform: scale(0.96);
+  }
+
+  to {
+    box-shadow: 0 0 8px var(--glow-soft), 0 0 18px var(--glow-strong);
+    opacity: 1;
+    transform: scale(1.04);
+  }
 }
 
 .regal-status-item.gray .regal-icon {
@@ -425,10 +457,32 @@
   margin-right: 50px;
 }
 
+.popup-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.popup-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 2px solid #b0c7ff;
+  box-shadow: 0 0 10px 2px rgba(176, 199, 255, 0.6);
+  color: #0d6efd;
+  font-size: 20px;
+}
+
 .regal-popup-box h3 {
   /* background-color: #007bff; */
   color: #1c5bee;
-  margin-bottom: 12px;
+  margin: 0;
   /* font-size: 14px; */
   padding: 10px;
   border-radius: 5px;

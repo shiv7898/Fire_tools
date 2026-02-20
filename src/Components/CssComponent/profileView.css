@@ -360,33 +360,59 @@
 
 @media (max-width: 767px) {
   .profile_sidebar_overlay {
-
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 3000;
-    /* height: 10%; */
   }
 
   .profile_sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    /* width: 60%; */
-
+    position: relative;
+    width: 95%;
+    max-width: 400px;
+    height: 90vh;
+    background: #f4f9ff;
+    /* border-radius: 20px; */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    margin-top: 15px;
   }
 
   .dashboard {
     display: flex;
-    min-height: 100vh;
+    flex-direction: column;
+    min-height: auto;
     background: #f4f9ff;
+    width: 100%;
+    margin: 0;
+    padding: 15px 10px;
+  }
+
+  .info p {
+    font-size: 12px;
+    /* color: #626060; */
+    /* display: flex; */
+    gap: 2px;
+    /* align-items: center; */
+    margin-bottom: 4px;
   }
 
   .card {
-    /* background: #fff; */
     border-radius: 14px;
     padding: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     text-align: left;
-    /* width: 75%; */
+    width: 100%;
+  }
+
+  .header {
+    margin-top: 15px;
   }
 
   .subscription-details {
@@ -394,7 +420,7 @@
     overflow-y: auto;
     /* On mobile, take up remaining space but don't force too tall if screen is small */
     height: auto;
-    max-height: calc(100vh - 220px);
+    max-height: calc(100vh - 160px);
     min-height: 250px;
     position: relative;
   }
@@ -405,14 +431,17 @@
   }
 
   .avatar {
-    width: 60px;
-    height: 60px;
+    width: 46px;
+    height: 46px;
   }
 
   .close_btn {
     font-weight: 900;
-    top: 5px;
-    right: 7px;
+    top: 27px;
+    right: 15px;
+    z-index: 100;
+    color: #4b5563;
+    font-size: 12px;
   }
 
   .section-header {

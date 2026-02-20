@@ -12,6 +12,7 @@ import { GiRingingAlarm } from "react-icons/gi";
 import { FaPersonRunning } from "react-icons/fa6";
 import { MdOutlineBatterySaver } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import { RxUpdate } from "react-icons/rx";
 
 import { Link } from "react-router-dom";
 import "../CssComponent/PanelTypePopup/EchoPopup.css";
@@ -166,9 +167,14 @@ export default function EchoPopup({
         </div>
       </div>
       {showPopup && (
-        <div className="addressable-popup-overlay">
-          <div className="addressable-popup-box slide-in-right">
-            <h3>Update Panel Name</h3>
+        <div className="echo-popup-overlay">
+          <div className="echo-popup-box slide-in-right">
+            <div className="popup-title-container">
+              <div className="popup-title-icon">
+                <RxUpdate />
+              </div>
+              <h3>Update Panel Name</h3>
+            </div>
 
             <input
               type="text"
